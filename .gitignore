@@ -25,7 +25,11 @@
 *.log
 *.sql
 *.sqlite
- 
+
+# Project files
+######################
+*.cbp
+
 # OS generated files #
 ######################
 .DS_Store
