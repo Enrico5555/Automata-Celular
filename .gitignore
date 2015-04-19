@@ -26,9 +26,11 @@
 *.sql
 *.sqlite
 
-# Project files
+# Code::blocks project files
 ######################
 *.cbp
+*.depend
+*.layout
 
 # OS generated files #
 ######################
