@@ -8,7 +8,7 @@
 #include "Grafo.h"
 
 Grafo::Grafo(int cntVrt, int prmAdy) {
-    if (cntVrt >= 10 && 1 <= prmGrd)
+    if (cntVrt >= 10 && 1 <= prmAdy)
     {
         this->cntVrt = cntVrt;
         arrVrt = new NdoVrt[cntVrt];
@@ -31,11 +31,11 @@ bool Grafo::xstVrt(int vrt) const {
 }
 
 bool Grafo::xstAdy(int vrtO, int vrtD) const {
-    if (xstVrt(vrt0)) // Comprueba que el indice del vertice existe
+    if (xstVrt(vrtO)) // Comprueba que el indice del vertice existe
     {
-        int cantidad_adyacencias = arrVrt[vrt0].lstAdy.obtCntAdy();
+        int cantidad_adyacencias = arrVrt[vrtO].lstAdy->obtCntAdy();
         if (cantidad_adyacencias == 0) return false; // No hay adyacencias, por lo tanto la adyacencia no existe
-        int *ady = arrVrt[vrt0].lstAdy.obtCntAdy();
+        int *ady = arrVrt[vrtO].lstAdy->obtAdy();
         for (int i = 0; i < cantidad_adyacencias; i++)
         {
             if (ady[i] == vrtD) // Encontró una adyacencia
