@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   Grafo.cpp
  * Author: Alan
- * 
+ *
  * Created on 2 de abril de 2015, 02:25 PM
  */
 
@@ -56,6 +56,7 @@ int Grafo::obtTotAdy() const {
 }
 
 int Grafo::obtTotVrt() const {
+    return cntVrt;
 }
 
 double Grafo::obtPrmAdy() const {
