@@ -18,6 +18,8 @@
  * Simple C++ Test Suite
  */
  
+ //papas
+ 
 //Construye el grafo correcto con el “grafo_pequenyo.txt”. 
  void testConstructorGrafo1()
  {
