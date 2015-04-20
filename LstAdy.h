@@ -9,40 +9,44 @@
 #define	LSTADY_H
 
 class LstAdy {
-    // Representa la lista ordenada de adyacencias de un vértice en Grafo.
+    // Representa la lista ordenada de adyacencias de un vï¿½rtice en Grafo.
 
 public:
 
-    // Construye una lista de adyacencias vacía.
+    // Construye una lista de adyacencias vacï¿½a.
     LstAdy();
 
-    // Construye una lista de adyacencias idéntica a orig.
+    // Construye una lista de adyacencias idï¿½ntica a orig.
     LstAdy(const LstAdy& orig);
 
-    // Destruye a *this retornando toda la memoria asignada dinámicamente.
+    // Destruye a *this retornando toda la memoria asignada dinï¿½micamente.
     ~LstAdy();
 
-    // EFE: agrega el índice de adyancencia nady a *this.
+    // EFE: agrega el ï¿½ndice de adyancencia nady a *this.
     void agr(int nady);
 
-    // EFE: retorna true si el índice de adyacencia ady aparece en *this,
+    // EFE: retorna true si el ï¿½ndice de adyacencia ady aparece en *this,
     //      de lo contrario retorna false.
     bool bus(int ady);
 
-    // EFE: retorna un arreglo de enteros con las posiciones de los vértices
-    //      adyacentes al vértice asociado a *this.
+    // EFE: retorna un arreglo de enteros con las posiciones de los vï¿½rtices
+    //      adyacentes al vï¿½rtice asociado a *this.
     int* obtAdy() const;
 
     // EFE: retorna la cantidad de adyacencias en *this.
     int obtCntAdy() const;
 
-    // EFE: retorna true si lst es idéntica a *this.
+    // EFE: retorna true si lst es idï¿½ntica a *this.
     bool operator==(const LstAdy& lst) const;
 
 private:
     struct NdoLstAdy { // representa el nodo de una lista de adyacencias
-        int vrtD; // representa la posición del vértice destino en Grafo
+        int vrtD; // representa la posiciï¿½n del vï¿½rtice destino en Grafo
         NdoLstAdy* sgt; // representa el apuntador inteligente al siguiente
+        ~NdoLstAdy(){
+            cout <<vrtD;
+        }
+    
     };
 
     NdoLstAdy* inicio; // representa el apuntador al inicio de la lista
