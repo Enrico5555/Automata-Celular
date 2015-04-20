@@ -25,7 +25,7 @@
  {
      Grafo grafo(100, 15);
      if (grafo.obtTotVrt() != 100 || grafo.obtPrmAdy() != 15)
-     {
+     {//imi
          printerror("testConstructorGrafo1");
      }
  }
