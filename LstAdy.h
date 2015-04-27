@@ -44,9 +44,8 @@ private:
         int vrtD; // representa la posici�n del v�rtice destino en Grafo
         NdoLstAdy* sgt; // representa el apuntador inteligente al siguiente
         ~NdoLstAdy(){
-            cout <<vrtD;
         }
-    
+
     };
 
     NdoLstAdy* inicio; // representa el apuntador al inicio de la lista
