@@ -42,8 +42,7 @@ void testConstructorGrafo1(){
 //Construye una copia idéntica a Grafo(100,15).
  void testConstGrafo1() {
     Grafo grafo(100, 15); //usar operator ==
-    const Grafo& orig;
-    Grafo grafo2(orig);
+    Grafo grafo2(grafo);
     if (!(grafo == grafo2) ) {
         std::cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR DE COPIAS 1 (newsimpletest) message=error message sample" << std::endl;
     }
@@ -52,8 +51,7 @@ void testConstructorGrafo1(){
  //Construye una copia idéntica a Grafo(1000,15).
  void testConstGrafo2() {
   Grafo grafo(1000, 15);// op ==
-    const Grafo& orig;
-    Grafo grafo2(orig);
+    Grafo grafo2(grafo);
     if (!(grafo== grafo2) ) {
         std::cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR DE COPIAS 2 (newsimpletest) message=error message sample" << std::endl;
     }
