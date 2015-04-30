@@ -7,7 +7,8 @@
 
 #include "Grafo.h"
 #include <fstream>
-#include <cstdlib>
+#include <cstring>
+#include <stdlib.h>
 
 #ifndef NULL
 #define NULL 0
@@ -15,7 +16,7 @@
 
 using namespace std;
 
-unsigned int cantidad_elementos(string linea)
+unsigned int cantidad_elementos(const string& linea)
 {
     unsigned int count = 0;
     if (linea.size() > 0) count = 1;
@@ -59,7 +60,21 @@ Grafo::Grafo(int cntVrt, int prmAdy) {
 }
 
 Grafo::Grafo(const Grafo& orig) {
-    
+    if (orig.cntVrt > 0)
+    {
+        cntVrt = orig.cntVrt;
+        arrVrt = new NdoVrt[cntVrt];
+        for (int i = 0; i < cntVrt; i++)
+        {
+            arrVrt[i].e = orig.arrVrt[i].e; // tal vez funciona
+            arrVrt[i].tmpChqVrs = orig.arrVrt[i].tmpChqVrs;
+            arrVrt[i].lstAdy = LstAdy(orig.arrVrt[i].lstAdy); // tal vez funciona, posiblemente no
+            /*for (int j = 0; j < orig.arrVrt[i].lstAdy.obtCntAdy(); j++)
+            {
+                
+            }*/
+        }
+    }
 }
 
 Grafo::Grafo(string nArch) {
@@ -68,13 +83,37 @@ Grafo::Grafo(string nArch) {
     if (file.is_open())
     {
         char line[256];
-        //memset(&line, 0, 256);
+        memset(&line, 0, 256);
+        file.getline(line, 256); //primera linea
+        cntVrt = atoi(line);
+        if (cntVrt < 0) return; // error
+        arrVrt = new NdoVrt[cntVrt];
+        int count = 0;
         do
         {
+            memset(&line, 0, 256);
             file.getline(line, 256);
             string linea = line;
-            size_t t = linea.find(',');
-        } while (file.good());
+            unsigned int cant = cantidad_elementos(linea);
+            if (cant > 0)
+            {
+                switch (elemento(linea, 0))
+                {
+                case 0:
+                    arrVrt[count].e = E::S;
+                    break;
+                }
+                if (cant > 1)
+                {
+                    //arrVrt[count].lstAdy = new LstAdy();
+                    for (int i = 1; i < cant; i++)
+                    {
+                        arrVrt[count].lstAdy.agr(elemento(linea, i));
+                    }
+                }
+            }
+            count++;
+        } while (!file.eof() && count < cntVrt);
     }
 }
 
@@ -90,9 +129,9 @@ bool Grafo::xstVrt(int vrt) const {
 bool Grafo::xstAdy(int vrtO, int vrtD) const {
     if (xstVrt(vrtO)) // Comprueba que el indice del vertice existe
     {
-        int cantidad_adyacencias = arrVrt[vrtO].lstAdy->obtCntAdy();
+        int cantidad_adyacencias = arrVrt[vrtO].lstAdy.obtCntAdy();
         if (cantidad_adyacencias == 0) return false; // No hay adyacencias, por lo tanto la adyacencia no existe
-        int *ady = arrVrt[vrtO].lstAdy->obtAdy();
+        int *ady = arrVrt[vrtO].lstAdy.obtAdy();
         for (int i = 0; i < cantidad_adyacencias; i++)
         {
             if (ady[i] == vrtD) // Encontró una adyacencia
@@ -106,15 +145,24 @@ bool Grafo::xstAdy(int vrtO, int vrtD) const {
     return false; // No se encontró adyacencia o el vértice no existe
 }
 
+int Grafo::obtCntAdy(int vrt) const
+{
+    if (xstVrt(vrt))
+    {
+        return arrVrt[vrt].lstAdy.obtCntAdy();
+    }
+}
+
 int* Grafo::obtAdy(int vrt) const {
     if (xstVrt(vrt))
     {
-        return arrVrt[vrt].lstAdy->obtAdy();
+        return arrVrt[vrt].lstAdy.obtAdy();
     }
     return NULL;
 }
 
 int Grafo::obtTotAdy() const {
+    
 }
 
 int Grafo::obtTotVrt() const {
@@ -132,7 +180,7 @@ bool Grafo::operator==(const Grafo& grf) const {
     for (int i = 0; i < this->cntVrt; i++)
     {
         int *ady = obtAdy(i), *adygrf = grf.obtAdy(i);
-        for (int j = 0; j < arrVrt[i].lstAdy->obtCntAdy(); j++)
+        for (int j = 0; j < arrVrt[i].lstAdy.obtCntAdy(); j++)
         {
             if (ady[j] != adygrf[j])
                 return false;
