@@ -17,7 +17,6 @@
 using namespace std;
 
 // esto es para 
-//unsigned int cantidad_elementos(string linea)  <--- lo comente porque no se cual es el correcto
 unsigned int cantidad_elementos(const string& linea)
 {
     unsigned int count = 0;
