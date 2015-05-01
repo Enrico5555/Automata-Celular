@@ -206,3 +206,8 @@ double Grafo::coeficienteAgrupamiento(int vrt) const {
 
 void Grafo::modEst(int vrt, E ne) {
 }
+
+int Grafo::caminoMasCorto(int vrt1, int vrt2)
+{
+    
+}
