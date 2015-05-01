@@ -16,8 +16,6 @@
 
 using namespace std;
 
-// cambio para probar el git merge con varios branches
-
 // esto es para 
 unsigned int cantidad_elementos(const string& linea)
 {
@@ -209,7 +207,19 @@ double Grafo::coeficienteAgrupamiento(int vrt) const {
 void Grafo::modEst(int vrt, E ne) {
 }
 
-int Grafo::caminoMasCorto(int vrt1, int vrt2)
+int Grafo::distanciaMasCorta(int vrt1, int vrt2)
 {
-    
+    // empezar desde vrt1, determinar todos los posibles caminos hacia vrt2 sin repetir vertices
+    int camino = 0;
+    if (xstVrt(vrt1) && xstVrt(vrt2))
+    {
+        if (xstAdy(vrt1, vrt2)) return 1;
+        int *ady = obtAdy(vrt1);
+        for (int i = 0; i < obtCntAdy(vrt1); i++)
+        {
+            int dist = distanciaMasCorta(ady[i], vrt2);
+        }
+        delete[] ady;
+    }
+    return camino;
 }
