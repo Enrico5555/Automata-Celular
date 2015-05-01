@@ -15,6 +15,7 @@
 
 using namespace std;
 
+// esto es para 
 unsigned int cantidad_elementos(string linea)
 {
     unsigned int count = 0;
@@ -29,6 +30,7 @@ unsigned int cantidad_elementos(string linea)
     return count;
 }
 
+// esto lee los vertices
 int elemento(string linea, int indice)
 {
     unsigned int count = 0;
@@ -95,7 +97,7 @@ bool Grafo::xstAdy(int vrtO, int vrtD) const {
         int *ady = arrVrt[vrtO].lstAdy->obtAdy();
         for (int i = 0; i < cantidad_adyacencias; i++)
         {
-            if (ady[i] == vrtD) // Encontró una adyacencia
+            if (ady[i] == vrtD) // Encontrï¿½ una adyacencia
             {
                 delete[] ady; // Libera la memoria
                 return true;
@@ -103,7 +105,7 @@ bool Grafo::xstAdy(int vrtO, int vrtD) const {
         }
         delete[] ady; // Libera la memoria
     }
-    return false; // No se encontró adyacencia o el vértice no existe
+    return false; // No se encontrï¿½ adyacencia o el vï¿½rtice no existe
 }
 
 int* Grafo::obtAdy(int vrt) const {
@@ -125,6 +127,10 @@ double Grafo::obtPrmAdy() const {
 }
 
 Grafo::E Grafo::obtEst(int vrt) const {
+    if (xstVrt( vrt) == true){
+        //retorna el estado del vertice con indice vrt
+        
+    }
 }
 
 bool Grafo::operator==(const Grafo& grf) const {
