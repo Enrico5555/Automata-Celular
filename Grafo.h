@@ -58,6 +58,10 @@ public:
     bool xstAdy(int vrtO, int vrtD) const;
     
     // REQ: que exista en *this un vértice con índice vrt.
+    // EFE: retorna la cantidad de adyacencias del vértice vrt.
+    int obtCntAdy(int vrt) const;
+    
+    // REQ: que exista en *this un vértice con índice vrt.
     // EFE: retorna un arreglo de enteros con las posiciones de los vértices
     //      adyacentes al vértice indicado por vrt.
     int* obtAdy(int vrt) const;
@@ -114,9 +118,9 @@ private:
     struct NdoVrt {
         E e; // representa el estado del vértice
         int tmpChqVrs; // representa el temporizador de chequeo de virus
-        LstAdy* lstAdy; // representa la lista de adyacencias del vértice
-        NdoVrt(): e(S), tmpChqVrs(1), lstAdy(NULL) {};
-        ~NdoVrt(){ delete lstAdy; };
+        LstAdy lstAdy; // representa la lista de adyacencias del vértice
+        NdoVrt(): e(S), tmpChqVrs(1) {};
+        ~NdoVrt(){ };
     };
     
     int cntVrt; // representa la cantidad total de vértices
