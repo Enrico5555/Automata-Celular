@@ -15,10 +15,9 @@ using namespace std;
 
 class Grafo {
     // Representa la red de computadores sobre la cual se diseminará el virus.
-    
 public:
-    class Visualizador; // declaración adelantada para evitar #include mutuo.
-    friend class Visualizador; // permite que el visualizador acceda la sección
+    //class Visualizador; // declaración adelantada para evitar #include mutuo.
+    //friend class Visualizador; // permite que el visualizador acceda la sección
                                // privada de Grafo para hacer más eficientemente
                                // la visualización.
 

@@ -4,7 +4,6 @@
  *
  * Created on Apr 13, 2015, 4:42:18 PM
  */
-
 #include <stdlib.h>
 #include <iostream>
 #include "LstAdy.h"
@@ -26,7 +25,7 @@ void testLstAdy1() {
 // Probar que construye bien una lista vacia
 void testLstAdy2() {
     const LstAdy orig;
-    LstAdy lstAdy(orig);
+    LstAdy lstAdy(orig);// esta raroq ue funcione con lstady y con grafo no
     int cant = lstAdy.obtCntAdy();
     if (cant != 0) {
         std::cout << "%TEST_FAILED% FALLO EL CONTRUCTOR DE COPIAS 1(pba_lstady) message=error message sample" << std::endl;
@@ -170,8 +169,8 @@ void testObtAdy3() {
       delete [] result;
 } 
 
-/* Se supondrá que el método “obtCntAdy” es correcto.
- *  Se supondrá que el “operator==” es correcto.
+/* Se supondrá que el método “obtCntAdy�? es correcto.
+ *  Se supondrá que el “operator==�? es correcto.
  * Se supondrá que el destructor funciona correctamente.*/ 
 
 

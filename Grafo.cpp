@@ -16,7 +16,7 @@
 #endif // NULL
 
 using namespace std;
-//mae listo? si
+
 // esto es para 
 unsigned int cantidad_elementos(const string& linea)
 {
@@ -130,7 +130,7 @@ bool Grafo::xstVrt(int vrt) const {
 }
 
 bool Grafo::xstAdy(int vrtO, int vrtD) const {
-    if (xstVrt(vrtO)) // Comprueba que el indice del vertice existe
+    if (xstVrt(vrtO)&& xstVrt(vrtD)) // Comprueba que el indice del vertice existe
     {
         int cantidad_adyacencias = arrVrt[vrtO].lstAdy.obtCntAdy();
         if (cantidad_adyacencias == 0) return false; // No hay adyacencias, por lo tanto la adyacencia no existe
