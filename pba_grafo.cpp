@@ -4,16 +4,17 @@
  *
  * Created on Apr 13, 2015, 4:42:18 PM
  */
-//mae
+
 #include <stdlib.h>
 #include <iostream>
-#include "Grafo.h"
-#include "LstAdy.cpp"
+#include "Grafo.h" //nunca incluya un archivo .cpp
 #define null 0
 
+/*
 #define printbegin(a) std::cout << "%TEST_STARTED% " << a << " (grafo)" << std::endl;
 #define printerror(a) std::cout << "%TEST_FAILED% " << a << " (grafo) message=error message sample" << std::endl;
 #define printend(a) std::cout << "%TEST_FINISHED% time=0 " << a << " (pba_lstady)" << std::endl;
+*/
 
 /*
  * Simple C++ Test Suite
@@ -34,7 +35,7 @@ enum E { // representa el tipo de estados de la red de infección
 void testConstructorGrafo1() {
     Grafo grafo(100, 15); // prom +- desviac ... +-3 (listo)
     if (grafo.obtTotVrt() != 100 || !(15 < grafo.obtPrmAdy() < 18)) {
-        std::cout << "%TEST_FAILED% FALLO EL CONNSTRUCTOR GRAFO 1 (newsimpletest) message=error message sample" << std::endl;
+        std::cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR GRAFO 1 (newsimpletest) message=error message sample" << std::endl;
     }
 }
 
@@ -52,7 +53,7 @@ void testConstructorGrafo2() {
 
 void testConstGrafo1() {
     Grafo grafo(100, 15); //usar operator ==
-    const Grafo& orig;
+    Grafo orig(10, 10);
     Grafo grafo2(orig);
     if (!(grafo == grafo2)) { // listo
         std::cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR DE COPIAS 1 (newsimpletest) message=error message sample" << std::endl;
@@ -63,8 +64,13 @@ void testConstGrafo1() {
 
 void testConstGrafo2() {
     Grafo grafo(1000, 15); // op ==
-    const Grafo& orig;
-    Grafo grafo2(orig);
+    Grafo orig(10, 10); //mae suave... ese es el constructor? si.. entonces como llama alos metodos
+    Grafo grafo2(orig); // osea.. orig.xst ...? diay asi
+    orig.xstVrt(0); //pero  entonces no deberia construir el orig con 1000,15..? diay no se
+    // yo solo puse 10 por poner algo jaja ahh mae...pero  ese es el error...
+    // el otro pedia dos parametros ojo...
+    // eso debe ser varas del netbeans 
+    // mae de hecho... por eso le decia que no tenia idea de porque no funcionaba..
     if (!(grafo == grafo2)) { //(listo)
         std::cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR DE COPIAS 2 (newsimpletest) message=error message sample" << std::endl;
     }
@@ -74,9 +80,16 @@ void testConstGrafo2() {
 
 void testGrafoString1() {
     string nArch;
-    Grafo grafo("redMuyPeq");
+    Grafo grafo("redMuyPeq"); // ojo esto, agregue un metodo porque faltaba, que creo que se ocupa aqui
     int a[] = {9}; // comparac cantidad y promedio que este en el rango correcto
-    int* b = grafo.obtAdy(3);
+    int* b = grafo.obtAdy();// mae.. pero algo pasa arriba.. en el vector..
+    // no veo el maldito mouse -__-
+    // mae por que estos archivos salen en azul?
+    // porque fueron modificados.. 
+    // mae un int va sin las '', si man.. pero no entiendo porque tiraba error..
+    // netbeans esta loco jajaja yo lo habia cambiado a c++11
+    // mae pero solo estos salen en azul
+    // mm mae di a mi  me parecia que eran los modificados
     if (!(grafo.obtTotVrt() == 10) || (grafo.obtTotAdy(8) == 0) || (b[0] == a[0])) {
         std::cout << "%TEST_FAILED% FALLO EL METODO STRING 1 (newsimpletest) message=error message sample" << std::endl;
     }

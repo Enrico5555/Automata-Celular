@@ -7,15 +7,16 @@
 
 #include "Grafo.h"
 #include <fstream>
+#include <iostream>
 #include <cstring>
-#include <stdlib.h>
+#include <stdlib.h>//sorry por lo lento.. tranquilo jaja
 
 #ifndef NULL
 #define NULL 0
 #endif // NULL
 
 using namespace std;
-
+//mae listo? si
 // esto es para 
 unsigned int cantidad_elementos(const string& linea)
 {
@@ -136,7 +137,7 @@ bool Grafo::xstAdy(int vrtO, int vrtD) const {
         int *ady = arrVrt[vrtO].lstAdy.obtAdy();
         for (int i = 0; i < cantidad_adyacencias; i++)
         {
-            if (ady[i] == vrtD) // Encontr� una adyacencia
+            if (ady[i] == vrtD) // Encontrï¿½ una adyacencia
             {
                 delete[] ady; // Libera la memoria
                 return true;
@@ -144,7 +145,7 @@ bool Grafo::xstAdy(int vrtO, int vrtD) const {
         }
         delete[] ady; // Libera la memoria
     }
-    return false; // No se encontr� adyacencia o el v�rtice no existe
+    return false; // No se encontrï¿½ adyacencia o el vï¿½rtice no existe
 }
 
 int Grafo::obtCntAdy(int vrt) const

@@ -28,6 +28,7 @@ public:
         I, // representa un vértice infectado
         R, // representa un vértice resistente
     };
+
     
     /* CONSTRUCTORES */
     // REQ: ( cntVrt >= 10 ) && ( 1 <= prmGrd )
