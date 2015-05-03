@@ -9,6 +9,9 @@
 #include <fstream>
 #include <cstring>
 #include <stdlib.h>
+#include <vector>
+#include <random>
+#include <iostream>
 
 #ifndef NULL
 #define NULL 0
@@ -58,6 +61,20 @@ Grafo::Grafo(int cntVrt, int prmAdy) {
     {
         this->cntVrt = cntVrt;
         arrVrt = new NdoVrt[cntVrt];
+        default_random_engine generador;
+        normal_distribution<double> distribucion(cntVrt, prmAdy);
+        for (int i = 0; i < cntVrt; i++)
+        {
+            for (int i = 0; i < cntVrt; i++)
+            {
+                int rnum = distribucion(generador);
+                //cout << rnum << endl;
+                if (!xstAdy(i, rnum))
+                {
+                    arrVrt[i].lstAdy.agr(rnum);
+                }
+            }
+        }
     }
 }
 
@@ -102,13 +119,13 @@ Grafo::Grafo(string nArch) {
                 switch (elemento(linea, 0))
                 {
                 case 0:
-                    arrVrt[count].e = E::S;
+                    arrVrt[count].e = S;
                     break;
                 }
                 if (cant > 1)
                 {
                     //arrVrt[count].lstAdy = new LstAdy();
-                    for (int i = 1; i < cant; i++)
+                    for (int i = 1; i < cant-1; i++)
                     {
                         arrVrt[count].lstAdy.agr(elemento(linea, i));
                     }
@@ -164,7 +181,12 @@ int* Grafo::obtAdy(int vrt) const {
 }
 
 int Grafo::obtTotAdy() const {
-    
+    int cant = 0;
+    for (int i = 0; i < cntVrt; i++)
+    {
+        cant += arrVrt[i].lstAdy.obtCntAdy();
+    }
+    return cant;
 }
 
 int Grafo::obtTotVrt() const {
@@ -172,12 +194,17 @@ int Grafo::obtTotVrt() const {
 }
 
 double Grafo::obtPrmAdy() const {
+    double prom = 0;
+    for (int i = 0; i < cntVrt; i++)
+    {
+        prom += ((double)arrVrt[i].lstAdy.obtCntAdy());
+    }
+    return prom / (double)cntVrt;
 }
 
 Grafo::E Grafo::obtEst(int vrt) const {
     if (xstVrt( vrt) == true){
-        //retorna el estado del vertice con indice vrt
-        
+        return arrVrt[vrt].e;
     }
 }
 
@@ -199,27 +226,110 @@ double Grafo::promLongCmnsCrts() const {
 }
 
 double Grafo::centralidadIntermedial(int vrt) const {
+    
 }
 
 double Grafo::coeficienteAgrupamiento(int vrt) const {
+    if (xstVrt(vrt))
+    {
+        double cant = (double)obtCntAdy(vrt), triangles = 0.0;
+        if (cant == 0 || cant == 1) return 0;
+        double t_g = (cant*(cant-1))/2;
+        int *ady = obtAdy(vrt);
+        for (int i = 0; i < cant; i++)
+        {
+            for (int j = i+1; j < cant; j++)
+            {
+                if (xstAdy(ady[i], ady[j]))
+                {
+                    triangles++;
+                }
+            }
+        }
+        delete[] ady;
+        return (triangles / t_g);
+    }
+    return 0;
 }
 
 void Grafo::modEst(int vrt, E ne) {
+    if (xstVrt(vrt))
+    {
+        arrVrt[vrt].e = ne;
+    }
 }
 
 int Grafo::distanciaMasCorta(int vrt1, int vrt2)
 {
-    // empezar desde vrt1, determinar todos los posibles caminos hacia vrt2 sin repetir vertices
-    int camino = 0;
-    if (xstVrt(vrt1) && xstVrt(vrt2))
+    /* dist[][] will be the output matrix that will finally have the shortest 
+      distances between every pair of vertices */
+    vector<vector<int>> dist;
+    dist.resize(cntVrt);
+    for(int i = 0; i < cntVrt; i++)
     {
-        if (xstAdy(vrt1, vrt2)) return 1;
-        int *ady = obtAdy(vrt1);
-        for (int i = 0; i < obtCntAdy(vrt1); i++)
-        {
-            int dist = distanciaMasCorta(ady[i], vrt2);
-        }
-        delete[] ady;
+        dist[i].resize(cntVrt);
+        dist[i][i] = 0;
     }
-    return camino;
+    for (int i = 0; i < cntVrt; i++)
+    {
+        for (int j = 0; j < cntVrt; j++)
+        {
+            if (xstAdy(i, j))
+                dist[i][j] = 1;
+        }
+    }
+    int i, j, k;
+    
+    /* Initialize the solution matrix same as input graph matrix. Or 
+       we can say the initial values of shortest distances are based
+       on shortest paths considering no intermediate vertex. */
+    /*for (i = 0; i < V; i++)
+        for (j = 0; j < V; j++)
+            dist[i][j] = (this->xstAdy(i, j) ? 1 : 0);*/
+ 
+    /* Add all vertices one by one to the set of intermediate vertices.
+      ---> Before start of a iteration, we have shortest distances between all
+      pairs of vertices such that the shortest distances consider only the
+      vertices in set {0, 1, 2, .. k-1} as intermediate vertices.
+      ----> After the end of a iteration, vertex no. k is added to the set of
+      intermediate vertices and the set becomes {0, 1, 2, .. k} */
+    for (k = 0; k < cntVrt; k++)
+    {
+        // Pick all vertices as source one by one
+        for (i = 0; i < cntVrt; i++)
+        {
+            // Pick all vertices as destination for the
+            // above picked source
+            for (j = 0; j < cntVrt; j++)
+            {
+                // If vertex k is on the shortest path from
+                // i to j, then update the value of dist[i][j]
+                if (dist[i][k] + dist[k][j] < dist[i][j])
+                    dist[i][j] = dist[i][k] + dist[k][j];
+            }
+        }
+    }
+    for (int i = 0; i < cntVrt; i++)
+    {
+        for (int j = 0; j < cntVrt; j++)
+        {
+            cout << dist[i][j] << ",";
+        }
+        cout << endl;
+    }
+    return dist[vrt1][vrt2];
+}
+
+int main()
+{
+    Grafo grafo("redPeq.txt");
+    /*if (grafo.obtTotVrt() != 1000 || !(15 < grafo.obtPrmAdy() < 18)) {
+        cout << "error" << std::endl;
+    }
+    cout << "totvrt: " << grafo.obtTotVrt() << ", prm:" << grafo.obtPrmAdy() << endl;*/
+    for (int i = 0; i < grafo.obtTotVrt(); i++) {
+    double peq = grafo.coeficienteAgrupamiento(i);
+    cout << "coeficiente: " << peq << endl;
+    }
+    return 0;
 }
