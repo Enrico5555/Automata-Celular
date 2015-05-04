@@ -85,13 +85,14 @@ Grafo::Grafo(const Grafo& orig) {
         arrVrt = new NdoVrt[cntVrt];
         for (int i = 0; i < cntVrt; i++)
         {
-            arrVrt[i].e = orig.arrVrt[i].e; // tal vez funciona
+            arrVrt[i].e = orig.arrVrt[i].e;
             arrVrt[i].tmpChqVrs = orig.arrVrt[i].tmpChqVrs;
-            arrVrt[i].lstAdy = LstAdy(orig.arrVrt[i].lstAdy); // tal vez funciona, posiblemente no
-            /*for (int j = 0; j < orig.arrVrt[i].lstAdy.obtCntAdy(); j++)
+            int *ady = orig.arrVrt[i].lstAdy.obtAdy();
+            for (int j = 0; j < orig.arrVrt[i].lstAdy.obtCntAdy(); j++)
             {
-                
-            }*/
+                arrVrt[i].lstAdy.agr(ady[j]);
+            }
+            delete[] ady;
         }
     }
 }
