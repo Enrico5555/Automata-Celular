@@ -90,7 +90,7 @@ void testXstVrt1() {
 }
 
 //Retorna false cuando no existe el vértice
-void testXstVrt2() {
+void testXstVrt2() {    
     int vrt = 11;
     Grafo grafo(10, 1); 
     bool res = grafo.xstVrt(vrt);
@@ -101,8 +101,8 @@ void testXstVrt2() {
 
 //Retorna true cuando la adyacencia sí existe.
 void testXstAdy1() {
-    int vrtO = 3, vrtD = 9;
-    Grafo grafo("redMuyPeq");
+    int vrtO = 1, vrtD = 9;
+    Grafo grafo("redMuyPeq.txt");
     bool res = grafo.xstAdy(vrtO, vrtD);
     if (!(res == true)) {
         std::cout << "%TEST_FAILED% FALLO EL METODO XstAdy1 (newsimpletest) message=error message sample" << std::endl;
@@ -111,10 +111,10 @@ void testXstAdy1() {
 
 //Retorna false cuando la adyacencia no existe.
 void testXstAdy2() {
-    int vrtO = 3,vrtD = 10;
-    Grafo grafo("redMuyPeq"); // usar el pequueño
+    int vrtO = 1,vrtD = 5;
+    Grafo grafo("redMuyPeq.txt"); // usar el pequueño
     bool res = grafo.xstAdy(vrtO, vrtD);
-    if (!(res == true)) {
+    if (!(res == false)) {
         std::cout << "%TEST_FAILED% FALLO EL METODO XstAdy2 (newsimpletest) message=error message sample" << std::endl;
 
     }
@@ -123,50 +123,55 @@ void testXstAdy2() {
 //Retorna un apuntador nulo (cero o NULL) cuando la lista de adyacencias está vacía. 
 void testObtAdy1() {
     int vrt = 0;
-    Grafo grafo(10,10);
+    Grafo grafo("redMuyPeq.txt"); 
     int* res = grafo.obtAdy(vrt);
-    if (!(res == null)) {
+    if (!(res == 0)) {
         std::cout << "%TEST_FAILED% FALLO EL METODO ObtAdy1  (newsimpletest) message=error message sample" << std::endl;
     }
+    delete[] res;
 }
 
 /*Retorna un apuntador a un arreglo de N posiciones cuando la lista de adyacencias 
 tiene N elementos (basarse en Grafo(“grafo_pequenyo.txt”)*/
 void testObtAdy2() {
     int vrt = 5;
-    Grafo grafo("redMuyPeq.txt");
-    int* result = grafo.obtAdy(vrt);
-    //if (!(result == 3)) { // not sure
-    //    std::cout << "%TEST_FAILED% FALLO EL METODO ObtAdy2  (newsimpletest) message=error message sample" << std::endl;
-  //  }
+    Grafo grafo("redMuyPeq.txt"); 
+    int* res = grafo.obtAdy(vrt);   
+    if (!(res[0] == 3)) {
+        std::cout << "%TEST_FAILED% FALLO EL METODO ObtAdy2  (newsimpletest) message=error message sample" << std::endl;
+    }
+    delete[] res ;
 }
 
 //Retorna S cuando el vértice está en dicho estado.
 void testObtEst1() {
-    int vrt;
+    int vrt = 0 ;
     Grafo grafo("redMuyPeq.txt");
-//    E res = grafo.obtEst(vrt);
-   /* if (!(res == S)) {
+    /*E res;
+    res = grafo.obtEst(vrt);
+    if (!(res == S)) {
         std::cout << "%TEST_FAILED% FALLO EL METODO ObtEst1 (newsimpletest) message=error message sample" << std::endl;
     }*/
 }
 
 //Retorna I cuando el vértice está en dicho estado.
 void testObtEst2() {
-    int vrt;
+    int vrt= 0 ;
     Grafo grafo("redMuyPeq.txt");
-    //E res = grafo.obtEst(vrt);
-    /*if (!(res == I)) {
+  /*  E res;
+    res = grafo.obtEst(vrt);
+    if (!(res == I)) {
         std::cout << "%TEST_FAILED% FALLO EL METODO ObtEst2 (newsimpletest) message=error message sample" << std::endl;
     }*/
 }
 
 //Retorna R cuando el vértice está en dicho estado.
 void testObtEst3() {
-    int vrt;
+    int vrt= 0 ;
     Grafo grafo("redMuyPeq.txt");    
-   // E res = grafo.obtEst(vrt);
-  /*  if (!(res == R)) {
+    /*E res;
+    res = grafo.obtEst(vrt);
+    if (!(res == R)) {
         std::cout << "%TEST_FAILED% FALLO EL METODO ObtEst3 (newsimpletest) message=error message sample" << std::endl;
     }*/
 }
@@ -175,9 +180,9 @@ void testObtEst3() {
 void testPromLongCmnsCrts1() {
     Grafo grafo("redMuyPeq.txt");
     double res = grafo.promLongCmnsCrts();
-    /*if (!(res ==)) { // falta añadir el valor
-        std::cout << "%TEST_FAILED% FALLO EL METODO PromLongCmnsCrts1 (newsimpletest) message=error message sample" << std::endl;
-    }*/
+  //  if (!(res ==)) { // falta añadir el valor
+      //  std::cout << "%TEST_FAILED% FALLO EL METODO PromLongCmnsCrts1 (newsimpletest) message=error message sample" << std::endl;
+   //}
 }
 
 // Genera el valor correcto con el “grafo_grande.txt”.
