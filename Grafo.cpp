@@ -119,16 +119,11 @@ Grafo::Grafo(string nArch) {
             unsigned int cant = cantidad_elementos(linea);
             if (cant > 0)
             {
-                switch (elemento(linea, 0))
-                {
-                case 0:
-                    arrVrt[count].e = S;
-                    break;
-                }
-                if (cant > 1)
+                arrVrt[count].e = S;
+                if (cant > 0)
                 {
                     //arrVrt[count].lstAdy = new LstAdy();
-                    for (int i = 1; i < cant-1; i++)
+                    for (int i = 0; i < cant; i++)
                     {
                         arrVrt[count].lstAdy.agr(elemento(linea, i));
                     }
@@ -224,7 +219,7 @@ bool Grafo::operator==(const Grafo& grf) const {
 double Grafo::promLongCmnsCrts() const {
 }
 
-double Grafo::centralidadIntermedial(int vrt) const {
+double Grafo::centralidadIntermedial(int vrt) const { // no se va a implementar
     
 }
 
@@ -277,25 +272,18 @@ int Grafo::distanciaMasCorta(int vrt1, int vrt2)
             }
             else
             {
-                path[i][j] = 999;
+                path[i][j] = std::numeric_limits<int>::max();
             }
         }
     }
     for(int k = 0; k < cntVrt; k++)
         for(int i = 0; i < cntVrt; i++)
             for(int j = 0; j < cntVrt; j++){
+                if (path[i][k] == std::numeric_limits<int>::max() || path[k][j] == std::numeric_limits<int>::max()) continue;
                 int dt = path[i][k] + path[k][j];
                 if(path[i][j] > dt)
                     path[i][j] = dt;
             }
-    for (int i = 0; i < cntVrt; i++)
-    {
-        for (int j = 0; j < cntVrt; j++)
-        {
-            cout << path[i][j] << ",";
-        }
-        cout << endl;
-    }
     int res = path[vrt1][vrt2];
     for(int i = 0; i < cntVrt; i++)
     {
