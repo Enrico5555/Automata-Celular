@@ -13,6 +13,7 @@
 #include <random>
 #include <iostream>
 #include <ctime>
+#include <limits> // std::numeric_limits
 
 #ifndef NULL
 #define NULL 0
@@ -259,75 +260,62 @@ void Grafo::modEst(int vrt, E ne) {
 
 int Grafo::distanciaMasCorta(int vrt1, int vrt2)
 {
-    /* dist[][] will be the output matrix that will finally have the shortest 
-      distances between every pair of vertices */
-    vector<vector<int>> dist;
-    dist.resize(cntVrt);
+    int** path;
+    path = new int*[cntVrt];
     for(int i = 0; i < cntVrt; i++)
     {
-        dist[i].resize(cntVrt);
-        dist[i][i] = 0;
+        path[i] = new int[cntVrt];
+        path[i][i] = 0;
     }
     for (int i = 0; i < cntVrt; i++)
     {
         for (int j = 0; j < cntVrt; j++)
         {
             if (xstAdy(i, j))
-                dist[i][j] = 1;
-        }
-    }
-    int i, j, k;
-    
-    /* Initialize the solution matrix same as input graph matrix. Or 
-       we can say the initial values of shortest distances are based
-       on shortest paths considering no intermediate vertex. */
-    /*for (i = 0; i < V; i++)
-        for (j = 0; j < V; j++)
-            dist[i][j] = (this->xstAdy(i, j) ? 1 : 0);*/
- 
-    /* Add all vertices one by one to the set of intermediate vertices.
-      ---> Before start of a iteration, we have shortest distances between all
-      pairs of vertices such that the shortest distances consider only the
-      vertices in set {0, 1, 2, .. k-1} as intermediate vertices.
-      ----> After the end of a iteration, vertex no. k is added to the set of
-      intermediate vertices and the set becomes {0, 1, 2, .. k} */
-    for (k = 0; k < cntVrt; k++)
-    {
-        // Pick all vertices as source one by one
-        for (i = 0; i < cntVrt; i++)
-        {
-            // Pick all vertices as destination for the
-            // above picked source
-            for (j = 0; j < cntVrt; j++)
             {
-                // If vertex k is on the shortest path from
-                // i to j, then update the value of dist[i][j]
-                if (dist[i][k] + dist[k][j] < dist[i][j])
-                    dist[i][j] = dist[i][k] + dist[k][j];
+                path[i][j] = 1;
+            }
+            else
+            {
+                path[i][j] = 999;
             }
         }
     }
+    for(int k = 0; k < cntVrt; k++)
+        for(int i = 0; i < cntVrt; i++)
+            for(int j = 0; j < cntVrt; j++){
+                int dt = path[i][k] + path[k][j];
+                if(path[i][j] > dt)
+                    path[i][j] = dt;
+            }
     for (int i = 0; i < cntVrt; i++)
     {
         for (int j = 0; j < cntVrt; j++)
         {
-            cout << dist[i][j] << ",";
+            cout << path[i][j] << ",";
         }
         cout << endl;
     }
-    return dist[vrt1][vrt2];
+    int res = path[vrt1][vrt2];
+    for(int i = 0; i < cntVrt; i++)
+    {
+        delete[] path[i];
+    }
+    delete[] path;
+    return res;
 }
 
 int main()
 {
-    Grafo grafo(1000, 15);
-    if (grafo.obtTotVrt() != 1000 || !(15 < grafo.obtPrmAdy() < 18)) {
+    Grafo grafo("redMuyPeq.txt");
+    /*if (grafo.obtTotVrt() != 1000 || !(15 < grafo.obtPrmAdy() < 18)) {
         cout << "error" << std::endl;
     }
-    cout << "totvrt: " << grafo.obtTotVrt() << ", prm: " << grafo.obtPrmAdy() << endl;
+    cout << "totvrt: " << grafo.obtTotVrt() << ", prm: " << grafo.obtPrmAdy() << endl;*/
     /*for (int i = 0; i < grafo.obtTotVrt(); i++) {
     double peq = grafo.coeficienteAgrupamiento(i);
     cout << "coeficiente: " << peq << endl;
     }*/
+    cout << grafo.distanciaMasCorta(1, 9);
     return 0;
 }
