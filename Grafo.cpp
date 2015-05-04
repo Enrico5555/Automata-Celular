@@ -147,20 +147,11 @@ bool Grafo::xstVrt(int vrt) const {
 }
 
 bool Grafo::xstAdy(int vrtO, int vrtD) const {
-    if (xstVrt(vrtO)) // Comprueba que el indice del vertice existe
+    if (xstVrt(vrtO) && xstVrt(vrtD)) // Comprueba que el indice del vertice existe
     {
         int cantidad_adyacencias = arrVrt[vrtO].lstAdy.obtCntAdy();
         if (cantidad_adyacencias == 0) return false; // No hay adyacencias, por lo tanto la adyacencia no existe
-        int *ady = arrVrt[vrtO].lstAdy.obtAdy();
-        for (int i = 0; i < cantidad_adyacencias; i++)
-        {
-            if (ady[i] == vrtD) // Encontr� una adyacencia
-            {
-                delete[] ady; // Libera la memoria
-                return true;
-            }
-        }
-        delete[] ady; // Libera la memoria
+        return arrVrt[vrtO].lstAdy.bus(vrtD);
     }
     return false; // No se encontr� adyacencia o el v�rtice no existe
 }
@@ -213,6 +204,7 @@ bool Grafo::operator==(const Grafo& grf) const {
     if (this->cntVrt != grf.cntVrt) return false;
     for (int i = 0; i < this->cntVrt; i++)
     {
+        if (arrVrt[i].lstAdy.obtCntAdy() != grf.arrVrt[i].lstAdy.obtCntAdy()) return false;
         int *ady = obtAdy(i), *adygrf = grf.obtAdy(i);
         for (int j = 0; j < arrVrt[i].lstAdy.obtCntAdy(); j++)
         {
