@@ -14,12 +14,6 @@
  * Simple C++ Test Suite
  */
 
-/* TIPO PÚBLICO DE ESTADOS DE VÉRTICES */
-enum E { // representa el tipo de estados de la red de infección
-    S, // representa un vértice susceptible de infección
-    I, // representa un vértice infectado
-    R, // representa un vértice resistente
-};
 
 /*Construye una red con la cantidad de vértices y el promedio de
 adyacencias por vértice correctos cuando cntVrt == 100 y prmAdy ==15.*/
@@ -143,77 +137,33 @@ void testObtAdy2() {
     delete[] res ;
 }
 
-//Retorna S cuando el vértice está en dicho estado.
-void testObtEst1() {
-    int vrt = 0 ;
-    Grafo grafo("redMuyPeq.txt");
-    /*E res;
-    res = grafo.obtEst(vrt);
-    if (!(res == S)) {
-        std::cout << "%TEST_FAILED% FALLO EL METODO ObtEst1 (newsimpletest) message=error message sample" << std::endl;
-    }*/
-}
-
-//Retorna I cuando el vértice está en dicho estado.
-void testObtEst2() {
-    int vrt= 0 ;
-    Grafo grafo("redMuyPeq.txt");
-  /*  E res;
-    res = grafo.obtEst(vrt);
-    if (!(res == I)) {
-        std::cout << "%TEST_FAILED% FALLO EL METODO ObtEst2 (newsimpletest) message=error message sample" << std::endl;
-    }*/
-}
-
-//Retorna R cuando el vértice está en dicho estado.
-void testObtEst3() {
-    int vrt= 0 ;
-    Grafo grafo("redMuyPeq.txt");    
-    /*E res;
-    res = grafo.obtEst(vrt);
-    if (!(res == R)) {
-        std::cout << "%TEST_FAILED% FALLO EL METODO ObtEst3 (newsimpletest) message=error message sample" << std::endl;
-    }*/
-}
 
 // Genera el valor correcto con el “grafo_pequenyo.txt”.
 void testPromLongCmnsCrts1() {
     Grafo grafo("redMuyPeq.txt");
     double res = grafo.promLongCmnsCrts();
-  //  if (!(res ==)) { // falta añadir el valor
-      //  std::cout << "%TEST_FAILED% FALLO EL METODO PromLongCmnsCrts1 (newsimpletest) message=error message sample" << std::endl;
-   //}
+    if (!(res == )) { // falta añadir el valor
+        std::cout << "%TEST_FAILED% FALLO EL METODO PromLongCmnsCrts1 (newsimpletest) message=error message sample" << std::endl;
+   }
 }
 
 // Genera el valor correcto con el “grafo_grande.txt”.
 void testPromLongCmnsCrts2() {
     Grafo grafo("redGrn.txt");
     double res = grafo.promLongCmnsCrts();
-    /*if (!(res ==)) { // falta añadir el valor
+    if (!(res ==)) { // falta añadir el valor
         std::cout << "%TEST_FAILED% FALLO EL METODO PromLongCmnsCrts2 (newsimpletest) message=error message sample" << std::endl;
-    }*/
+    }
 }
 
 //El vértice indicado del “grafo_pequenyo.txt”.
-
 void testCoeficienteAgrupamiento1() {
-    int vrt = 10;
-    Grafo grafo(10,10);
+    int vrt = 8;
+    Grafo grafo("redMuyPeq.txt");
     double res = grafo.coeficienteAgrupamiento(vrt);
     if (!(res == 0)) {
         std::cout << "%TEST_FAILED% FALLO EL METODO CoeficienteAgrupamiento1 (newsimpletest) message=error message sample" << std::endl;
     }
-}
-
-//El vértice indicado del “grafo_grande.txt”.
-
-void testCoeficienteAgrupamiento2() {
-    int vrt = 12;
-    Grafo grafo(10,10);
-    double res = grafo.coeficienteAgrupamiento(vrt);
-    /*if (!(res == 0)) { // aqui seria el resultado... habria que hacerlo a pata
-        std::cout << "%TEST_FAILED% FALLO EL METODO CoeficienteAgrupamiento2  (newsimpletest) message=error message sample" << std::endl;
-    }*/
 }
 
 int main(int argc, char** argv) {
@@ -268,18 +218,6 @@ int main(int argc, char** argv) {
     testObtAdy2();
     std::cout << "%TEST_FINISHED% time=0 testObtAdy2 (newsimpletest)" << std::endl;
 
-    std::cout << "%TEST_STARTED% testObtEst1 (newsimpletest)" << std::endl;
-    testObtEst1();
-    std::cout << "%TEST_FINISHED% time=0 testObtEst1 (newsimpletest)" << std::endl;
-
-    std::cout << "%TEST_STARTED% testObtEst2 (newsimpletest)" << std::endl;
-    testObtEst2();
-    std::cout << "%TEST_FINISHED% time=0 testObtEst2 (newsimpletest)" << std::endl;
-
-    std::cout << "%TEST_STARTED% testObtEst3 (newsimpletest)" << std::endl;
-    testObtEst3();
-    std::cout << "%TEST_FINISHED% time=0 testObtEst3 (newsimpletest)" << std::endl;
-
     std::cout << "%TEST_STARTED% testPromLongCmnsCrts1 (newsimpletest)" << std::endl;
     testPromLongCmnsCrts1();
     std::cout << "%TEST_FINISHED% time=0 testPromLongCmnsCrts1 (newsimpletest)" << std::endl;
@@ -291,12 +229,6 @@ int main(int argc, char** argv) {
     std::cout << "%TEST_STARTED% testCoeficienteAgrupamiento1 (newsimpletest)" << std::endl;
     testCoeficienteAgrupamiento1();
     std::cout << "%TEST_FINISHED% time=0 testCoeficienteAgrupamiento1 (newsimpletest)" << std::endl;
-
-    std::cout << "%TEST_STARTED% testCoeficienteAgrupamiento2 (newsimpletest)" << std::endl;
-    testCoeficienteAgrupamiento2();
-    std::cout << "%TEST_FINISHED% time=0 testCoeficienteAgrupamiento2 (newsimpletest)" << std::endl;
-
-    // el resto de metodos se da porque esten buenos
 
     std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 
