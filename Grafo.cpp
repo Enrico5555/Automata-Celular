@@ -217,10 +217,14 @@ bool Grafo::operator==(const Grafo& grf) const {
         for (int j = 0; j < arrVrt[i].lstAdy.obtCntAdy(); j++)
         {
             if (ady[j] != adygrf[j])
+            {
+                delete[] ady; delete[] adygrf;
                 return false;
+            }
         }
         delete[] ady; delete[] adygrf;
     }
+    return true;
 }
 
 double Grafo::promLongCmnsCrts() const {
