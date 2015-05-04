@@ -125,7 +125,7 @@ Grafo::Grafo(string nArch) {
                     //arrVrt[count].lstAdy = new LstAdy();
                     for (int i = 0; i < cant; i++)
                     {
-                        arrVrt[count].lstAdy.agr(elemento(linea, i));
+                        arrVrt[coun*t].lstAdy.agr(elemento(linea, i));
                     }
                 }
             }
@@ -217,6 +217,7 @@ bool Grafo::operator==(const Grafo& grf) const {
 }
 
 double Grafo::promLongCmnsCrts() const {
+    //suma(longitudesmascortas)/cntVrt(cntVrt-1)/2
 }
 
 double Grafo::centralidadIntermedial(int vrt) const { // no se va a implementar
@@ -295,15 +296,15 @@ int Grafo::distanciaMasCorta(int vrt1, int vrt2)
 
 int main()
 {
-    Grafo grafo("redMuyPeq.txt");
+    Grafo grafo("redGrn.txt");
     /*if (grafo.obtTotVrt() != 1000 || !(15 < grafo.obtPrmAdy() < 18)) {
         cout << "error" << std::endl;
     }
     cout << "totvrt: " << grafo.obtTotVrt() << ", prm: " << grafo.obtPrmAdy() << endl;*/
-    /*for (int i = 0; i < grafo.obtTotVrt(); i++) {
+    for (int i = 0; i < grafo.obtTotVrt(); i++) {
     double peq = grafo.coeficienteAgrupamiento(i);
     cout << "coeficiente: " << peq << endl;
-    }*/
+    }
     cout << grafo.distanciaMasCorta(1, 9);
     return 0;
 }
