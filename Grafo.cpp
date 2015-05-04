@@ -12,6 +12,7 @@
 #include <vector>
 #include <random>
 #include <iostream>
+#include <ctime>
 
 #ifndef NULL
 #define NULL 0
@@ -61,14 +62,14 @@ Grafo::Grafo(int cntVrt, int prmAdy) {
     {
         this->cntVrt = cntVrt;
         arrVrt = new NdoVrt[cntVrt];
-        default_random_engine generador;
-        normal_distribution<double> distribucion(cntVrt, prmAdy);
+        srand(time(NULL));
+        default_random_engine generador(rand());
+        normal_distribution<double> distribucion(prmAdy, 2.0);
         for (int i = 0; i < cntVrt; i++)
         {
             for (int i = 0; i < cntVrt; i++)
             {
                 int rnum = distribucion(generador);
-                //cout << rnum << endl;
                 if (!xstAdy(i, rnum))
                 {
                     arrVrt[i].lstAdy.agr(rnum);
@@ -319,14 +320,14 @@ int Grafo::distanciaMasCorta(int vrt1, int vrt2)
 
 int main()
 {
-    Grafo grafo("redPeq.txt");
-    /*if (grafo.obtTotVrt() != 1000 || !(15 < grafo.obtPrmAdy() < 18)) {
+    Grafo grafo(1000, 15);
+    if (grafo.obtTotVrt() != 1000 || !(15 < grafo.obtPrmAdy() < 18)) {
         cout << "error" << std::endl;
     }
-    cout << "totvrt: " << grafo.obtTotVrt() << ", prm:" << grafo.obtPrmAdy() << endl;*/
-    for (int i = 0; i < grafo.obtTotVrt(); i++) {
+    cout << "totvrt: " << grafo.obtTotVrt() << ", prm: " << grafo.obtPrmAdy() << endl;
+    /*for (int i = 0; i < grafo.obtTotVrt(); i++) {
     double peq = grafo.coeficienteAgrupamiento(i);
     cout << "coeficiente: " << peq << endl;
-    }
+    }*/
     return 0;
 }
