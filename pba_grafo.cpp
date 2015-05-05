@@ -147,7 +147,7 @@ void testObtAdy2() {
 void testObtEst1() {
     int vrt = 0 ;
     Grafo grafo("redMuyPeq.txt");
-    /*E res;
+    /*E res; 
     res = grafo.obtEst(vrt);
     if (!(res == S)) {
         std::cout << "%TEST_FAILED% FALLO EL METODO ObtEst1 (newsimpletest) message=error message sample" << std::endl;
@@ -198,7 +198,7 @@ void testPromLongCmnsCrts2() {
 
 void testCoeficienteAgrupamiento1() {
     int vrt = 10;
-    Grafo grafo(10,10);
+    Grafo grafo("redMuyPeq.txt");
     double res = grafo.coeficienteAgrupamiento(vrt);
     if (!(res == 0)) {
         std::cout << "%TEST_FAILED% FALLO EL METODO CoeficienteAgrupamiento1 (newsimpletest) message=error message sample" << std::endl;
@@ -209,11 +209,11 @@ void testCoeficienteAgrupamiento1() {
 
 void testCoeficienteAgrupamiento2() {
     int vrt = 12;
-    Grafo grafo(10,10);
+    Grafo grafo("redGrn.txt");
     double res = grafo.coeficienteAgrupamiento(vrt);
-    /*if (!(res == 0)) { // aqui seria el resultado... habria que hacerlo a pata
+    if (!(res == 0)) { // aqui seria el resultado... habria que hacerlo a pata
         std::cout << "%TEST_FAILED% FALLO EL METODO CoeficienteAgrupamiento2  (newsimpletest) message=error message sample" << std::endl;
-    }*/
+    }
 }
 
 int main(int argc, char** argv) {
