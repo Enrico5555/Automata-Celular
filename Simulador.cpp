@@ -18,10 +18,10 @@ bool prob(double probability) // probability < 1
     return false;
 }
 
-Simulador::Simulador(Grafo& g):grafo(g),visor(nullptr) {
+Simulador::Simulador(Grafo *g):grafo(g),visor(nullptr) {
 }
 
-Simulador::Simulador(Grafo& g, Visualizador& v):grafo(g),visor(&v) {
+Simulador::Simulador(Grafo *g, Visualizador& v):grafo(g),visor(&v) {
 }
 
 Simulador::~Simulador() {
@@ -33,28 +33,29 @@ Simulador::~Simulador() {
 //rc: probabilidad de recuperacion
 //grc: probabilidad de obtener resistencia
 void Simulador::simular(int cntItr, int ios, double vsc, int vcf, double rc, double grc) {
+    if (grafo == NULL) return;
     srand(time(NULL));
     int checkeo = vcf;
     for (int i = 0; i < ios; i++)
     {
-        int id = rand() % grafo.obtTotVrt();
-        if (grafo.xstVrt(id))
+        int id = rand() % grafo->obtTotVrt();
+        if (grafo->xstVrt(id))
         {
-            grafo.modEst(id, Grafo::I);
+            grafo->modEst(id, Grafo::I);
         }
     }
     for (int i = 0; i < cntItr; i++)
     {
-        for (int j = 0; j < grafo.obtTotVrt(); j++)
+        for (int j = 0; j < grafo->obtTotVrt(); j++)
         {
-            if (grafo.obtEst(j) == Grafo::I)
+            if (grafo->obtEst(j) == Grafo::I)
             {
-                int *ady = grafo.obtAdy(j);
-                for (int k = 0; k < grafo.obtCntAdy(j); k++)
+                int *ady = grafo->obtAdy(j);
+                for (int k = 0; k < grafo->obtCntAdy(j); k++)
                 {
-                    if (grafo.obtEst(ady[k]) != Grafo::R && prob(vsc))
+                    if (grafo->obtEst(ady[k]) != Grafo::R && prob(vsc))
                     {
-                        grafo.modEst(ady[k], Grafo::I);
+                        grafo->modEst(ady[k], Grafo::I);
                     }
                 }
                 delete[] ady;
@@ -63,10 +64,10 @@ void Simulador::simular(int cntItr, int ios, double vsc, int vcf, double rc, dou
                 {
                     if (prob(rc))
                     {
-                        grafo.modEst(j, Grafo::S);
+                        grafo->modEst(j, Grafo::S);
                         if (prob(grc))
                         {
-                            grafo.modEst(j, Grafo::R);
+                            grafo->modEst(j, Grafo::R);
                         }
                     }
                 }
@@ -75,4 +76,9 @@ void Simulador::simular(int cntItr, int ios, double vsc, int vcf, double rc, dou
         if (checkeo <= 0) checkeo = vcf;
         checkeo--;
     }
+}
+
+void Simulador::asignarGrafo(Grafo* g)
+{
+    grafo = g;
 }

@@ -20,11 +20,11 @@ class Simulador {
 public:
     
     // EFE: Construye un simulador que transformará al grafo g.
-    Simulador(Grafo& g);
+    Simulador(Grafo* g);
 
     // EFE: Construye un simulador que transformará al grafo g visualizando
     //      los cambios de estado por medio de v.
-    Simulador(Grafo& g, Visualizador& v);
+    Simulador(Grafo* g, Visualizador& v);
     
     // Destruye a *this retornando toda la memoria asignada dinámicamente.
     ~Simulador();
@@ -49,8 +49,10 @@ public:
     //      4. Sólo las transformaciones #2 y #3 pueden ser simultáneas.
     void simular(int cItr, int ios, double vsc, int vcf, double rc, double grc);
     
+    void asignarGrafo(Grafo *g);
+    
 private:
-    Grafo& grafo;
+    Grafo *grafo;
     unique_ptr<Visualizador> visor; // para asegurar la destrucción automática
 };
 
