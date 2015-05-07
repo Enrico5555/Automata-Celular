@@ -9,6 +9,7 @@
 #define	GRAFO_H
 
 #include <string>
+#include <vector>
 using namespace std;
 
 #include "LstAdy.h"
@@ -118,6 +119,7 @@ public:
 protected:
     // REQ: que existan los vertices con indices vrt1 y vrt2
     // EFE: devuelve la cantidad de vertices mínima necesaria para llegar desde vrt1 hasta vrt2
+<<<<<<< HEAD
     int caminoMasCorto(int vrt1, int vrt2);
 =======
     protected:
@@ -127,6 +129,9 @@ protected:
     
     
 >>>>>>> pba_grafo
+=======
+    int **Floyd_Warshall() const;
+>>>>>>> grafo
 private:
     struct NdoVrt {
         E e; // representa el estado del vértice

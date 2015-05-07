@@ -21,8 +21,6 @@
 
 using namespace std;
 
-// cambio para probar el git merge con varios branches
-
 // esto es para 
 unsigned int cantidad_elementos(const string& linea)
 {
@@ -220,6 +218,25 @@ bool Grafo::operator==(const Grafo& grf) const {
 
 double Grafo::promLongCmnsCrts() const {
     //suma(longitudesmascortas)/cntVrt(cntVrt-1)/2
+<<<<<<< HEAD
+=======
+    int sum = 0, total = cntVrt*(cntVrt-1)/2;
+    int **matriz = Floyd_Warshall();
+    for (int i = 0; i < cntVrt; i++)
+    {
+        for (int j = i; j < cntVrt; j++)
+        {
+            if (xstAdy(i, j))
+                sum += matriz[i][j];
+        }
+    }
+    for(int i = 0; i < cntVrt; i++)
+    {
+        delete[] matriz[i];
+    }
+    delete[] matriz;
+    return ((double)sum/(double)total);
+>>>>>>> grafo
 }
 
 double Grafo::centralidadIntermedial(int vrt) const { // no se va a implementar
@@ -254,6 +271,7 @@ void Grafo::modEst(int vrt, E ne) {
     {
         arrVrt[vrt].e = ne;
     }
+<<<<<<< HEAD
 }
 
 int Grafo::distanciaMasCorta(int vrt1, int vrt2)
@@ -294,9 +312,56 @@ int Grafo::distanciaMasCorta(int vrt1, int vrt2)
     }
     delete[] path;
     return res;
+=======
+>>>>>>> grafo
 }
 
-int Grafo::caminoMasCorto(int vrt1, int vrt2)
+int **Grafo::Floyd_Warshall() const {
+    int** path;
+    path = new int*[cntVrt];
+    for(int i = 0; i < cntVrt; i++)
+    {
+        path[i] = new int[cntVrt];
+        path[i][i] = 0;
+    }
+    for (int i = 0; i < cntVrt; i++)
+    {
+        for (int j = 0; j < cntVrt; j++)
+        {
+            if (xstAdy(i, j))
+            {
+                path[i][j] = 1;
+            }
+            else
+            {
+                path[i][j] = std::numeric_limits<int>::max();
+            }
+        }
+    }
+    for(int k = 0; k < cntVrt; k++)
+        for(int i = 0; i < cntVrt; i++)
+            for(int j = 0; j < cntVrt; j++){
+                if (path[i][k] == std::numeric_limits<int>::max() || path[k][j] == std::numeric_limits<int>::max()) continue;
+                int dt = path[i][k] + path[k][j];
+                if(path[i][j] > dt)
+                    path[i][j] = dt;
+            }
+    /*int res = path[vrt1][vrt2];
+    for(int i = 0; i < cntVrt; i++)
+    {
+        delete[] path[i];
+    }
+    delete[] path;*/
+    return path;
+}
+
+int main()
 {
-    
+    Grafo grafo("redMuyPeq.txt");
+    /*if (grafo.obtTotVrt() != 1000 || !(15 < grafo.obtPrmAdy() < 18)) {
+        cout << "error" << std::endl;
+    }
+    cout << "totvrt: " << grafo.obtTotVrt() << ", prm: " << grafo.obtPrmAdy() << endl;*/
+    cout << "prom: " << grafo.promLongCmnsCrts();
+    return 0;
 }
