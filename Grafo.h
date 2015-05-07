@@ -115,10 +115,10 @@ public:
     // EFE: cambia el estado del vértice cuyo índice es vrt a ne.
     void modEst(int vrt, E ne);
     
-//protected:
+protected:
     // REQ: que existan los vertices con indices vrt1 y vrt2
     // EFE: devuelve la cantidad de vertices mínima necesaria para llegar desde vrt1 hasta vrt2
-    int distanciaMasCorta(int vrt1, int vrt2);
+    int **Floyd_Warshall() const;
 private:
     struct NdoVrt {
         E e; // representa el estado del vértice

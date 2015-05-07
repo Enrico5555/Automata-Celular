@@ -125,7 +125,7 @@ Grafo::Grafo(string nArch) {
                     //arrVrt[count].lstAdy = new LstAdy();
                     for (int i = 0; i < cant; i++)
                     {
-                        arrVrt[coun*t].lstAdy.agr(elemento(linea, i));
+                        arrVrt[count].lstAdy.agr(elemento(linea, i));
                     }
                 }
             }
@@ -218,6 +218,22 @@ bool Grafo::operator==(const Grafo& grf) const {
 
 double Grafo::promLongCmnsCrts() const {
     //suma(longitudesmascortas)/cntVrt(cntVrt-1)/2
+    int sum = 0, total = cntVrt*(cntVrt-1)/2;
+    int **matriz = Floyd_Warshall();
+    for (int i = 0; i < cntVrt; i++)
+    {
+        for (int j = i; j < cntVrt; j++)
+        {
+            if (xstAdy(i, j))
+                sum += matriz[i][j];
+        }
+    }
+    for(int i = 0; i < cntVrt; i++)
+    {
+        delete[] matriz[i];
+    }
+    delete[] matriz;
+    return ((double)sum/(double)total);
 }
 
 double Grafo::centralidadIntermedial(int vrt) const { // no se va a implementar
@@ -254,8 +270,7 @@ void Grafo::modEst(int vrt, E ne) {
     }
 }
 
-int Grafo::distanciaMasCorta(int vrt1, int vrt2)
-{
+int **Grafo::Floyd_Warshall() const {
     int** path;
     path = new int*[cntVrt];
     for(int i = 0; i < cntVrt; i++)
@@ -285,26 +300,22 @@ int Grafo::distanciaMasCorta(int vrt1, int vrt2)
                 if(path[i][j] > dt)
                     path[i][j] = dt;
             }
-    int res = path[vrt1][vrt2];
+    /*int res = path[vrt1][vrt2];
     for(int i = 0; i < cntVrt; i++)
     {
         delete[] path[i];
     }
-    delete[] path;
-    return res;
+    delete[] path;*/
+    return path;
 }
 
 int main()
 {
-    Grafo grafo("redGrn.txt");
+    Grafo grafo("redMuyPeq.txt");
     /*if (grafo.obtTotVrt() != 1000 || !(15 < grafo.obtPrmAdy() < 18)) {
         cout << "error" << std::endl;
     }
     cout << "totvrt: " << grafo.obtTotVrt() << ", prm: " << grafo.obtPrmAdy() << endl;*/
-    for (int i = 0; i < grafo.obtTotVrt(); i++) {
-    double peq = grafo.coeficienteAgrupamiento(i);
-    cout << "coeficiente: " << peq << endl;
-    }
-    cout << grafo.distanciaMasCorta(1, 9);
+    cout << "prom: " << grafo.promLongCmnsCrts();
     return 0;
 }
