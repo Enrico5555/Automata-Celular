@@ -9,6 +9,11 @@
 #include <fstream>
 #include <cstring>
 #include <stdlib.h>
+#include <vector>
+#include <random>
+#include <iostream>
+#include <ctime>
+#include <limits> // std::numeric_limits
 
 #ifndef NULL
 #define NULL 0
@@ -60,6 +65,20 @@ Grafo::Grafo(int cntVrt, int prmAdy) {
     {
         this->cntVrt = cntVrt;
         arrVrt = new NdoVrt[cntVrt];
+        srand(time(NULL));
+        default_random_engine generador(rand());
+        normal_distribution<double> distribucion(prmAdy, 2.0);
+        for (int i = 0; i < cntVrt; i++)
+        {
+            for (int i = 0; i < cntVrt; i++)
+            {
+                int rnum = distribucion(generador);
+                if (!xstAdy(i, rnum))
+                {
+                    arrVrt[i].lstAdy.agr(rnum);
+                }
+            }
+        }
     }
 }
 
@@ -70,13 +89,14 @@ Grafo::Grafo(const Grafo& orig) {
         arrVrt = new NdoVrt[cntVrt];
         for (int i = 0; i < cntVrt; i++)
         {
-            arrVrt[i].e = orig.arrVrt[i].e; // tal vez funciona
+            arrVrt[i].e = orig.arrVrt[i].e;
             arrVrt[i].tmpChqVrs = orig.arrVrt[i].tmpChqVrs;
-            arrVrt[i].lstAdy = LstAdy(orig.arrVrt[i].lstAdy); // tal vez funciona, posiblemente no
-            /*for (int j = 0; j < orig.arrVrt[i].lstAdy.obtCntAdy(); j++)
+            int *ady = orig.arrVrt[i].lstAdy.obtAdy();
+            for (int j = 0; j < orig.arrVrt[i].lstAdy.obtCntAdy(); j++)
             {
-                
-            }*/
+                arrVrt[i].lstAdy.agr(ady[j]);
+            }
+            delete[] ady;
         }
     }
 }
@@ -101,18 +121,13 @@ Grafo::Grafo(string nArch) {
             unsigned int cant = cantidad_elementos(linea);
             if (cant > 0)
             {
-                switch (elemento(linea, 0))
-                {
-                case 0:
-                    arrVrt[count].e = E::S;
-                    break;
-                }
-                if (cant > 1)
+                arrVrt[count].e = S;
+                if (cant > 0)
                 {
                     //arrVrt[count].lstAdy = new LstAdy();
-                    for (int i = 1; i < cant; i++)
+                    for (int i = 0; i < cant; i++)
                     {
-                        arrVrt[count].lstAdy.agr(elemento(linea, i));
+                        arrVrt[coun*t].lstAdy.agr(elemento(linea, i));
                     }
                 }
             }
@@ -131,20 +146,11 @@ bool Grafo::xstVrt(int vrt) const {
 }
 
 bool Grafo::xstAdy(int vrtO, int vrtD) const {
-    if (xstVrt(vrtO)) // Comprueba que el indice del vertice existe
+    if (xstVrt(vrtO) && xstVrt(vrtD)) // Comprueba que el indice del vertice existe
     {
         int cantidad_adyacencias = arrVrt[vrtO].lstAdy.obtCntAdy();
         if (cantidad_adyacencias == 0) return false; // No hay adyacencias, por lo tanto la adyacencia no existe
-        int *ady = arrVrt[vrtO].lstAdy.obtAdy();
-        for (int i = 0; i < cantidad_adyacencias; i++)
-        {
-            if (ady[i] == vrtD) // Encontr� una adyacencia
-            {
-                delete[] ady; // Libera la memoria
-                return true;
-            }
-        }
-        delete[] ady; // Libera la memoria
+        return arrVrt[vrtO].lstAdy.bus(vrtD);
     }
     return false; // No se encontr� adyacencia o el v�rtice no existe
 }
@@ -166,7 +172,12 @@ int* Grafo::obtAdy(int vrt) const {
 }
 
 int Grafo::obtTotAdy() const {
-    
+    int cant = 0;
+    for (int i = 0; i < cntVrt; i++)
+    {
+        cant += arrVrt[i].lstAdy.obtCntAdy();
+    }
+    return cant;
 }
 
 int Grafo::obtTotVrt() const {
@@ -174,12 +185,17 @@ int Grafo::obtTotVrt() const {
 }
 
 double Grafo::obtPrmAdy() const {
+    double prom = 0;
+    for (int i = 0; i < cntVrt; i++)
+    {
+        prom += ((double)arrVrt[i].lstAdy.obtCntAdy());
+    }
+    return prom / (double)cntVrt;
 }
 
 Grafo::E Grafo::obtEst(int vrt) const {
     if (xstVrt( vrt) == true){
-        //retorna el estado del vertice con indice vrt
-        
+        return arrVrt[vrt].e;
     }
 }
 
@@ -187,26 +203,97 @@ bool Grafo::operator==(const Grafo& grf) const {
     if (this->cntVrt != grf.cntVrt) return false;
     for (int i = 0; i < this->cntVrt; i++)
     {
+        if (arrVrt[i].lstAdy.obtCntAdy() != grf.arrVrt[i].lstAdy.obtCntAdy()) return false;
         int *ady = obtAdy(i), *adygrf = grf.obtAdy(i);
         for (int j = 0; j < arrVrt[i].lstAdy.obtCntAdy(); j++)
         {
             if (ady[j] != adygrf[j])
+            {
+                delete[] ady; delete[] adygrf;
                 return false;
+            }
         }
         delete[] ady; delete[] adygrf;
     }
+    return true;
 }
 
 double Grafo::promLongCmnsCrts() const {
+    //suma(longitudesmascortas)/cntVrt(cntVrt-1)/2
 }
 
-double Grafo::centralidadIntermedial(int vrt) const {
+double Grafo::centralidadIntermedial(int vrt) const { // no se va a implementar
+    
 }
 
 double Grafo::coeficienteAgrupamiento(int vrt) const {
+    if (xstVrt(vrt))
+    {
+        double cant = (double)obtCntAdy(vrt), triangles = 0.0;
+        if (cant == 0 || cant == 1) return 0;
+        double t_g = (cant*(cant-1))/2;
+        int *ady = obtAdy(vrt);
+        for (int i = 0; i < cant; i++)
+        {
+            for (int j = i+1; j < cant; j++)
+            {
+                if (xstAdy(ady[i], ady[j]))
+                {
+                    triangles++;
+                }
+            }
+        }
+        delete[] ady;
+        return (triangles / t_g);
+    }
+    return 0;
 }
 
 void Grafo::modEst(int vrt, E ne) {
+    if (xstVrt(vrt))
+    {
+        arrVrt[vrt].e = ne;
+    }
+}
+
+int Grafo::distanciaMasCorta(int vrt1, int vrt2)
+{
+    int** path;
+    path = new int*[cntVrt];
+    for(int i = 0; i < cntVrt; i++)
+    {
+        path[i] = new int[cntVrt];
+        path[i][i] = 0;
+    }
+    for (int i = 0; i < cntVrt; i++)
+    {
+        for (int j = 0; j < cntVrt; j++)
+        {
+            if (xstAdy(i, j))
+            {
+                path[i][j] = 1;
+            }
+            else
+            {
+                path[i][j] = std::numeric_limits<int>::max();
+            }
+        }
+    }
+    for(int k = 0; k < cntVrt; k++)
+        for(int i = 0; i < cntVrt; i++)
+            for(int j = 0; j < cntVrt; j++){
+                if (path[i][k] == std::numeric_limits<int>::max() || path[k][j] == std::numeric_limits<int>::max()) continue;
+                int dt = path[i][k] + path[k][j];
+                if(path[i][j] > dt)
+                    path[i][j] = dt;
+            }
+    int res = path[vrt1][vrt2];
+    for(int i = 0; i < cntVrt; i++)
+    {
+        delete[] path[i];
+    }
+    delete[] path;
+    return res;
 }
 
 int Grafo::caminoMasCorto(int vrt1, int vrt2)

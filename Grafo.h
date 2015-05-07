@@ -15,10 +15,9 @@ using namespace std;
 
 class Grafo {
     // Representa la red de computadores sobre la cual se diseminará el virus.
-    
 public:
-    class Visualizador; // declaración adelantada para evitar #include mutuo.
-    friend class Visualizador; // permite que el visualizador acceda la sección
+    //class Visualizador; // declaración adelantada para evitar #include mutuo.
+    //friend class Visualizador; // permite que el visualizador acceda la sección
                                // privada de Grafo para hacer más eficientemente
                                // la visualización.
 
@@ -28,6 +27,7 @@ public:
         I, // representa un vértice infectado
         R, // representa un vértice resistente
     };
+
     
     /* CONSTRUCTORES */
     // REQ: ( cntVrt >= 10 ) && ( 1 <= prmGrd )
@@ -114,10 +114,19 @@ public:
     // EFE: cambia el estado del vértice cuyo índice es vrt a ne.
     void modEst(int vrt, E ne);
     
+<<<<<<< HEAD
 protected:
     // REQ: que existan los vertices con indices vrt1 y vrt2
     // EFE: devuelve la cantidad de vertices mínima necesaria para llegar desde vrt1 hasta vrt2
     int caminoMasCorto(int vrt1, int vrt2);
+=======
+    protected:
+    // REQ: que existan los vertices con indices vrt1 y vrt2
+    // EFE: devuelve la cantidad de vertices mínima necesaria para llegar desde vrt1 hasta vrt2
+    int distanciaMasCorta(int vrt1, int vrt2);
+    
+    
+>>>>>>> pba_grafo
 private:
     struct NdoVrt {
         E e; // representa el estado del vértice
