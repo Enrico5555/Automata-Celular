@@ -12,7 +12,7 @@
 
 bool prob(double probability) // probability < 1
 {
-    double result = rand() / RAND_MAX;
+    double result = (double)rand() / (double)RAND_MAX;
     if(result < probability)
         return true;
     return false;
@@ -72,7 +72,7 @@ void Simulador::simular(int cntItr, int ios, double vsc, int vcf, double rc, dou
                 }
             }
         }
-        checkeo--;
         if (checkeo <= 0) checkeo = vcf;
+        checkeo--;
     }
 }

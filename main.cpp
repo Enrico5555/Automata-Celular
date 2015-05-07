@@ -7,6 +7,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <string>
 using namespace std;
 
 #include "Grafo.h"
@@ -16,16 +17,26 @@ using namespace std;
  * 
  */
 int main(int argc, char** argv) {
-    Grafo mg(10,6);
+    Grafo mg(30,6);
     Simulador s(mg);
     Visualizador v(mg);
     Simulador sv(mg,v);
-    sv.simular(1001, 2, 0.1, 10, 0.1, 0.2);
+    sv.simular(1000, 1, 0.04, 10, 0.5, 0.001);
     for (int i = 0; i < mg.obtTotVrt(); i++)
     {
         cout << "Estado: " << mg.obtEst(i) << endl;
     }
-    LstAdy lstAdy();
+    cout << "Automata Celular\n";
+    while (true)
+    {
+        string line;
+        cout << ">>";
+        cin >> line;
+        if (line_parse::cantidad_elementos(line) > 0)
+        {
+            
+        }
+    }
     return 0;
 }
 
