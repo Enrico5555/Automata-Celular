@@ -71,9 +71,10 @@ Grafo::Grafo(int cntVrt, int prmAdy) {
             for (int i = 0; i < cntVrt; i++)
             {
                 int rnum = distribucion(generador);
-                if (!xstAdy(i, rnum))
+                if (!xstAdy(i, rnum) && xstVrt(rnum))
                 {
                     arrVrt[i].lstAdy.agr(rnum);
+                    arrVrt[rnum].lstAdy.agr(i);
                 }
             }
         }
