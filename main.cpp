@@ -20,6 +20,11 @@ int main(int argc, char** argv) {
     Simulador s(mg);
     Visualizador v(mg);
     Simulador sv(mg,v);
+    sv.simular(1001, 2, 0.1, 10, 0.1, 0.2);
+    for (int i = 0; i < mg.obtTotVrt(); i++)
+    {
+        cout << "Estado: " << mg.obtEst(i) << endl;
+    }
     LstAdy lstAdy();
     return 0;
 }
