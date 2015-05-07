@@ -14,6 +14,10 @@ using namespace std;
 
 #include "LstAdy.h"
 
+namespace line_parse{
+unsigned int cantidad_elementos(const string& linea);
+int elemento(string linea, int indice);}
+
 class Grafo {
     // Representa la red de computadores sobre la cual se diseminará el virus.
 public:

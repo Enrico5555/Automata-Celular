@@ -21,42 +21,45 @@
 
 using namespace std;
 
-// esto es para 
-unsigned int cantidad_elementos(const string& linea)
-{
-    unsigned int count = 0;
-    if (linea.size() > 0) count = 1;
-    for (int i = 0; i < linea.size(); i++)
+namespace line_parse {
+    unsigned int cantidad_elementos(const string& linea)
     {
-        if (linea[i] == ',')
+        unsigned int count = 0;
+        if (linea.size() > 0) count = 1;
+        for (int i = 0; i < linea.size(); i++)
         {
-            count++;
+            if (linea[i] == ',')
+            {
+                count++;
+            }
         }
+        return count;
     }
-    return count;
+
+    // esto lee los vertices
+    int elemento(string linea, int indice)
+    {
+        unsigned int count = 0;
+        unsigned int pos;
+        for (int i = 0; i < linea.size(); i++)
+        {
+            if (indice == count)
+            {
+                size_t pos = linea.find(',');
+                if (pos == string::npos) pos = linea.size()-1;
+                string buffer = linea.substr(i, pos);
+                return atoi(buffer.c_str());
+            }
+            if (linea[i] == ',')
+            {
+                count++;
+            }
+        }
+        return -1;
+    }
 }
 
-// esto lee los vertices
-int elemento(string linea, int indice)
-{
-    unsigned int count = 0;
-    unsigned int pos;
-    for (int i = 0; i < linea.size(); i++)
-    {
-        if (indice == count)
-        {
-            size_t pos = linea.find(',');
-            if (pos == string::npos) pos = linea.size()-1;
-            string buffer = linea.substr(i, pos);
-            return atoi(buffer.c_str());
-        }
-        if (linea[i] == ',')
-        {
-            count++;
-        }
-    }
-    return -1;
-}
+using namespace line_parse;
 
 Grafo::Grafo(int cntVrt, int prmAdy) {
     if (cntVrt >= 10 && 1 <= prmAdy)
