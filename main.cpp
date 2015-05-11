@@ -185,6 +185,29 @@ int main(int argc, char** argv) {
                     cout << "Este comando requiere 1 parametro\n";
                 }
             }
+            else if (prim == "ayuda")
+            {
+                if (cant_elementos == 1)
+                {
+                    cout << "cargar\t-carga el grafo a partir del parametro %nArch" << endl << 
+                        "crear\t-fjsdaklfjsdalk" << endl << 
+                        "simular " << endl << 
+                        "simular-visualizar\t-fjasklf" << endl << 
+                        "visualizar" << endl << 
+                        "calcular-promedio-longitud-caminos-cortos" << endl << 
+                        "calcular-centralidad-intermedial" << endl << 
+                        "calcular-coeficiente-agrupamiento" << endl << 
+                        "salir" << endl;
+                }
+                else
+                {
+                    cout << "Este comando no requiere parametros\n";
+                }
+            }
+            else if (prim == "salir")
+            {
+                break;
+            }
             else
             {
                 cout << "Comando incorrecto\n";
