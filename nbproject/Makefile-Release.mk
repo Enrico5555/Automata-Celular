@@ -35,11 +35,14 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/2068375979/Grafo.o \
-	${OBJECTDIR}/_ext/2068375979/LstAdy.o \
-	${OBJECTDIR}/_ext/2068375979/Simulador.o \
-	${OBJECTDIR}/_ext/2068375979/Visualizador.o \
-	${OBJECTDIR}/_ext/2068375979/main.o
+	${OBJECTDIR}/Grafo.o \
+	${OBJECTDIR}/LstAdy.o \
+	${OBJECTDIR}/Parse.o \
+	${OBJECTDIR}/Simulador.o \
+	${OBJECTDIR}/Visualizador.o \
+	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/pba_grafo.o \
+	${OBJECTDIR}/pba_lstady.o
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
@@ -72,110 +75,158 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/automata-celular: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/automata-celular ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/_ext/2068375979/Grafo.o: ../../Automata-Celular/Grafo.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/2068375979
+${OBJECTDIR}/Grafo.o: Grafo.cpp 
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2068375979/Grafo.o ../../Automata-Celular/Grafo.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Grafo.o Grafo.cpp
 
-${OBJECTDIR}/_ext/2068375979/LstAdy.o: ../../Automata-Celular/LstAdy.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/2068375979
+${OBJECTDIR}/LstAdy.o: LstAdy.cpp 
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2068375979/LstAdy.o ../../Automata-Celular/LstAdy.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/LstAdy.o LstAdy.cpp
 
-${OBJECTDIR}/_ext/2068375979/Simulador.o: ../../Automata-Celular/Simulador.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/2068375979
+${OBJECTDIR}/Parse.o: Parse.cpp 
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2068375979/Simulador.o ../../Automata-Celular/Simulador.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Parse.o Parse.cpp
 
-${OBJECTDIR}/_ext/2068375979/Visualizador.o: ../../Automata-Celular/Visualizador.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/2068375979
+${OBJECTDIR}/Simulador.o: Simulador.cpp 
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2068375979/Visualizador.o ../../Automata-Celular/Visualizador.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Simulador.o Simulador.cpp
 
-${OBJECTDIR}/_ext/2068375979/main.o: ../../Automata-Celular/main.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/2068375979
+${OBJECTDIR}/Visualizador.o: Visualizador.cpp 
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2068375979/main.o ../../Automata-Celular/main.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Visualizador.o Visualizador.cpp
+
+${OBJECTDIR}/main.o: main.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/pba_grafo.o: pba_grafo.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pba_grafo.o pba_grafo.cpp
+
+${OBJECTDIR}/pba_lstady.o: pba_lstady.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pba_lstady.o pba_lstady.cpp
 
 # Subprojects
 .build-subprojects:
 
 # Build Test Targets
 .build-tests-conf: .build-conf ${TESTFILES}
-${TESTDIR}/TestFiles/f1: ${TESTDIR}/_ext/2068375979/pba_grafo.o ${OBJECTFILES:%.o=%_nomain.o}
+${TESTDIR}/TestFiles/f1: ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc}   -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} 
 
 
-${TESTDIR}/_ext/2068375979/pba_grafo.o: ../../Automata-Celular/pba_grafo.cpp 
-	${MKDIR} -p ${TESTDIR}/_ext/2068375979
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/_ext/2068375979/pba_grafo.o ../../Automata-Celular/pba_grafo.cpp
-
-
-${OBJECTDIR}/_ext/2068375979/Grafo_nomain.o: ${OBJECTDIR}/_ext/2068375979/Grafo.o ../../Automata-Celular/Grafo.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/2068375979
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/2068375979/Grafo.o`; \
+${OBJECTDIR}/Grafo_nomain.o: ${OBJECTDIR}/Grafo.o Grafo.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/Grafo.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2068375979/Grafo_nomain.o ../../Automata-Celular/Grafo.cpp;\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Grafo_nomain.o Grafo.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/_ext/2068375979/Grafo.o ${OBJECTDIR}/_ext/2068375979/Grafo_nomain.o;\
+	    ${CP} ${OBJECTDIR}/Grafo.o ${OBJECTDIR}/Grafo_nomain.o;\
 	fi
 
-${OBJECTDIR}/_ext/2068375979/LstAdy_nomain.o: ${OBJECTDIR}/_ext/2068375979/LstAdy.o ../../Automata-Celular/LstAdy.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/2068375979
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/2068375979/LstAdy.o`; \
+${OBJECTDIR}/LstAdy_nomain.o: ${OBJECTDIR}/LstAdy.o LstAdy.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/LstAdy.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2068375979/LstAdy_nomain.o ../../Automata-Celular/LstAdy.cpp;\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/LstAdy_nomain.o LstAdy.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/_ext/2068375979/LstAdy.o ${OBJECTDIR}/_ext/2068375979/LstAdy_nomain.o;\
+	    ${CP} ${OBJECTDIR}/LstAdy.o ${OBJECTDIR}/LstAdy_nomain.o;\
 	fi
 
-${OBJECTDIR}/_ext/2068375979/Simulador_nomain.o: ${OBJECTDIR}/_ext/2068375979/Simulador.o ../../Automata-Celular/Simulador.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/2068375979
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/2068375979/Simulador.o`; \
+${OBJECTDIR}/Parse_nomain.o: ${OBJECTDIR}/Parse.o Parse.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/Parse.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2068375979/Simulador_nomain.o ../../Automata-Celular/Simulador.cpp;\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Parse_nomain.o Parse.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/_ext/2068375979/Simulador.o ${OBJECTDIR}/_ext/2068375979/Simulador_nomain.o;\
+	    ${CP} ${OBJECTDIR}/Parse.o ${OBJECTDIR}/Parse_nomain.o;\
 	fi
 
-${OBJECTDIR}/_ext/2068375979/Visualizador_nomain.o: ${OBJECTDIR}/_ext/2068375979/Visualizador.o ../../Automata-Celular/Visualizador.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/2068375979
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/2068375979/Visualizador.o`; \
+${OBJECTDIR}/Simulador_nomain.o: ${OBJECTDIR}/Simulador.o Simulador.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/Simulador.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2068375979/Visualizador_nomain.o ../../Automata-Celular/Visualizador.cpp;\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Simulador_nomain.o Simulador.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/_ext/2068375979/Visualizador.o ${OBJECTDIR}/_ext/2068375979/Visualizador_nomain.o;\
+	    ${CP} ${OBJECTDIR}/Simulador.o ${OBJECTDIR}/Simulador_nomain.o;\
 	fi
 
-${OBJECTDIR}/_ext/2068375979/main_nomain.o: ${OBJECTDIR}/_ext/2068375979/main.o ../../Automata-Celular/main.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/2068375979
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/2068375979/main.o`; \
+${OBJECTDIR}/Visualizador_nomain.o: ${OBJECTDIR}/Visualizador.o Visualizador.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/Visualizador.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2068375979/main_nomain.o ../../Automata-Celular/main.cpp;\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Visualizador_nomain.o Visualizador.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/_ext/2068375979/main.o ${OBJECTDIR}/_ext/2068375979/main_nomain.o;\
+	    ${CP} ${OBJECTDIR}/Visualizador.o ${OBJECTDIR}/Visualizador_nomain.o;\
+	fi
+
+${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/main.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main_nomain.o main.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/main.o ${OBJECTDIR}/main_nomain.o;\
+	fi
+
+${OBJECTDIR}/pba_grafo_nomain.o: ${OBJECTDIR}/pba_grafo.o pba_grafo.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/pba_grafo.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pba_grafo_nomain.o pba_grafo.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/pba_grafo.o ${OBJECTDIR}/pba_grafo_nomain.o;\
+	fi
+
+${OBJECTDIR}/pba_lstady_nomain.o: ${OBJECTDIR}/pba_lstady.o pba_lstady.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/pba_lstady.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pba_lstady_nomain.o pba_lstady.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/pba_lstady.o ${OBJECTDIR}/pba_lstady_nomain.o;\
 	fi
 
 # Run Test Targets

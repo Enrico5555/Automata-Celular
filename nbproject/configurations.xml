@@ -4,10 +4,11 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>../../Automata-Celular/Grafo.h</itemPath>
-      <itemPath>../../Automata-Celular/LstAdy.h</itemPath>
-      <itemPath>../../Automata-Celular/Simulador.h</itemPath>
-      <itemPath>../../Automata-Celular/Visualizador.h</itemPath>
+      <itemPath>Grafo.h</itemPath>
+      <itemPath>LstAdy.h</itemPath>
+      <itemPath>Parse.h</itemPath>
+      <itemPath>Simulador.h</itemPath>
+      <itemPath>Visualizador.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -16,18 +17,20 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>../../Automata-Celular/Grafo.cpp</itemPath>
-      <itemPath>../../Automata-Celular/LstAdy.cpp</itemPath>
-      <itemPath>../../Automata-Celular/Simulador.cpp</itemPath>
-      <itemPath>../../Automata-Celular/Visualizador.cpp</itemPath>
-      <itemPath>../../Automata-Celular/main.cpp</itemPath>
+      <itemPath>Grafo.cpp</itemPath>
+      <itemPath>LstAdy.cpp</itemPath>
+      <itemPath>Parse.cpp</itemPath>
+      <itemPath>Simulador.cpp</itemPath>
+      <itemPath>Visualizador.cpp</itemPath>
+      <itemPath>main.cpp</itemPath>
+      <itemPath>pba_grafo.cpp</itemPath>
+      <itemPath>pba_lstady.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
       <logicalFolder name="f1" displayName="pbagrafo" projectFiles="true" kind="TEST">
-        <itemPath>../../Automata-Celular/pba_grafo.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -51,37 +54,25 @@
           <commandlineTool>g++</commandlineTool>
         </ccTool>
       </compileType>
-      <item path="../../Automata-Celular/Grafo.cpp" ex="false" tool="1" flavor2="0">
+      <item path="Grafo.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="../../Automata-Celular/Grafo.h" ex="false" tool="3" flavor2="0">
+      <item path="Grafo.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../../Automata-Celular/LstAdy.cpp" ex="false" tool="1" flavor2="0">
+      <item path="LstAdy.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="../../Automata-Celular/LstAdy.h" ex="false" tool="3" flavor2="0">
+      <item path="LstAdy.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../../Automata-Celular/Simulador.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="Parse.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="../../Automata-Celular/Simulador.h" ex="false" tool="3" flavor2="0">
+      <item path="Parse.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../../Automata-Celular/Visualizador.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="Simulador.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="../../Automata-Celular/Visualizador.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="Simulador.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../../Automata-Celular/main.cpp" ex="false" tool="1" flavor2="0">
+      <item path="Visualizador.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="../../Automata-Celular/pba_grafo.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="Visualizador.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>
@@ -98,6 +89,12 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="pba_grafo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="pba_lstady.cpp" ex="false" tool="1" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -119,37 +116,25 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="../../Automata-Celular/Grafo.cpp" ex="false" tool="1" flavor2="0">
+      <item path="Grafo.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="../../Automata-Celular/Grafo.h" ex="false" tool="3" flavor2="0">
+      <item path="Grafo.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../../Automata-Celular/LstAdy.cpp" ex="false" tool="1" flavor2="0">
+      <item path="LstAdy.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="../../Automata-Celular/LstAdy.h" ex="false" tool="3" flavor2="0">
+      <item path="LstAdy.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../../Automata-Celular/Simulador.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="Parse.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="../../Automata-Celular/Simulador.h" ex="false" tool="3" flavor2="0">
+      <item path="Parse.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../../Automata-Celular/Visualizador.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="Simulador.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="../../Automata-Celular/Visualizador.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="Simulador.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="../../Automata-Celular/main.cpp" ex="false" tool="1" flavor2="0">
+      <item path="Visualizador.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="../../Automata-Celular/pba_grafo.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="Visualizador.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>
@@ -166,6 +151,12 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="pba_grafo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="pba_lstady.cpp" ex="false" tool="1" flavor2="0">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>

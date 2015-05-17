@@ -5,6 +5,7 @@
  * Created on 2 de abril de 2015, 02:25 PM
  */
 
+#include "Parse.h"
 #include "Grafo.h"
 #include <fstream>
 #include <cstring>
@@ -20,43 +21,7 @@
 #endif // NULL
 
 using namespace std;
-
-// esto es para 
-unsigned int cantidad_elementos(const string& linea)
-{
-    unsigned int count = 0;
-    if (linea.size() > 0) count = 1;
-    for (int i = 0; i < linea.size(); i++)
-    {
-        if (linea[i] == ',')
-        {
-            count++;
-        }
-    }
-    return count;
-}
-
-// esto lee los vertices
-int elemento(string linea, int indice)
-{
-    unsigned int count = 0;
-    unsigned int pos;
-    for (int i = 0; i < linea.size(); i++)
-    {
-        if (indice == count)
-        {
-            size_t pos = linea.find(',');
-            if (pos == string::npos) pos = linea.size()-1;
-            string buffer = linea.substr(i, pos);
-            return atoi(buffer.c_str());
-        }
-        if (linea[i] == ',')
-        {
-            count++;
-        }
-    }
-    return -1;
-}
+using namespace line_parse;
 
 Grafo::Grafo(int cntVrt, int prmAdy) {
     if (cntVrt >= 10 && 1 <= prmAdy)
@@ -71,9 +36,10 @@ Grafo::Grafo(int cntVrt, int prmAdy) {
             for (int i = 0; i < cntVrt; i++)
             {
                 int rnum = distribucion(generador);
-                if (!xstAdy(i, rnum))
+                if (!xstAdy(i, rnum) && xstVrt(rnum))
                 {
                     arrVrt[i].lstAdy.agr(rnum);
+                    arrVrt[rnum].lstAdy.agr(i);
                 }
             }
         }
@@ -125,13 +91,15 @@ Grafo::Grafo(string nArch) {
                     //arrVrt[count].lstAdy = new LstAdy();
                     for (int i = 0; i < cant; i++)
                     {
-                        arrVrt[coun*t].lstAdy.agr(elemento(linea, i));
+                        arrVrt[count].lstAdy.agr(elemento(linea, i));
                     }
                 }
             }
             count++;
         } while (!file.eof() && count < cntVrt);
+        return;
     }
+    throw 1;
 }
 
 Grafo::~Grafo() {
@@ -218,6 +186,22 @@ bool Grafo::operator==(const Grafo& grf) const {
 
 double Grafo::promLongCmnsCrts() const {
     //suma(longitudesmascortas)/cntVrt(cntVrt-1)/2
+    int sum = 0, total = cntVrt*(cntVrt-1)/2;
+    int **matriz = Floyd_Warshall();
+    for (int i = 0; i < cntVrt; i++)
+    {
+        for (int j = i; j < cntVrt; j++)
+        {
+            if (xstAdy(i, j))
+                sum += matriz[i][j];
+        }
+    }
+    for(int i = 0; i < cntVrt; i++)
+    {
+        delete[] matriz[i];
+    }
+    delete[] matriz;
+    return ((double)sum/(double)total);
 }
 
 double Grafo::centralidadIntermedial(int vrt) const { // no se va a implementar
@@ -254,8 +238,7 @@ void Grafo::modEst(int vrt, E ne) {
     }
 }
 
-int Grafo::distanciaMasCorta(int vrt1, int vrt2)
-{
+int **Grafo::Floyd_Warshall() const {
     int** path;
     path = new int*[cntVrt];
     for(int i = 0; i < cntVrt; i++)
@@ -285,11 +268,11 @@ int Grafo::distanciaMasCorta(int vrt1, int vrt2)
                 if(path[i][j] > dt)
                     path[i][j] = dt;
             }
-    int res = path[vrt1][vrt2];
+    /*int res = path[vrt1][vrt2];
     for(int i = 0; i < cntVrt; i++)
     {
         delete[] path[i];
     }
-    delete[] path;
-    return res;
+    delete[] path;*/
+    return path;
 }
