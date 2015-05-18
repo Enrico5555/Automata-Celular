@@ -17,6 +17,17 @@ public:
     Visualizador(const Grafo& g);
     ~Visualizador();
 
+        
+    // REQ: que el grafo asociado en el constructor esté bien construido.
+    // EFE: muestra gráficamente al grafo asociado diferenciando con distintos
+    //      colores los estados de los vértices.
+    void visualizar() const;
+    
+    
+private:
+    const Grafo& grafo;
+    /*Estos son mis metodos*/
+	
     /*Genera una posicion aleatoria para las coordenadas)*/
     double generaPos();
     
@@ -37,16 +48,11 @@ public:
     
     /*Tipo de main para las figuras*/
     void display(void);
-        
-    // REQ: que el grafo asociado en el constructor esté bien construido.
-    // EFE: muestra gráficamente al grafo asociado diferenciando con distintos
-    //      colores los estados de los vértices.
-    void visualizar(int argc, char **argv) const;
-    
-    
-private:
-    const Grafo& grafo;
-    
+	
+	/*Este es el metodo que invoca al visualizador */
+	void visualizator (int argc, char **argv);
+	
+	
     /*Variables globales que contienen las posiciones asignadas*/
     int cntVrt = 10;
     double *posX = new double [cntVrt];// vector con las posiciones en X

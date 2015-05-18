@@ -6,7 +6,7 @@
  */
 
 #include "Visualizador.h"
-//#include<windows.h>
+#include<windows.h>
 #include <GL/glut.h>
 #include <math.h>
 #include <stdlib.h>     /* srand, rand */
@@ -22,6 +22,13 @@ Visualizador::Visualizador(const Grafo& g): grafo(g) {
 Visualizador::~Visualizador() {
 }
 
+void Visualizador::visualizar() const 
+{
+		int argx; 
+		char **argx;
+		visualizator(argx, **argx);
+	
+}
 double Visualizador::generaPos()
     {
     double rando = (double) rand() / (double) RAND_MAX;
@@ -66,19 +73,29 @@ void Visualizador::linker()
     }
     
 void Visualizador::recurCircles()
-    {
+{
     for(int i=0;i<cntVrt;i++){
     dibujar_circulo(0.02, posX[i], posY[i]);
     }
 
-    }
+}
 
 void Visualizador::estadoVrt()
-    {
-    glColor3f(0.0, 1.0, 0.0); //Color verde -> vertice suceptible
-    glColor3f(1.0, 0.0, 0.0); //Color rojo -> vertice infectado
+{
+	if (e.estadVrt == S){	
+		glColor3f(0.0, 1.0, 0.0); //Color verde -> vertice suceptible
+		recurCircles();
+		}
+		
+	if (e.estadVrt== I ) {
+	glColor3f(1.0, 0.0, 0.0); //Color rojo -> vertice infectado
+	recurCircles();
+	}
+	if (e.estadVrt == R){
+	
     glColor3f(1.0, 0.5, 0.0); //Color naranja-> vertice resistente
     }
+}
 
 void Visualizador::display(void)
     {
@@ -90,10 +107,9 @@ void Visualizador::display(void)
       glutSwapBuffers();
     }
 
-
-void Visualizador::visualizar(int argc, char **argv) const 
-    {
-        glutInit(&argc, argv);
+void Visualizador::visualizator (int argc, char **argv)
+{
+		glutInit(&argc, argv);
         glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
         glutInitWindowSize(750,500);
         int winPos = glutGet(GLUT_SCREEN_WIDTH)/2;
@@ -104,5 +120,5 @@ void Visualizador::visualizar(int argc, char **argv) const
         glutMainLoop();
         if (posX != NULL) delete[] posX;
         if (posY != NULL) delete[] posY;
-        return 0;
-    }
+        //return 0;
+}
