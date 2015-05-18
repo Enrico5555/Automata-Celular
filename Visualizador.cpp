@@ -55,7 +55,7 @@ void Visualizador::dibujar_circulo(double radio, double x, double y) {
     glEnd();
 }
 
-void Visualizador::linker(int pto, int lineas) {
+void Visualizador::linker(int lineas) {
     for (int i = 0; i < lineas; i++) {
         glLineWidth(2.0);
         glColor3f(1.0, 1.0, 1.0); //BLANCO
@@ -69,17 +69,16 @@ void Visualizador::linker(int pto, int lineas) {
 void Visualizador::recurCircles(int vrt) {
     // voy a ir dibujando las lineas, luego circulos...
     //pedir el vertice mas popular
-    int cont = 0;
+    int cont = 0, cntAdy;
+    int *arr;
     while (grafo.obtTotVrt() < cont) {
         vrt = vrtPopular();
-        int *arr = grafo.obtAdy(vrt);
-        int cntAdy = grafo.obtCntAdy(vrt);
+        arr = grafo.obtAdy(vrt);
+        cntAdy = grafo.obtCntAdy(vrt);
         for (int i = 0; i < cntAdy; i++) {
             linker(i); 
         }
-
-
-        for (int i = 0; i < cntVrt; i++) {
+        for (int i = 0; i < cntAdy; i++) {
             dibujar_circulo(0.02, posX[i], posY[i]);
         }
 
@@ -129,8 +128,6 @@ void Visualizador::estadoVrt(int vrt) {
 void Visualizador::display(void) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     atragantador();
-    linker();
-    glColor3f(0.0, 1.0, 0.0);
     recurCircles();
     glutSwapBuffers();
 }

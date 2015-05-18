@@ -38,10 +38,10 @@ private:
     void dibujar_circulo(double radio, double x, double y);
     
     /*Genera las lineas entre vertices*/
-    void linker();
+    void linker(int lineas);
     
     /*Dibuja los circulos, basandose en las posiciones ya generadas */
-    void recurCircles ();
+    void recurCircles (int vrt);
     
     /*Revisa toda la lista de adyacencia y devuelve el indice del vertice con mas adyacencias*/
     int Visualizador::vrtPopular();
@@ -59,7 +59,7 @@ private:
     /*Variables globales que contienen las posiciones asignadas*/
     LstAdy lstAdy;
     Grafo grafo;
-    int cntVrt = 10;
+    int cntVrt = grafo.obtTotVrt();
     double *posX = new double [cntVrt];// vector con las posiciones en X
     double *posY = new double [cntVrt];// vector con las posiciones en Y
     

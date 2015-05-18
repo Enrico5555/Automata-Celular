@@ -1,5 +1,6 @@
 #include "Parse.h"
-
+#include<iostream>
+#include <stdlib.h>     /* atof */
 using namespace std;
 
 namespace line_parse {
