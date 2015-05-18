@@ -185,7 +185,6 @@ bool Grafo::operator==(const Grafo& grf) const {
 }
 
 double Grafo::promLongCmnsCrts() const {
-    //suma(longitudesmascortas)/cntVrt(cntVrt-1)/2
     int sum = 0, total = cntVrt*(cntVrt-1)/2;
     int **matriz = Floyd_Warshall();
     for (int i = 0; i < cntVrt; i++)
@@ -268,11 +267,6 @@ int **Grafo::Floyd_Warshall() const {
                 if(path[i][j] > dt)
                     path[i][j] = dt;
             }
-    /*int res = path[vrt1][vrt2];
-    for(int i = 0; i < cntVrt; i++)
-    {
-        delete[] path[i];
-    }
-    delete[] path;*/
+
     return path;
 }

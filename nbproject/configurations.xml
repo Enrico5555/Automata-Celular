@@ -53,6 +53,9 @@
           <standard>8</standard>
           <commandlineTool>g++</commandlineTool>
         </ccTool>
+        <linkerTool>
+          <commandLine>-lopengl32 -lglu32 -lglut32</commandLine>
+        </linkerTool>
       </compileType>
       <item path="Grafo.cpp" ex="false" tool="1" flavor2="0">
       </item>

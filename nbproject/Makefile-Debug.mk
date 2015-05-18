@@ -21,8 +21,8 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
-CND_DLIB_EXT=so
+CND_PLATFORM=MinGW-Windows
+CND_DLIB_EXT=dll
 CND_CONF=Debug
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -69,11 +69,11 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/automata-celular
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/automata-celular.exe
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/automata-celular: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/automata-celular.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/automata-celular ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/automata-celular ${OBJECTFILES} ${LDLIBSOPTIONS} -lopengl32 -lglu32 -lglut32
 
 ${OBJECTDIR}/Grafo.o: Grafo.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -241,7 +241,7 @@ ${OBJECTDIR}/pba_lstady_nomain.o: ${OBJECTDIR}/pba_lstady.o pba_lstady.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/automata-celular
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/automata-celular.exe
 
 # Subprojects
 .clean-subprojects:
