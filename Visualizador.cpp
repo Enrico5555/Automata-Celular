@@ -22,7 +22,7 @@ Visualizador::Visualizador(const Grafo& g): grafo(g) {
 Visualizador::~Visualizador() {
 }
 
-    double generaPos()
+double Visualizador::generaPos()
     {
     double rando = (double) rand() / (double) RAND_MAX;
     double rando2 = (double) rand() / (double) RAND_MAX;
@@ -32,7 +32,7 @@ Visualizador::~Visualizador() {
         return rando;
     }
     
-    void atragantador()    
+void Visualizador::atragantador()    
     {
     double generadorX, generadorY;
      for ( int i=0;i<cntVrt;i++)
@@ -44,7 +44,7 @@ Visualizador::~Visualizador() {
         }
     }  
 
-    void dibujar_circulo(double radio, double x, double y)
+void Visualizador::dibujar_circulo(double radio, double x, double y)
     {
       glBegin(GL_POLYGON); //empieza a dibujar puntos, cada llamada a la funcion glVertex dibuja un punto en pantalla
       for(double i = 0; i < 2 * 3.1415; i += (3.1415 / 24))
@@ -52,7 +52,7 @@ Visualizador::~Visualizador() {
       glEnd();
     }
 
-    void linker()
+void Visualizador::linker()
     {
     for(int i=0;i<cntVrt;i++)
         {
@@ -65,7 +65,7 @@ Visualizador::~Visualizador() {
         }
     }
     
-    void recurCircles()
+void Visualizador::recurCircles()
     {
     for(int i=0;i<cntVrt;i++){
     dibujar_circulo(0.02, posX[i], posY[i]);
@@ -73,14 +73,14 @@ Visualizador::~Visualizador() {
 
     }
 
-    void estadoVrt()
+void Visualizador::estadoVrt()
     {
     glColor3f(0.0, 1.0, 0.0); //Color verde -> vertice suceptible
     glColor3f(1.0, 0.0, 0.0); //Color rojo -> vertice infectado
     glColor3f(1.0, 0.5, 0.0); //Color naranja-> vertice resistente
     }
 
-    void display(void)
+void Visualizador::display(void)
     {
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
       atragantador();
@@ -91,7 +91,7 @@ Visualizador::~Visualizador() {
     }
 
 
-void Visualizador::visualizar(int argc, char **argv) const {
+void Visualizador::visualizar(int argc, char **argv) const 
     {
         glutInit(&argc, argv);
         glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
