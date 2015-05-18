@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   Visualizador.cpp
  * Author: Alan
- * 
+ *
  * Created on 2 de abril de 2015, 07:42 PM
  */
 
@@ -18,19 +18,18 @@
 
 #ifndef NULL
 #define NULL 0
-#endif 
+#endif
 using namespace std;
 
 Visualizador *Visualizador::ptr;
 
-Visualizador::Visualizador(const Grafo& g) : grafo(g) {
+Visualizador::Visualizador(const Grafo& g, int *argc, char **argv) : grafo(g) {
+    cntVrt = grafo.obtTotVrt();
     arrAdy = new int [cntVrt];
     posX = new double [cntVrt];
     posY = new double [cntVrt];
-    cntVrt = grafo.obtTotVrt();
-    
-    int argc = 0;
-    glutInit(&argc, NULL);
+
+    glutInit(argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(750, 500);
     int winPos = glutGet(GLUT_SCREEN_WIDTH) / 2;
@@ -40,7 +39,6 @@ Visualizador::Visualizador(const Grafo& g) : grafo(g) {
     glutDisplayFunc(display);
     ptr = this;
     glutMainLoop();
-
     //return 0;
 }
 
@@ -77,11 +75,11 @@ void Visualizador::atragantador() {
        int cant = grafo.obtCntAdy(i);
         arrAdy[i] = cant;
     }
-    
+
 }
 
 void Visualizador::dibujar_circulo(double radio, double x, double y) {
-    glBegin(GL_POLYGON); 
+    glBegin(GL_POLYGON);
     for (double i = 0; i < 2 * 3.1415; i += (3.1415 / 24))
         glVertex2f(x + cos(i) * radio, y + sin(i) * radio);
     glEnd();
@@ -99,18 +97,18 @@ void Visualizador::linker(int lineas, int* arrV, int vrt) {
 }
 
 
-void Visualizador::recurCircles(int vrt) {
+void Visualizador::recurCircles() {
     int cont = 0, cntAdy;
     int *arr;
     while (cont < cntVrt) {
-        vrt = vrtPopular();
+        int vrt = vrtPopular();
         arr = grafo.obtAdy(vrt);
         cntAdy = grafo.obtCntAdy(vrt);
         linker(cntAdy, arr, vrt);
         cont++;
         delete [] arr;
     }
-    for (int i = 0; i < cntAdy; i++) {
+    for (int i = 0; i < cntVrt; i++) {
         estadoVrt(i);
         dibujar_circulo(0.02, posX[i], posY[i]);
     }
@@ -118,38 +116,38 @@ void Visualizador::recurCircles(int vrt) {
 
 int Visualizador::vrtPopular() {
     int vrtPop, cont = 0;
-    while (cntVrt > cont) {
-        for (int i = 0; i < cntVrt; i++) {
+    while (cont < cntVrt) {
+        for (int i = 0; i < cntVrt - 1; i++) {
             if (arrAdy[i] > arrAdy[i + 1]) {
                 vrtPop = i;
             }
-            arrAdy[i] = 0;
+            else
+            {
+                vrtPop = i+1;
+            }
         }
         cont++;
     }
+    arrAdy[vrtPop] = 0;
     return vrtPop;
 }
 
 void Visualizador::estadoVrt(int vrt) {
-    if (grafo.obtEst(vrt)) {
+    if (grafo.obtEst(vrt) == Grafo::S) {
         glColor3f(0.0, 1.0, 0.0); //Color verde -> vertice suceptible
-        recurCircles(vrt);
     }
 
-    if (grafo.obtEst(vrt)) {
+    if (grafo.obtEst(vrt) == Grafo::I) {
         glColor3f(1.0, 0.0, 0.0); //Color rojo -> vertice infectado
-        recurCircles(vrt);
     }
-    if (grafo.obtEst(vrt)) {
+    if (grafo.obtEst(vrt) == Grafo::R) {
         glColor3f(1.0, 0.5, 0.0); //Color naranja-> vertice resistente
-        recurCircles(vrt);
     }
 }
 
 void Visualizador::display(void) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     ptr->atragantador();
-    ptr->vrtA = ptr->vrtPopular();
-    ptr->recurCircles(ptr->vrtA);
+    ptr->recurCircles();
     glutSwapBuffers();
 }

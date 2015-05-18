@@ -68,7 +68,7 @@ Grafo::Grafo(const Grafo& orig) {
 Grafo::Grafo(string nArch) {
     ifstream file;
     file.open(nArch.c_str(), ios::in);
-    if (file.is_open())
+    if (file.is_open() && file.good())
     {
         char line[256];
         memset(&line, 0, 256);
@@ -204,7 +204,7 @@ double Grafo::promLongCmnsCrts() const {
 }
 
 double Grafo::centralidadIntermedial(int vrt) const { // no se va a implementar
-    
+
 }
 
 double Grafo::coeficienteAgrupamiento(int vrt) const {
