@@ -41,21 +41,11 @@ void Simulador::simular(int cntItr, int ios, double vsc, int vcf, double rc, dou
         int id = rand() % grafo->obtTotVrt();
         if (grafo->xstVrt(id))
         {
-            if (grafo->obtTotVrt() < ios)
+            while (grafo->obtEst() != Grafo::I)
             {
-                for (int i = 0; i < grafo->obtTotVrt(); i++)
-                {
-                    grafo->modEst(i, Grafo::I);
-                }
+                id = rand() % grafo->obtTotVrt();
             }
-            else
-            {
-                while (grafo->obtEst(id) == Grafo::I)
-                {
-                    id = rand() % grafo->obtTotVrt();
-                }
-                grafo->modEst(id, Grafo::I);
-            }
+            grafo->modEst(id, Grafo::I);
         }
     }
     for (int i = 0; i < cntItr; i++)

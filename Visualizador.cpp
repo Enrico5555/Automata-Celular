@@ -28,7 +28,6 @@ Visualizador::Visualizador(const Grafo& g, int *argc, char **argv) : grafo(g) {
     arrAdy = new int [cntVrt];
     posX = new double [cntVrt];
     posY = new double [cntVrt];
-
     glutInit(argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(750, 500);
@@ -38,6 +37,7 @@ Visualizador::Visualizador(const Grafo& g, int *argc, char **argv) : grafo(g) {
     glutCreateWindow("Automata-Celular @tete94 @konri9");
     glutDisplayFunc(display);
     ptr = this;
+    atragantador();
     glutMainLoop();
     //return 0;
 }
@@ -96,15 +96,14 @@ void Visualizador::linker(int lineas, int* arrV, int vrt) {
     }
 }
 
-
 void Visualizador::recurCircles() {
     int cont = 0, cntAdy;
     int *arr;
     while (cont < cntVrt) {
         int vrt = vrtPopular();
-        arr = grafo.obtAdy(vrt);
-        cntAdy = grafo.obtCntAdy(vrt);
-        linker(cntAdy, arr, vrt);
+        arr = grafo.obtAdy(cont);
+        cntAdy = grafo.obtCntAdy(cont);
+        linker(cntAdy, arr, cont);
         cont++;
         delete [] arr;
     }
@@ -136,7 +135,6 @@ void Visualizador::estadoVrt(int vrt) {
     if (grafo.obtEst(vrt) == Grafo::S) {
         glColor3f(0.0, 1.0, 0.0); //Color verde -> vertice suceptible
     }
-
     if (grafo.obtEst(vrt) == Grafo::I) {
         glColor3f(1.0, 0.0, 0.0); //Color rojo -> vertice infectado
     }
@@ -147,7 +145,6 @@ void Visualizador::estadoVrt(int vrt) {
 
 void Visualizador::display(void) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    ptr->atragantador();
     ptr->recurCircles();
     glutSwapBuffers();
 }
