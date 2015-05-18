@@ -44,26 +44,27 @@ private:
     void recurCircles (int vrt);
     
     /*Revisa toda la lista de adyacencia y devuelve el indice del vertice con mas adyacencias*/
-    int Visualizador::vrtPopular();
+    int vrtPopular();
     
     /*Asigna el color al circulo, dependiendo de su estado*/
-    void estadoVrt();
+    void estadoVrt(int vrt);
     
     /*Tipo de main para las figuras*/
-    void display(void);
-	
-	/*Este es el metodo que invoca al visualizador */
-    void visualizator (int argc, char **argv);
-	
+    static void display(void);
+    static Visualizador *ptr;
+
 	
     /*Variables globales que contienen las posiciones asignadas*/
     LstAdy lstAdy;
-    Grafo grafo;
-    int cntVrt = grafo.obtTotVrt();
-    double *posX = new double [cntVrt];// vector con las posiciones en X
-    double *posY = new double [cntVrt];// vector con las posiciones en Y
+    //Grafo grafo;
+    int vrtA ; // vertice actual
+    int cntVrt = 0;
+    double *posX = NULL;// vector con las posiciones en X
+    double *posY = NULL;// vector con las posiciones en Y
+    //int numVrt = grafo.obtTotVrt();
+    int *arrAdy = NULL;
     
-    
+    friend static void display(void);
 };
 
 #endif	/* VISUALIZADOR_H */
