@@ -40,9 +40,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Parse.o \
 	${OBJECTDIR}/Simulador.o \
 	${OBJECTDIR}/Visualizador.o \
-	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/pba_grafo.o \
-	${OBJECTDIR}/pba_lstady.o
+	${OBJECTDIR}/main.o
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
@@ -104,16 +102,6 @@ ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
-
-${OBJECTDIR}/pba_grafo.o: pba_grafo.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pba_grafo.o pba_grafo.cpp
-
-${OBJECTDIR}/pba_lstady.o: pba_lstady.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pba_lstady.o pba_lstady.cpp
 
 # Subprojects
 .build-subprojects:
@@ -201,32 +189,6 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp
 	    $(COMPILE.cc) -g -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main_nomain.o main.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/main.o ${OBJECTDIR}/main_nomain.o;\
-	fi
-
-${OBJECTDIR}/pba_grafo_nomain.o: ${OBJECTDIR}/pba_grafo.o pba_grafo.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/pba_grafo.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pba_grafo_nomain.o pba_grafo.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/pba_grafo.o ${OBJECTDIR}/pba_grafo_nomain.o;\
-	fi
-
-${OBJECTDIR}/pba_lstady_nomain.o: ${OBJECTDIR}/pba_lstady.o pba_lstady.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/pba_lstady.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/pba_lstady_nomain.o pba_lstady.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/pba_lstady.o ${OBJECTDIR}/pba_lstady_nomain.o;\
 	fi
 
 # Run Test Targets

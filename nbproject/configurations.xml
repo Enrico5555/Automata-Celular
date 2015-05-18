@@ -23,8 +23,6 @@
       <itemPath>Simulador.cpp</itemPath>
       <itemPath>Visualizador.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
-      <itemPath>pba_grafo.cpp</itemPath>
-      <itemPath>pba_lstady.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -94,10 +92,6 @@
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="pba_grafo.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="pba_lstady.cpp" ex="false" tool="1" flavor2="0">
-      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -155,10 +149,6 @@
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="pba_grafo.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="pba_lstady.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>

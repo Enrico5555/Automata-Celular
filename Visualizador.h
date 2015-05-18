@@ -38,7 +38,7 @@ private:
     void dibujar_circulo(double radio, double x, double y);
     
     /*Genera las lineas entre vertices*/
-    void linker(int lineas);
+    void linker(int lineas, int* arrV, int vrt);
     
     /*Dibuja los circulos, basandose en las posiciones ya generadas */
     void recurCircles (int vrt);
@@ -64,7 +64,7 @@ private:
     //int numVrt = grafo.obtTotVrt();
     int *arrAdy = NULL;
     
-    friend static void display(void);
+    friend void display(void);
 };
 
 #endif	/* VISUALIZADOR_H */
