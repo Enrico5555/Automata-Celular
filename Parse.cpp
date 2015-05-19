@@ -1,5 +1,10 @@
 #include "Parse.h"
+<<<<<<< HEAD
 
+=======
+#include<iostream>
+#include <stdlib.h>     /* atof */
+>>>>>>> visualizador
 using namespace std;
 
 namespace line_parse {

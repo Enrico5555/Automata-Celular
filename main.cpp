@@ -22,9 +22,13 @@ using namespace line_parse;
  */
 int main(int argc, char** argv) {
     Grafo *grafo = NULL;
+<<<<<<< HEAD
     Visualizador v(*grafo);
     Simulador sv(grafo,v);
     sv.simular(1000, 1, 0.04, 10, 0.5, 0.001);
+=======
+    Simulador sv(grafo);
+>>>>>>> visualizador
     /*for (int i = 0; i < mg.obtTotVrt(); i++)
     {
         cout << "Estado: " << mg.obtEst(i) << endl;
@@ -50,6 +54,10 @@ int main(int argc, char** argv) {
                         if (grafo != NULL) delete grafo;
                         grafo = new Grafo(param.c_str());
                         cout << "Grafo cargado\n";
+<<<<<<< HEAD
+=======
+                        cout << "Vertices: " << grafo->obtTotVrt() << endl;
+>>>>>>> visualizador
                     }
                     catch (int exc)
                     {
@@ -93,7 +101,12 @@ int main(int argc, char** argv) {
                     {
                         int it = elemento(linea, 1, ' '), ios = elemento(linea, 2, ' '), vcf = elemento(linea, 4, ' ');
                         double vsc = elemento_double(linea, 3, ' '), rc = elemento_double(linea, 5, ' '), grc = elemento_double(linea, 6, ' ');
+<<<<<<< HEAD
                         sv.simular(it, ios, vsc, vcf, rc, grc);
+=======
+                        Simulador s(grafo);
+                        s.simular(it, ios, vsc, vcf, rc, grc);
+>>>>>>> visualizador
                     }
                     else
                     {
@@ -111,6 +124,10 @@ int main(int argc, char** argv) {
                 {
                     if (grafo != NULL)
                     {
+<<<<<<< HEAD
+=======
+                        Visualizador v(*grafo, &argc, argv);
+>>>>>>> visualizador
                         int it = elemento(linea, 1, ' '), ios = elemento(linea, 2, ' '), vcf = elemento(linea, 4, ' ');
                         double vsc = elemento_double(linea, 3, ' '), rc = elemento_double(linea, 5, ' '), grc = elemento_double(linea, 6, ' ');
                         sv.simular(it, ios, vsc, vcf, rc, grc);
@@ -132,6 +149,10 @@ int main(int argc, char** argv) {
                 {
                     if (grafo != NULL)
                     {
+<<<<<<< HEAD
+=======
+                        Visualizador v(*grafo, &argc, argv);
+>>>>>>> visualizador
                         v.visualizar();
                     }
                     else
@@ -189,6 +210,7 @@ int main(int argc, char** argv) {
             {
                 if (cant_elementos == 1)
                 {
+<<<<<<< HEAD
                     cout << "cargar\t-carga el grafo a partir del parametro %nArch" << endl << 
                         "crear\t-fjsdaklfjsdalk" << endl << 
                         "simular " << endl << 
@@ -197,6 +219,16 @@ int main(int argc, char** argv) {
                         "calcular-promedio-longitud-caminos-cortos" << endl << 
                         "calcular-centralidad-intermedial" << endl << 
                         "calcular-coeficiente-agrupamiento" << endl << 
+=======
+                    cout << "cargar\t-carga el grafo a partir del parametro %nArch" << endl <<
+                        "crear\t-fjsdaklfjsdalk" << endl <<
+                        "simular " << endl <<
+                        "simular-visualizar\t-fjasklf" << endl <<
+                        "visualizar" << endl <<
+                        "calcular-promedio-longitud-caminos-cortos" << endl <<
+                        "calcular-centralidad-intermedial" << endl <<
+                        "calcular-coeficiente-agrupamiento" << endl <<
+>>>>>>> visualizador
                         "salir" << endl;
                 }
                 else

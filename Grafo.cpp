@@ -68,7 +68,7 @@ Grafo::Grafo(const Grafo& orig) {
 Grafo::Grafo(string nArch) {
     ifstream file;
     file.open(nArch.c_str(), ios::in);
-    if (file.is_open())
+    if (file.is_open() && file.good())
     {
         char line[256];
         memset(&line, 0, 256);
@@ -185,7 +185,10 @@ bool Grafo::operator==(const Grafo& grf) const {
 }
 
 double Grafo::promLongCmnsCrts() const {
+<<<<<<< HEAD
     //suma(longitudesmascortas)/cntVrt(cntVrt-1)/2
+=======
+>>>>>>> visualizador
     int sum = 0, total = cntVrt*(cntVrt-1)/2;
     int **matriz = Floyd_Warshall();
     for (int i = 0; i < cntVrt; i++)
@@ -205,7 +208,7 @@ double Grafo::promLongCmnsCrts() const {
 }
 
 double Grafo::centralidadIntermedial(int vrt) const { // no se va a implementar
-    
+
 }
 
 double Grafo::coeficienteAgrupamiento(int vrt) const {
@@ -268,11 +271,15 @@ int **Grafo::Floyd_Warshall() const {
                 if(path[i][j] > dt)
                     path[i][j] = dt;
             }
+<<<<<<< HEAD
     /*int res = path[vrt1][vrt2];
     for(int i = 0; i < cntVrt; i++)
     {
         delete[] path[i];
     }
     delete[] path;*/
+=======
+
+>>>>>>> visualizador
     return path;
 }

@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   Simulador.cpp
  * Author: Alan
- * 
+ *
  * Created on 2 de abril de 2015, 06:46 PM
  */
 
@@ -41,7 +41,25 @@ void Simulador::simular(int cntItr, int ios, double vsc, int vcf, double rc, dou
         int id = rand() % grafo->obtTotVrt();
         if (grafo->xstVrt(id))
         {
+<<<<<<< HEAD
             grafo->modEst(id, Grafo::I);
+=======
+            if (grafo->obtTotVrt() < ios)
+            {
+                for (int i = 0; i < grafo->obtTotVrt(); i++)
+                {
+                    grafo->modEst(i, Grafo::I);
+                }
+            }
+            else
+            {
+                while (grafo->obtEst(id) == Grafo::I)
+                {
+                    id = rand() % grafo->obtTotVrt();
+                }
+                grafo->modEst(id, Grafo::I);
+            }
+>>>>>>> visualizador
         }
     }
     for (int i = 0; i < cntItr; i++)
