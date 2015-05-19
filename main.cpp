@@ -206,6 +206,7 @@ int main(int argc, char** argv) {
                     cout << "Este comando requiere 1 parametro\n";
                 }
             }
+<<<<<<< HEAD
             else if (prim == "ayuda")
             {
                 if (cant_elementos == 1)
@@ -240,6 +241,8 @@ int main(int argc, char** argv) {
             {
                 break;
             }
+=======
+>>>>>>> parent of e7ed289... comando ayuda agregado
             else
             {
                 cout << "Comando incorrecto\n";
