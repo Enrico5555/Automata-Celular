@@ -15,8 +15,8 @@
  */
 
 
-/*Construye una red con la cantidad de vÃ©rtices y el promedio de
-adyacencias por vÃ©rtice correctos cuando cntVrt == 100 y prmAdy ==15.*/
+/*Construye una red con la cantidad de vértices y el promedio de
+adyacencias por vértice correctos cuando cntVrt == 100 y prmAdy ==15.*/
 
 void testConstGrafo1() {
     Grafo grafo(100, 15); // prom +- dmeesviac ... +-3 (listo)
@@ -25,8 +25,8 @@ void testConstGrafo1() {
     }
 }
 
-/*Construye una red con la cantidad de vÃ©rtices y el promedio de
-adyacencias por vÃ©rtice correctos cuando cntVrt == 1000 y prmAdy ==15.*/
+/*Construye una red con la cantidad de vértices y el promedio de
+adyacencias por vértice correctos cuando cntVrt == 1000 y prmAdy ==15.*/
 void testConstGrafo2() {
     Grafo grafo(1000, 15); // prom +- desviac ... +-3 (listo)
     if (grafo.obtTotVrt() != 1000 || !(15 < grafo.obtPrmAdy() < 18)) {
@@ -34,7 +34,7 @@ void testConstGrafo2() {
     }
 }
 
-//Construye una copia idÃ©ntica a Grafo(100,15).
+//Construye una copia idéntica a Grafo(100,15).
 void testConstCopiasGrafo1() {
     Grafo orig(100, 15); // construyo orig
     Grafo grafo(orig);// copio orig
@@ -43,7 +43,7 @@ void testConstCopiasGrafo1() {
     }
 }
 
-//Construye una copia idÃ©ntica a Grafo(1000,15).
+//Construye una copia idéntica a Grafo(1000,15).
 void testConstCopiasGrafo2() {
     Grafo orig(1000, 15); 
     Grafo grafo(orig); 
@@ -52,7 +52,7 @@ void testConstCopiasGrafo2() {
     }
 }
 
-//Construye el grafo correcto con el â€œredMuyPeq.txtâ€
+//Construye el grafo correcto con el “redMuyPeq.txt”
 void testConstGrafoString1() {
     string nArch = "redMuyPeq.txt";
     Grafo grafo(nArch); 
@@ -64,7 +64,7 @@ void testConstGrafoString1() {
     //delete []b;
 }
 
-//Construye el grafo correcto con el â€œredGrn.txtâ€.
+//Construye el grafo correcto con el “redGrn.txt”.
 void testConstGrafoString2() {
     string nArch = "redGrn.txt";
     Grafo grafo(nArch);
@@ -73,7 +73,7 @@ void testConstGrafoString2() {
     }
 }
 
-//Retorna true cuando el vÃ©rtice existe.
+//Retorna true cuando el vértice existe.
 void testXstVrt1() {
     int vrt = 1;
     Grafo grafo(10, 1); // Devuelve true si vrt esta entre 0 y cntVrt
@@ -83,7 +83,7 @@ void testXstVrt1() {
     }
 }
 
-//Retorna false cuando no existe el vÃ©rtice
+//Retorna false cuando no existe el vértice
 void testXstVrt2() {    
     int vrt = 11;
     Grafo grafo(10, 1); 
@@ -93,7 +93,7 @@ void testXstVrt2() {
     }
 }
 
-//Retorna true cuando la adyacencia sÃ­ existe.
+//Retorna true cuando la adyacencia sí existe.
 void testXstAdy1() {
     int vrtO = 1, vrtD = 9;
     Grafo grafo("redMuyPeq.txt");
@@ -106,7 +106,7 @@ void testXstAdy1() {
 //Retorna false cuando la adyacencia no existe.
 void testXstAdy2() {
     int vrtO = 1,vrtD = 5;
-    Grafo grafo("redMuyPeq.txt"); // usar el pequueÃ±o
+    Grafo grafo("redMuyPeq.txt"); // usar el pequueño
     bool res = grafo.xstAdy(vrtO, vrtD);
     if (!(res == false)) {
         std::cout << "%TEST_FAILED% FALLO EL METODO XstAdy2 (newsimpletest) message=error message sample" << std::endl;
@@ -114,7 +114,7 @@ void testXstAdy2() {
     }
 }
 
-//Retorna un apuntador nulo (cero o NULL) cuando la lista de adyacencias estÃ¡ vacÃ­a. 
+//Retorna un apuntador nulo (cero o NULL) cuando la lista de adyacencias está vacía. 
 void testObtAdy1() {
     int vrt = 0;
     Grafo grafo("redMuyPeq.txt"); 
@@ -126,7 +126,7 @@ void testObtAdy1() {
 }
 
 /*Retorna un apuntador a un arreglo de N posiciones cuando la lista de adyacencias 
-tiene N elementos (basarse en Grafo(â€œgrafo_pequenyo.txtâ€)*/
+tiene N elementos (basarse en Grafo(“grafo_pequenyo.txt”)*/
 void testObtAdy2() {
     int vrt = 5;
     Grafo grafo("redMuyPeq.txt"); 
@@ -138,25 +138,25 @@ void testObtAdy2() {
 }
 
 
-// Genera el valor correcto con el â€œgrafo_pequenyo.txtâ€.
+// Genera el valor correcto con el “grafo_pequenyo.txt”.
 void testPromLongCmnsCrts1() {
     Grafo grafo("redMuyPeq.txt");
     double res = grafo.promLongCmnsCrts();
-    if (!(res == )) { // falta aÃ±adir el valor
+    if (!(res == 0.311111)) { // falta añadir el valor
         std::cout << "%TEST_FAILED% FALLO EL METODO PromLongCmnsCrts1 (newsimpletest) message=error message sample" << std::endl;
    }
 }
 
-// Genera el valor correcto con el â€œgrafo_grande.txtâ€.
+// Genera el valor correcto con el “grafo_grande.txt”.
 void testPromLongCmnsCrts2() {
     Grafo grafo("redGrn.txt");
     double res = grafo.promLongCmnsCrts();
-    if (!(res ==)) { // falta aÃ±adir el valor
+    if (!(res ==0.311111)) { // falta añadir el valor
         std::cout << "%TEST_FAILED% FALLO EL METODO PromLongCmnsCrts2 (newsimpletest) message=error message sample" << std::endl;
     }
 }
 
-//El vÃ©rtice indicado del â€œgrafo_pequenyo.txtâ€.
+//El vértice indicado del “grafo_pequenyo.txt”.
 void testCoeficienteAgrupamiento1() {
     int vrt = 8;
     Grafo grafo("redMuyPeq.txt");
