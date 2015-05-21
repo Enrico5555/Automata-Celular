@@ -6,7 +6,8 @@
  */
 
 #include "Visualizador.h"
-#include<windows.h>
+#include <windows.h>
+#include <process.h>
 #include <GL/glut.h>
 #include <math.h>
 #include <stdlib.h>     /* srand, rand */
@@ -23,14 +24,14 @@ using namespace std;
 
 Visualizador *Visualizador::ptr;
 
-Visualizador::Visualizador(const Grafo& g, int *argc, char **argv) : grafo(g), simulador(&grafo) {
+Visualizador::Visualizador(const Grafo& g) : grafo(g), simulador(&grafo) {
     cntVrt = grafo.obtTotVrt();
     arrAdy = new int [cntVrt];
     posX = new double [cntVrt];
     posY = new double [cntVrt];
     ptr = this;
-    this->argc = argc;
-    this->argv = argv;
+    /*this->argc = argc;
+    this->argv = argv;*/
     atragantador();
 }
 
@@ -42,7 +43,8 @@ Visualizador::~Visualizador() {
 }
 
 void Visualizador::visualizar() const {
-    glutInit(argc, argv);
+    glutCreateWindow("Automata-Celular @tete94 @konri9");
+    /*glutInit(argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(750, 500);
     int winPos = glutGet(GLUT_SCREEN_WIDTH) / 2;
@@ -51,7 +53,9 @@ void Visualizador::visualizar() const {
     glutCreateWindow("Automata-Celular @tete94 @konri9");
     glutDisplayFunc(display);
     glutKeyboardFunc(keyboard);
-    glutMainLoop();
+    glutMainLoop();*/
+    glutDisplayFunc(display);
+    glutKeyboardFunc(keyboard);
 }
 
 void Visualizador::visualizar(int cItr, int ios, double vsc, int vcf, double rc, double grc)

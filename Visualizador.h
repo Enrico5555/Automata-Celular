@@ -15,7 +15,7 @@ class Visualizador {
     // Permite la visualización gráfica de una instancia de Grafo.
 
 public:
-    Visualizador(const Grafo& g, int *argc, char **argv);
+    Visualizador(const Grafo& g);
     ~Visualizador();
 
 
@@ -75,6 +75,7 @@ private:
     void estadoVrt(int vrt);
     
     /*Tipo de main para las figuras*/
+    public:
     static void display(void);
     static void keyboard(unsigned char key, int x, int y);
     static Visualizador *ptr;

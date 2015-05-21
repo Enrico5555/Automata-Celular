@@ -13,6 +13,9 @@
 #include "Grafo.h"
 #include "Simulador.h"
 #include "Visualizador.h"
+#include <windows.h>
+#include <GL/glut.h>
+#include <process.h>
 
 using namespace std;
 using namespace line_parse;
@@ -20,13 +23,14 @@ using namespace line_parse;
 /*
  *
  */
-int main(int argc, char** argv) {
+ 
+ int *gargc;
+ char **gargv;
+ 
+ void loop(void *arg)
+ {
     Grafo *grafo = NULL;
     Simulador sv(grafo);
-    /*for (int i = 0; i < mg.obtTotVrt(); i++)
-    {
-        cout << "Estado: " << mg.obtEst(i) << endl;
-    }*/
     cout << "Automata Celular\n";
     while (true)
     {
@@ -111,7 +115,7 @@ int main(int argc, char** argv) {
                 {
                     if (grafo != NULL)
                     {
-                        Visualizador v(*grafo, &argc, argv);
+                        Visualizador v(*grafo);
                         int it = elemento(linea, 1, ' '), ios = elemento(linea, 2, ' '), vcf = elemento(linea, 4, ' ');
                         double vsc = elemento_double(linea, 3, ' '), rc = elemento_double(linea, 5, ' '), grc = elemento_double(linea, 6, ' ');
                         //sv.simular(it, ios, vsc, vcf, rc, grc);
@@ -133,7 +137,7 @@ int main(int argc, char** argv) {
                 {
                     if (grafo != NULL)
                     {
-                        Visualizador v(*grafo, &argc, argv);
+                        Visualizador v(*grafo);
                         v.visualizar();
                     }
                     else
@@ -216,6 +220,28 @@ int main(int argc, char** argv) {
             }
         }
     }
+ }
+ 
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    Grafo g("redPeq.txt");
+    Visualizador vis(g);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitWindowSize(750, 500);
+    int winPos = glutGet(GLUT_SCREEN_WIDTH) / 2;
+    winPos = 750 / 2;
+    glutInitWindowPosition(winPos, 0);
+    glutCreateWindow("");
+    glutDisplayFunc(Visualizador::display);
+    glutKeyboardFunc(Visualizador::keyboard);
+    _beginthread(loop, 0, (void*)0 );
+    glutMainLoop();
+    
+    /*for (int i = 0; i < mg.obtTotVrt(); i++)
+    {
+        cout << "Estado: " << mg.obtEst(i) << endl;
+    }*/
+    
     return 0;
 }
 
