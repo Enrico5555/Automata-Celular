@@ -12,7 +12,6 @@
 using namespace std;
 
 #include "Grafo.h"
-#include "Visualizador.h"
 
 class Simulador {
     // Representa el proceso de simulación de la infección en la red de computadoras.
@@ -24,7 +23,7 @@ public:
 
     // EFE: Construye un simulador que transformará al grafo g visualizando
     //      los cambios de estado por medio de v.
-    Simulador(Grafo* g, Visualizador& v);
+    //Simulador(Grafo* g);
     
     // Destruye a *this retornando toda la memoria asignada dinámicamente.
     ~Simulador();
@@ -53,7 +52,6 @@ public:
     
 private:
     Grafo *grafo;
-    unique_ptr<Visualizador> visor; // para asegurar la destrucción automática
 };
 
 #endif	/* SIMULADOR_H */

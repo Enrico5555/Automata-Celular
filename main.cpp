@@ -114,8 +114,8 @@ int main(int argc, char** argv) {
                         Visualizador v(*grafo, &argc, argv);
                         int it = elemento(linea, 1, ' '), ios = elemento(linea, 2, ' '), vcf = elemento(linea, 4, ' ');
                         double vsc = elemento_double(linea, 3, ' '), rc = elemento_double(linea, 5, ' '), grc = elemento_double(linea, 6, ' ');
-                        sv.simular(it, ios, vsc, vcf, rc, grc);
-                        v.visualizar();
+                        //sv.simular(it, ios, vsc, vcf, rc, grc);
+                        v.visualizar(it, ios, vsc, vcf, rc, grc);
                     }
                     else
                     {

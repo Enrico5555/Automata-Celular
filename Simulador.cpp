@@ -18,10 +18,7 @@ bool prob(double probability) // probability < 1
     return false;
 }
 
-Simulador::Simulador(Grafo *g):grafo(g),visor(nullptr) {
-}
-
-Simulador::Simulador(Grafo *g, Visualizador& v):grafo(g),visor(&v) {
+Simulador::Simulador(Grafo *g):grafo(g) {
 }
 
 Simulador::~Simulador() {

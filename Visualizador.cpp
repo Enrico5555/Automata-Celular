@@ -23,23 +23,15 @@ using namespace std;
 
 Visualizador *Visualizador::ptr;
 
-Visualizador::Visualizador(const Grafo& g, int *argc, char **argv) : grafo(g) {
+Visualizador::Visualizador(const Grafo& g, int *argc, char **argv) : grafo(g), simulador(&grafo) {
     cntVrt = grafo.obtTotVrt();
     arrAdy = new int [cntVrt];
     posX = new double [cntVrt];
     posY = new double [cntVrt];
-    glutInit(argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(750, 500);
-    int winPos = glutGet(GLUT_SCREEN_WIDTH) / 2;
-    winPos = 750 / 2;
-    glutInitWindowPosition(winPos, 0);
-    glutCreateWindow("Automata-Celular @tete94 @konri9");
-    glutDisplayFunc(display);
     ptr = this;
+    this->argc = argc;
+    this->argv = argv;
     atragantador();
-    glutMainLoop();
-    //return 0;
 }
 
 
@@ -50,7 +42,36 @@ Visualizador::~Visualizador() {
 }
 
 void Visualizador::visualizar() const {
+    glutInit(argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitWindowSize(750, 500);
+    int winPos = glutGet(GLUT_SCREEN_WIDTH) / 2;
+    winPos = 750 / 2;
+    glutInitWindowPosition(winPos, 0);
+    glutCreateWindow("Automata-Celular @tete94 @konri9");
+    glutDisplayFunc(display);
+    glutKeyboardFunc(keyboard);
+    glutMainLoop();
+}
 
+void Visualizador::visualizar(int cItr, int ios, double vsc, int vcf, double rc, double grc)
+{
+    simulador.simular(cItr, ios, vsc, vcf, rc, grc);
+    sim = true;
+    info.cItr = cItr;
+    info.grc = grc;
+    info.ios = ios;
+    info.rc = rc;
+    info.vcf = vcf;
+    info.vcfmax = vcf;
+    info.vsc = vsc;
+    visualizar();
+}
+
+void Visualizador::simular()
+{
+    simulador.simular(info.cItr, info.ios, info.vsc, info.vcf, info.rc, info.grc);
+    glutPostRedisplay();
 }
 
 double Visualizador::generaPos() {
@@ -100,7 +121,7 @@ void Visualizador::recurCircles() {
     int cont = 0, cntAdy;
     int *arr;
     while (cont < cntVrt) {
-        int vrt = vrtPopular();
+        //int vrt = vrtPopular();
         arr = grafo.obtAdy(cont);
         cntAdy = grafo.obtCntAdy(cont);
         linker(cntAdy, arr, cont);
@@ -140,6 +161,20 @@ void Visualizador::estadoVrt(int vrt) {
     }
     if (grafo.obtEst(vrt) == Grafo::R) {
         glColor3f(1.0, 0.5, 0.0); //Color naranja-> vertice resistente
+    }
+}
+
+void Visualizador::keyboard(unsigned char key, int x, int y)
+{
+    if (ptr->sim)
+    {
+        if (key == 13)
+        {
+            ptr->info.ios = 0;
+            ptr->info.vcf--;
+            if (ptr->info.vcf < 0) ptr->info.vcf = ptr->info.vcfmax;
+            ptr->simular();
+        }
     }
 }
 
