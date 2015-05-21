@@ -8,6 +8,8 @@
 #ifndef VISUALIZADOR_H
 #define	VISUALIZADOR_H
 
+#include <windows.h>
+
 #include "Grafo.h"
 #include "Simulador.h"
 
@@ -17,8 +19,7 @@ class Visualizador {
 public:
     Visualizador(const Grafo& g);
     ~Visualizador();
-
-
+    
     // REQ: que el grafo asociado en el constructor esté bien construido.
     // EFE: muestra gráficamente al grafo asociado diferenciando con distintos
     //      colores los estados de los vértices.
@@ -77,6 +78,7 @@ private:
     /*Tipo de main para las figuras*/
     public:
     static void display(void);
+    static void idle(void);
     static void keyboard(unsigned char key, int x, int y);
     static Visualizador *ptr;
     
@@ -95,6 +97,8 @@ private:
         int cItr, ios, vcf, vcfmax;
         double vsc, rc, grc;
     };
+    
+    HWND hwnd;
     
     bool sim = false;
     infosim info;

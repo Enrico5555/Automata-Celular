@@ -23,27 +23,32 @@
 using namespace std;
 
 Visualizador *Visualizador::ptr;
+bool dibujando = false;
+char grafostr[] = "No hay grafo cargado! por favor cree o cargue un grafo para visualizar";
 
 Visualizador::Visualizador(const Grafo& g) : grafo(g), simulador(&grafo) {
     cntVrt = grafo.obtTotVrt();
     arrAdy = new int [cntVrt];
     posX = new double [cntVrt];
     posY = new double [cntVrt];
-    ptr = this;
+    hwnd = FindWindow(NULL, "Automata-Celular");
+    //ShowWindow(hwnd, SW_HIDE);
     /*this->argc = argc;
     this->argv = argv;*/
     atragantador();
+    ptr = this;
 }
 
 
 Visualizador::~Visualizador() {
- if (arrAdy != NULL) delete [] arrAdy;
- if (posX != NULL) delete[] posX;
- if (posY != NULL) delete[] posY;
+    if (arrAdy != NULL) delete [] arrAdy;
+    if (posX != NULL) delete[] posX;
+    if (posY != NULL) delete[] posY;
+    ptr = NULL;
 }
 
 void Visualizador::visualizar() const {
-    glutCreateWindow("Automata-Celular @tete94 @konri9");
+    //glutCreateWindow("Automata-Celular @tete94 @konri9");
     /*glutInit(argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(750, 500);
@@ -54,8 +59,11 @@ void Visualizador::visualizar() const {
     glutDisplayFunc(display);
     glutKeyboardFunc(keyboard);
     glutMainLoop();*/
-    glutDisplayFunc(display);
-    glutKeyboardFunc(keyboard);
+    /*glutDisplayFunc(display);
+    glutKeyboardFunc(keyboard);*/
+    glutPostRedisplay();
+    SetForegroundWindow(hwnd);
+    SetFocus(hwnd);
 }
 
 void Visualizador::visualizar(int cItr, int ios, double vsc, int vcf, double rc, double grc)
@@ -69,7 +77,15 @@ void Visualizador::visualizar(int cItr, int ios, double vsc, int vcf, double rc,
     info.vcf = vcf;
     info.vcfmax = vcf;
     info.vsc = vsc;
-    visualizar();
+    string line = "";
+    cout << "Digite cualquier caracter y presione enter para realizar una iteracion\nO bien, presione enter en la ventana del grafo para realizar una iteracion\nEscriba \"salir\" para terminar la simulacion\n";
+    do {
+        visualizar();
+        cin >> line;
+        simular();
+        SetForegroundWindow(hwnd);
+        SetFocus(hwnd);
+    } while (line != "salir");
 }
 
 void Visualizador::simular()
@@ -170,6 +186,7 @@ void Visualizador::estadoVrt(int vrt) {
 
 void Visualizador::keyboard(unsigned char key, int x, int y)
 {
+    if (ptr == NULL) return;
     if (ptr->sim)
     {
         if (key == 13)
@@ -184,6 +201,39 @@ void Visualizador::keyboard(unsigned char key, int x, int y)
 
 void Visualizador::display(void) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    ptr->recurCircles();
+    if (ptr != NULL)
+    {
+        ptr->recurCircles();
+        glutSwapBuffers();
+        dibujando = false;
+        return;
+        //if (!ptr->sim) ptr = NULL;
+    }
+    else
+    {
+        //Escribe texto en la pantalla
+        glColor3d(1.0, 0.0, 0.0);
+        unsigned int len = strlen(grafostr);
+        double width = 0;
+        for (unsigned int i = 0; i < len; i++)
+        {
+            width += glutBitmapWidth(GLUT_BITMAP_9_BY_15, grafostr[i]);
+        }
+        width = width / (double)glutGet(GLUT_WINDOW_WIDTH);
+        glRasterPos2d(-width, 0);
+        for (unsigned int i = 0; i < len; i++)
+        {
+            glutBitmapCharacter(GLUT_BITMAP_9_BY_15, grafostr[i]);
+        }
+    }
     glutSwapBuffers();
+}
+
+void Visualizador::idle(void) {
+    if (ptr != NULL)
+    {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        ptr->recurCircles();
+        glutSwapBuffers();
+    }
 }

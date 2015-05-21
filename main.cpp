@@ -24,6 +24,7 @@ using namespace line_parse;
  *
  */
  
+ extern bool dibujando;
  int *gargc;
  char **gargv;
  
@@ -115,11 +116,13 @@ using namespace line_parse;
                 {
                     if (grafo != NULL)
                     {
+                        dibujando = true;
                         Visualizador v(*grafo);
                         int it = elemento(linea, 1, ' '), ios = elemento(linea, 2, ' '), vcf = elemento(linea, 4, ' ');
                         double vsc = elemento_double(linea, 3, ' '), rc = elemento_double(linea, 5, ' '), grc = elemento_double(linea, 6, ' ');
                         //sv.simular(it, ios, vsc, vcf, rc, grc);
                         v.visualizar(it, ios, vsc, vcf, rc, grc);
+                        while (dibujando) {}
                     }
                     else
                     {
@@ -137,8 +140,10 @@ using namespace line_parse;
                 {
                     if (grafo != NULL)
                     {
+                        dibujando = true;
                         Visualizador v(*grafo);
                         v.visualizar();
+                        while (dibujando) {};
                     }
                     else
                     {
@@ -212,7 +217,8 @@ using namespace line_parse;
             }
             else if (prim == "salir")
             {
-                break;
+                return; //
+                
             }
             else
             {
@@ -224,15 +230,14 @@ using namespace line_parse;
  
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
-    Grafo g("redPeq.txt");
-    Visualizador vis(g);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(750, 500);
     int winPos = glutGet(GLUT_SCREEN_WIDTH) / 2;
     winPos = 750 / 2;
     glutInitWindowPosition(winPos, 0);
-    glutCreateWindow("");
+    glutCreateWindow("Automata-Celular");
     glutDisplayFunc(Visualizador::display);
+    //glutIdleFunc(Visualizador::idle);
     glutKeyboardFunc(Visualizador::keyboard);
     _beginthread(loop, 0, (void*)0 );
     glutMainLoop();
