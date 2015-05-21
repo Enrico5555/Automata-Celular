@@ -33,6 +33,7 @@ void Simulador::simular(int cntItr, int ios, double vsc, int vcf, double rc, dou
     if (grafo == NULL) return;
     srand(time(NULL));
     int checkeo = vcf;
+    Grafo grafo2(*grafo);
     for (int i = 0; i < ios; i++)
     {
         int id = rand() % grafo->obtTotVrt();
@@ -59,12 +60,12 @@ void Simulador::simular(int cntItr, int ios, double vsc, int vcf, double rc, dou
     {
         for (int j = 0; j < grafo->obtTotVrt(); j++)
         {
-            if (grafo->obtEst(j) == Grafo::I)
+            if (grafo2.obtEst(j) == Grafo::I)
             {
                 int *ady = grafo->obtAdy(j);
                 for (int k = 0; k < grafo->obtCntAdy(j); k++)
                 {
-                    if (grafo->obtEst(ady[k]) != Grafo::R && prob(vsc))
+                    if (grafo2.obtEst(ady[k]) != Grafo::R && prob(vsc))
                     {
                         grafo->modEst(ady[k], Grafo::I);
                     }
