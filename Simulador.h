@@ -19,12 +19,8 @@ class Simulador {
 public:
     
     // EFE: Construye un simulador que transformará al grafo g.
-    Simulador(Grafo* g);
+    Simulador(Grafo& g);
 
-    // EFE: Construye un simulador que transformará al grafo g visualizando
-    //      los cambios de estado por medio de v.
-    //Simulador(Grafo* g);
-    
     // Destruye a *this retornando toda la memoria asignada dinámicamente.
     ~Simulador();
     
@@ -33,10 +29,9 @@ public:
     // EFE: aplica al grafo asociado cntItr transformaciones con base en los 
     //      siguientes parámetros:
     //      cItr > 1000: cantidad de iteraciones.
-    //      ios o initial-outbreak-size [1..N], N cantidad de vértices: cantidad
-    //           de vértices infectados al comienzo de la simulación.
+    //      NOTA: ios se traslada como parámetro a método de Grafo.
     //      vsc o virus-spread-chance [0..0.1]: probabilidad de infección.
-    //      vcf o virus-check-frecuency [1..20]: frecuencia de chequeo antivirus.
+    //      NOTA: vcf se traslada como parámetro a método de Grafo.
     //      rc o recovery-chance [0..0.1]: probabilidad de recuperación de infección.
     //      grc o gain-resistance-chance [0..1]: probabilidad de lograr resistencia.
     //      Aplica la siguiente regla de cambio de estado para los vértices:
@@ -46,12 +41,10 @@ public:
     //         puede recuperarse con probabilidad rc.
     //      3. sólo un vértice recuperado puede ganar resistencia con probabilidad grc.
     //      4. Sólo las transformaciones #2 y #3 pueden ser simultáneas.
-    void simular(int cItr, int ios, double vsc, int vcf, double rc, double grc);
-    
-    void asignarGrafo(Grafo *g);
+    void simular(int cItr, double vsc, double rc, double grc);
     
 private:
-    Grafo *grafo;
+    Grafo& grafo;
 };
 
 #endif	/* SIMULADOR_H */

@@ -1,7 +1,7 @@
-/*
+/* 
  * File:   Visualizador.cpp
  * Author: Alan
- *
+ * 
  * Created on 2 de abril de 2015, 07:42 PM
  */
 
@@ -21,9 +21,10 @@
 #endif
 using namespace std;
 
-Visualizador *Visualizador::ptr;
 
-Visualizador::Visualizador(const Grafo& g, int *argc, char **argv) : grafo(g), simulador(&grafo) {
+//Visualizador *Visualizador::ptr;
+
+Visualizador::Visualizador(Grafo& g, Simulador& s): grafo(g), simulador(s) {
     cntVrt = grafo.obtTotVrt();
     arrAdy = new int [cntVrt];
     posX = new double [cntVrt];
@@ -32,14 +33,33 @@ Visualizador::Visualizador(const Grafo& g, int *argc, char **argv) : grafo(g), s
     this->argc = argc;
     this->argv = argv;
     atragantador();
+    
+    
 }
 
-
 Visualizador::~Visualizador() {
- if (arrAdy != NULL) delete [] arrAdy;
+     if (arrAdy != NULL) delete [] arrAdy;
  if (posX != NULL) delete[] posX;
  if (posY != NULL) delete[] posY;
 }
+
+void Visualizador::visualizar() const {
+    
+}
+
+void Visualizador::visualizar(int cItr, double vsc, double rc, double grc) {
+    simulador.simular(cItr, ios, vsc, vcf, rc, grc);
+    sim = true;
+    info.cItr = cItr;
+    info.grc = grc;
+    info.ios = ios;
+    info.rc = rc;
+    info.vcf = vcf;
+    info.vcfmax = vcf;
+    info.vsc = vsc;
+    visualizar();
+}
+
 
 void Visualizador::visualizar() const {
     glutInit(argc, argv);
@@ -54,19 +74,9 @@ void Visualizador::visualizar() const {
     glutMainLoop();
 }
 
-void Visualizador::visualizar(int cItr, int ios, double vsc, int vcf, double rc, double grc)
-{
-    simulador.simular(cItr, ios, vsc, vcf, rc, grc);
-    sim = true;
-    info.cItr = cItr;
-    info.grc = grc;
-    info.ios = ios;
-    info.rc = rc;
-    info.vcf = vcf;
-    info.vcfmax = vcf;
-    info.vsc = vsc;
-    visualizar();
-}
+
+
+
 
 void Visualizador::simular()
 {

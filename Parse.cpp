@@ -4,6 +4,7 @@
 using namespace std;
 
 namespace line_parse {
+    
     unsigned int cantidad_elementos(const string& linea, char rem)
     {
         unsigned int count = 0;
@@ -25,20 +26,6 @@ namespace line_parse {
         {
             if (str[i] != '\"') res += str[i];
         }
-        /*unsigned int char_count = 0;
-        for (int i = 0; i < str.length(); i++)
-        {
-            if (str[i] == '\"') char_count++;
-        }
-        res.reserve(str.length()-char_count);
-        for (int i = 0, j = 0; i < str.length(); i++)
-        {
-            if (str[i] != '\"') 
-            {
-                res[j] += str[i];
-                j++;
-            }
-        }*/
         return res;
     }
     

@@ -1,4 +1,4 @@
-/*
+/* 
  * File:   Visualizador.h
  * Author: Alan
  *
@@ -8,96 +8,99 @@
 #ifndef VISUALIZADOR_H
 #define	VISUALIZADOR_H
 
-#include "Grafo.h"
 #include "Simulador.h"
+#include "Grafo.h"
 
 class Visualizador {
-    // Permite la visualizaciÛn gr·fica de una instancia de Grafo.
+    // Permite la visualizaci√≥n gr√°fica de una instancia de Grafo.
 
 public:
-    Visualizador(const Grafo& g, int *argc, char **argv);
+    // EFE: construye un visualizador para g.
+    Visualizador(Grafo& g, Simulador& s);
+
     ~Visualizador();
 
-
-    // REQ: que el grafo asociado en el constructor estÈ bien construido.
-    // EFE: muestra gr·ficamente al grafo asociado diferenciando con distintos
-    //      colores los estados de los vÈrtices.
+    // REQ: *this haya sido construido con un grafo y un simulador asociado.
+    // MOD: el grafo asociado por medio del simulador miembro.
+    // EFE: muestra gr√°ficamente al grafo asociado diferenciando con distintos
+    //      colores los estados de los v√©rtices.
     void visualizar() const;
 
     // REQ: *this haya sido construido con un grafo y un simulador asociado.
     // MOD: el grafo asociado por medio del simulador miembro.
-    // EFE: aplica al grafo asociado cntItr transformaciones con base en los
-    //      siguientes par·metros (por medio del simulador asociado):
+    // EFE: aplica al grafo asociado cntItr transformaciones con base en los 
+    //      siguientes par√°metros (por medio del simulador asociado):
     //      cItr > 1000: cantidad de iteraciones.
-    //      ios o initial-outbreak-size [1..N], N cantidad de vÈrtices: cantidad
-    //           de vÈrtices infectados al comienzo de la simulaciÛn.
-    //      vsc o virus-spread-chance [0..0.1]: probabilidad de infecciÛn.
-    //      vcf o virus-check-frecuency [1..20]: frecuencia de chequeo antivirus.
-    //      rc o recovery-chance [0..0.1]: probabilidad de recuperaciÛn de infecciÛn.
+    //      NOTA: ios se traslada como par√°metro a m√©todo de Grafo. 
+    //      vsc o virus-spread-chance [0..0.1]: probabilidad de infecci√≥n.
+    //      NOTA: vcf se traslada como par√°metro a m√©todo de Grafo.
+    //      rc o recovery-chance [0..0.1]: probabilidad de recuperaci√≥n de infecci√≥n.
     //      grc o gain-resistance-chance [0..1]: probabilidad de lograr resistencia.
-    //      Aplica la siguiente regla de cambio de estado para los vÈrtices:
-    //      1. un vÈrtice sÛlo puede ser infectado por alguno de sus vecinos infectados
+    //      Aplica la siguiente regla de cambio de estado para los v√©rtices:
+    //      1. un v√©rtice s√≥lo puede ser infectado por alguno de sus vecinos infectados
     //         con probabilidad vsc.
-    //      2. sÛlo un vÈrtice infectado cuyo temporizador de chequeo de virus est· en cero
+    //      2. s√≥lo un v√©rtice infectado cuyo temporizador de chequeo de virus est√° en cero
     //         puede recuperarse con probabilidad rc.
-    //      3. sÛlo un vÈrtice recuperado puede ganar resistencia con probabilidad grc.
-    //      4. SÛlo las transformaciones #2 y #3 pueden ser simult·neas.
-    // EFE: muestra gr·ficamente al grafo asociado diferenciando con distintos
-    //      colores los estados de los vÈrtices.
-    void visualizar(int cItr, int ios, double vsc, int vcf, double rc, double grc);
+    //      3. s√≥lo un v√©rtice recuperado puede ganar resistencia con probabilidad grc.
+    //      4. S√≥lo las transformaciones #2 y #3 pueden ser simult√°neas.
+    // EFE: muestra gr√°ficamente al grafo asociado diferenciando con distintos
+    //      colores los estados de los v√©rtices.
+    void visualizar(int cItr, double vsc, double rc, double grc);
 
 private:
-    Grafo grafo;
-    
-    void simular();
-        
-    /*Estos son mis metodos*/
+    Grafo& grafo;
+    Simulador& simulador;
 
-    /*Genera una posicion aleatoria para las coordenadas)*/
+
+    void simular();
+
+
+
+    // Genera una posicion aleatoria para las coordenadas)
     double generaPos();
 
-    /* Rellena los vectores con valores generados al azar*/
+    // Rellena los vectores con valores generados al azar
     void atragantador();
 
-    /*Dibuja un circulo a partir del radio y las coordenadas*/
+    // Dibuja un circulo a partir del radio y las coordenadas
     void dibujar_circulo(double radio, double x, double y);
 
-    /*Genera las lineas entre vertices*/
+    // Genera las lineas entre vertices
     void linker(int lineas, int* arrV, int vrt);
 
-    /*Dibuja los circulos, basandose en las posiciones ya generadas */
-    void recurCircles ();
+    // Dibuja los circulos, basandose en las posiciones ya generadas 
+    void recurCircles();
 
-    /*Revisa toda la lista de adyacencia y devuelve el indice del vertice con mas adyacencias*/
+    // Revisa toda la lista de adyacencia y devuelve el indice del vertice con mas adyacencias
     int vrtPopular();
-    
-    /*Asigna el color al circulo, dependiendo de su estado*/
+
+    // Asigna el color al circulo, dependiendo de su estado
     void estadoVrt(int vrt);
-    
-    /*Tipo de main para las figuras*/
+
+    // Tipo de main para las figuras
     static void display(void);
     static void keyboard(unsigned char key, int x, int y);
     static Visualizador *ptr;
-    
+
     int *argc;
     char **argv;
-    
-    /*Variables globales que contienen las posiciones asignadas*/
+
+    // Variables globales que contienen las posiciones asignadas
     int cntVrt = 0;
-    double *posX = NULL;// vector con las posiciones en X
-    double *posY = NULL;// vector con las posiciones en Y
+    double *posX = NULL; // vector con las posiciones en X
+    double *posY = NULL; // vector con las posiciones en Y
     //int numVrt = grafo.obtTotVrt();
     int *arrAdy = NULL;
     Simulador simulador;
-    
-    struct infosim{
+
+    struct infosim {
         int cItr, ios, vcf, vcfmax;
         double vsc, rc, grc;
     };
-    
+
     bool sim = false;
     infosim info;
 };
 
-#endif	/* VISUALIZADOR_H */
 
+#endif	/* VISUALIZADOR_H */
