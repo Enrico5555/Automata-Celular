@@ -6,7 +6,7 @@
  */
 
 #include "Visualizador.h"
-#include<windows.h>
+//#include<windows.h>
 #include <GL/glut.h>
 #include <math.h>
 #include <stdlib.h>     /* srand, rand */
