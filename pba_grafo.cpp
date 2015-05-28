@@ -1,237 +1,138 @@
-/*
- * File:   pba_lstady.cpp
- * Author: Konrad
+/* 
+ * File:   newsimpletest.cpp
+ * Author: konrad
  *
- * Created on Apr 13, 2015, 4:42:18 PM
+ * Created on May 28, 2015, 10:29:12 AM
  */
 
-#include "Grafo.h" 
 #include <stdlib.h>
 #include <iostream>
-#define null 0
+#include "Grafo.h"
+using namespace std;
 
 /*
  * Simple C++ Test Suite
  */
 
 
-/*Construye una red con la cantidad de vértices y el promedio de
-adyacencias por vértice correctos cuando cntVrt == 100 y prmAdy ==15.*/
+//Construye una red con la cantidad de vértices y el promedio de
+//adyacencias por vértice correctos cuando cntVrt == 100 y prmAdy == 15.
+//Construye una red con la cantidad de vértices y el promedio de
+//adyacencias por vértice correctos cuando cntVrt == 1000 y prmAdy == 15.
 
-void testConstGrafo1() {
-    Grafo grafo(100, 15); // prom +- dmeesviac ... +-3 (listo)
-    if (grafo.obtTotVrt() != 100 || !(15 < grafo.obtPrmAdy() < 18)) {
-        std::cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR GRAFO 1 (newsimpletest) message=error message sample" << std::endl;
-    }
-}
-
-/*Construye una red con la cantidad de vértices y el promedio de
-adyacencias por vértice correctos cuando cntVrt == 1000 y prmAdy ==15.*/
-void testConstGrafo2() {
-    Grafo grafo(1000, 15); // prom +- desviac ... +-3 (listo)
-    if (grafo.obtTotVrt() != 1000 || !(15 < grafo.obtPrmAdy() < 18)) {
-        std::cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR GRAFO 2 (newsimpletest) message=error message sample" << std::endl;
+void testConstructorGrafo() {
+    int cntVrt;
+    int prbAdy;
+    Grafo grafo(cntVrt, prbAdy);
+    Grafo grafo2(cntVrt, prbAdy);
+    if (grafo.obtTotVrt() != 100 || grafo2.obtTotVrt() != 100 || !(grafo.obtTotAdy() <= 15) || !(grafo2.obtTotAdy() <= 15)) {
+        cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR DEL GRAFO(newsimpletest) message=ereror message sample" << endl;
     }
 }
 
 //Construye una copia idéntica a Grafo(100,15).
-void testConstCopiasGrafo1() {
-    Grafo orig(100, 15); // construyo orig
-    Grafo grafo(orig);// copio orig
-    if (!(orig == grafo)) {
-        std::cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR DE COPIAS 1 (newsimpletest) message=error message sample" << std::endl;
-    }
-}
-
 //Construye una copia idéntica a Grafo(1000,15).
-void testConstCopiasGrafo2() {
-    Grafo orig(1000, 15); 
-    Grafo grafo(orig); 
-    if (!(orig == grafo)) { 
-        std::cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR DE COPIAS 2 (newsimpletest) message=error message sample" << std::endl;
+
+void testConstructCopias() {
+    const Grafo& orig;
+    Grafo grafo(orig);
+    const Grafo& orig2;
+    Grafo grafo2(orig2);
+    if (grafo != orig || grafo2 != orig2) {
+        cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR DE COPIAS (newsimpletest) message=error message sample" << endl;
     }
 }
 
-//Construye el grafo correcto con el “redMuyPeq.txt”
-void testConstGrafoString1() {
-    string nArch = "redMuyPeq.txt";
-    Grafo grafo(nArch); 
-    /*int a[] = {9}; // comparac cantidad y promedio que este en el rango correcto
-    int* b = grafo.obtAdy(9);*/
-    if (!(grafo.obtTotVrt() == 10) || (grafo.obtCntAdy(8) == 0)){ // || (b[0] == a[0])) {
-        std::cout << "%TEST_FAILED% FALLO EL METODO STRING 1 (newsimpletest) message=error message sample" << std::endl;
-    }
-    //delete []b;
-}
+//Construye el grafo correcto con el “redMuyPeq.txt”.
+//Construye el grafo correcto con el “redPeq.txt”.
 
-//Construye el grafo correcto con el “redGrn.txt”.
-void testConstGrafoString2() {
-    string nArch = "redGrn.txt";
-    Grafo grafo(nArch);
-    if (!(grafo.obtTotVrt() == 1000) || (grafo.obtCntAdy(12) == 54)) {
-        std::cout << "%TEST_FAILED% FALLO EL METODO STRING 2 (newsimpletest) message=error message sample" << std::endl;
-    }
-}
-
-//Retorna true cuando el vértice existe.
-void testXstVrt1() {
-    int vrt = 1;
-    Grafo grafo(10, 1); // Devuelve true si vrt esta entre 0 y cntVrt
-    bool res = grafo.xstVrt(vrt); 
-    if (!(res == true)) { 
-        std::cout << "%TEST_FAILED% FALLO EL METODO XstVrt1 (newsimpletest) message=error message sample" << std::endl;
-    }
-}
-
-//Retorna false cuando no existe el vértice
-void testXstVrt2() {    
-    int vrt = 11;
-    Grafo grafo(10, 1); 
-    bool res = grafo.xstVrt(vrt);
-    if (!(res == false)) { // 
-        std::cout << "%TEST_FAILED% FALLO EL METODO XstVrt2 (newsimpletest) message=error message sample" << std::endl;
-    }
-}
-
-//Retorna true cuando la adyacencia sí existe.
-void testXstAdy1() {
-    int vrtO = 1, vrtD = 9;
+void testConstructorString() {
     Grafo grafo("redMuyPeq.txt");
-    bool res = grafo.xstAdy(vrtO, vrtD);
-    if (!(res == true)) {
-        std::cout << "%TEST_FAILED% FALLO EL METODO XstAdy1 (newsimpletest) message=error message sample" << std::endl;
+    Grafo grafo2("redPeq.txt");
+    if (grafo.obtTotVrt() != 10 || grafo2.obtTotVrt() != 100 || grafo.obtAdy(0)[0] != 8 || grafo2.obtAdy()[0] != 2) {
+        cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR A PARTIR DEL STRING (newsimpletest) message=error message sample" << endl;
     }
 }
 
-//Retorna false cuando la adyacencia no existe.
-void testXstAdy2() {
-    int vrtO = 1,vrtD = 5;
-    Grafo grafo("redMuyPeq.txt"); // usar el pequueño
-    bool res = grafo.xstAdy(vrtO, vrtD);
-    if (!(res == false)) {
-        std::cout << "%TEST_FAILED% FALLO EL METODO XstAdy2 (newsimpletest) message=error message sample" << std::endl;
 
+//void infectar(int ios) efectivamente “infecta” la cantidad correcta de vértices
+
+void testInfectar() {
+    Grafo grafo("redMuyPeq.txt");
+    grafo.infectar(5);
+    int cont;
+    for(int i=0;i<10;i++) if(grafo.obtEst(i)== Grafo::I)cont++;
+    if (cont != 5) {
+        cout << "%TEST_FAILED% FALLO EL METODO Infectar (newsimpletest) message=error message sample" << endl;
     }
 }
 
-//Retorna un apuntador nulo (cero o NULL) cuando la lista de adyacencias está vacía. 
-void testObtAdy1() {
-    int vrt = 0;
-    Grafo grafo("redMuyPeq.txt"); 
-    int* res = grafo.obtAdy(vrt);
-    if (!(res == NULL)) {
-        std::cout << "%TEST_FAILED% FALLO EL METODO ObtAdy1  (newsimpletest) message=error message sample" << std::endl;
+//void azarizarTmpChqVrs(int vcf) efectivamente asigna valores 
+//iniciales al temporizador de chequeo en el rango [1..vcf] para todos los vértices.
+
+void testAzarizarTmpChqVrs() {
+    int vcf = 1;
+    Grafo grafo;
+    grafo.azarizarTmpChqVrs(vcf);
+    if (grafo.obtTmpChqVrs(0) != 1) {
+        cout << "%TEST_FAILED% FALLO EL METODO AzarizarTmpChqVrs (newsimpletest) message=error message sample" << endl;
     }
-    delete[] res;
 }
 
-/*Retorna un apuntador a un arreglo de N posiciones cuando la lista de adyacencias 
-tiene N elementos (basarse en Grafo(“grafo_pequenyo.txt”)*/
-void testObtAdy2() {
-    int vrt = 5;
-    Grafo grafo("redMuyPeq.txt"); 
-    int* res = grafo.obtAdy(vrt);   
-    if (!(res[0] == 2)) {
-        std::cout << "%TEST_FAILED% FALLO EL METODO ObtAdy2  (newsimpletest) message=error message sample" << std::endl;
-    }
-    delete[] res ;
-}
+//Genera el valor correcto con un grafo muy pequeño.
 
-
-// Genera el valor correcto con el “grafo_pequenyo.txt”.
-void testPromLongCmnsCrts1() {
+void testPromLongCmnsCrts() {
     Grafo grafo("redMuyPeq.txt");
     double res = grafo.promLongCmnsCrts();
-    if (!(0.4>res > 0)) { // falta añadir el valor
-        std::cout << "%TEST_FAILED% FALLO EL METODO PromLongCmnsCrts1 (newsimpletest) message=error message sample" << std::endl;
-   }
-}
-
-// Genera el valor correcto con el “grafo_grande.txt”.
-void testPromLongCmnsCrts2() {
-    Grafo grafo("redGrn.txt");
-    double res = grafo.promLongCmnsCrts();
-    if (!(res <= 0.311111)) { // falta añadir el valor
-        std::cout << "%TEST_FAILED% FALLO EL METODO PromLongCmnsCrts2 (newsimpletest) message=error message sample" << std::endl;
+    if (!(0.4 > res > 0)) {
+        cout << "%TEST_FAILED% FALLO EL METODO PromLongCmnsCrts(newsimpletest) message=error message sample" << endl;
     }
 }
 
-//El vértice indicado del “grafo_pequenyo.txt”.
-void testCoeficienteAgrupamiento1() {
-    int vrt = 0;
+//Genera el valor correcto para el vértice indicado de un grafo muy pequeño.
+
+void testCoeficienteAgrupamiento() {
     Grafo grafo("redMuyPeq.txt");
-    double res = grafo.coeficienteAgrupamiento(vrt);
+    double res = grafo.coeficienteAgrupamiento(0);
     if (!(res == 1)) {
-        std::cout << "%TEST_FAILED% FALLO EL METODO CoeficienteAgrupamiento1 (newsimpletest) message=error message sample" << std::endl;
+        std::cout << "%TEST_FAILED% FALLO EL METODO CoeficienteAgrupamiento (newsimpletest) message=error message sample" << std::endl;
     }
 }
 
 int main(int argc, char** argv) {
-    std::cout << "%SUITE_STARTING% newsimpletest" << std::endl;
-    std::cout << "%SUITE_STARTED%" << std::endl;
+    cout << "%SUITE_STARTING% newsimpletest" << endl;
+    cout << "%SUITE_STARTED%" << endl;
 
-    std::cout << "%TEST_STARTED% tesConstGrafo1(newsimpletest)" << std::endl;
-    testConstGrafo1();
-    std::cout << "%TEST_FINISHED% time=0 testConstGrafo1 (newsimpletest)" << std::endl;
+    cout << "%TEST_STARTED% testConstructorGrafo (newsimpletest)" << endl;
+    testConstructorGrafo();
+    cout << "%TEST_FINISHED% testConstructorGrafo (newsimpletest)" << endl;
 
-    std::cout << "%TEST_STARTED% testConstGrafo2 (newsimpletest)" << std::endl;
-    testConstGrafo2();
-    std::cout << "%TEST_FINISHED% time=0 testConstGrafo2(newsimpletest)" << std::endl;
+    cout << "%TEST_STARTED% testConstructCopias(newsimpletest)" << endl;
+    testConstructCopias();
+    cout << "%TEST_FINISHED% testConstructCopias (newsimpletest)" << endl;
 
-    std::cout << "%TEST_STARTED% testConstCopiasGrafo1 (newsimpletest)" << std::endl;
-   testConstCopiasGrafo1();
-    std::cout << "%TEST_FINISHED% time=0 testConstCopiasGrafo1 (newsimpletest)" << std::endl;
+    cout << "%TEST_STARTED% testConstructorString (newsimpletest)" << endl;
+    testConstructorString();
+    cout << "%TEST_FINISHED% testConstructorString (newsimpletest)" << endl;
 
-    std::cout << "%TEST_STARTED% testConstCopiasGrafo2 (newsimpletest)" << std::endl;
-    testConstCopiasGrafo2();
-    std::cout << "%TEST_FINISHED% time=0 testConstCopiasGrafo2 (newsimpletest)" << std::endl;
+    cout << "%TEST_STARTED% testInfectar (newsimpletest)" << endl;
+    testInfectar();
+    cout << "%TEST_FINISHED% testInfectar (newsimpletest)" << endl;
 
-    std::cout << "%TEST_STARTED% testConstGrafoString1(newsimpletest)" << std::endl;
-    testConstGrafoString1();
-    std::cout << "%TEST_FINISHED% time=0 testConstGrafoString1 (newsimpletest)" << std::endl;
+    cout << "%TEST_STARTED% testAzarizarTmpChqVrs (newsimpletest)" << endl;
+    testAzarizarTmpChqVrs();
+    cout << "%TEST_FINISHED% testAzarizarTmpChqVrs (newsimpletest)" << endl;
 
-    std::cout << "%TEST_STARTED% testConstGrafoString2(newsimpletest)" << std::endl;
-    testConstGrafoString2();
-    std::cout << "%TEST_FINISHED% time=0 testConstGrafoString2 (newsimpletest)" << std::endl;
+    cout << "%TEST_STARTED% testPromLongCmnsCrts (newsimpletest)" << endl;
+    testPromLongCmnsCrts();
+    cout << "%TEST_FINISHED% testPromLongCmnsCrts (newsimpletest)" << endl;
 
-    std::cout << "%TEST_STARTED% testXstVrt1 (newsimpletest)" << std::endl;
-    testXstVrt1();
-    std::cout << "%TEST_FINISHED% time=0 testXstVrt1 (newsimpletest)" << std::endl;
+    cout << "%TEST_STARTED% testCoeficienteAgrupamiento (newsimpletest)" << endl;
+    testCoeficienteAgrupamiento();
+    cout << "%TEST_FINISHED% testCoeficienteAgrupamiento (newsimpletest)" << endl;
 
-    std::cout << "%TEST_STARTED% testXstVrt2 (newsimpletest)" << std::endl;
-    testXstVrt2();
-    std::cout << "%TEST_FINISHED% time=0 testXstVrt2 (newsimpletest)" << std::endl;
-
-    std::cout << "%TEST_STARTED% testXstAdy1 (newsimpletest)" << std::endl;
-    testXstAdy1();
-    std::cout << "%TEST_FINISHED% time=0 testXstAdy1 (newsimpletest)" << std::endl;
-
-    std::cout << "%TEST_STARTED% testXstAdy2 (newsimpletest)" << std::endl;
-    testXstAdy2();
-    std::cout << "%TEST_FINISHED% time=0 testXstAdy2 (newsimpletest)" << std::endl;
-
-  /*  std::cout << "%TEST_STARTED% testObtAdy1 (newsimpletest)" << std::endl;
-    testObtAdy1();
-    std::cout << "%TEST_FINISHED% time=0 testObtAdy1 (newsimpletest)" << std::endl;*/
-
-    std::cout << "%TEST_STARTED% testObtAdy2 (newsimpletest)" << std::endl;
-    testObtAdy2();
-    std::cout << "%TEST_FINISHED% time=0 testObtAdy2 (newsimpletest)" << std::endl;
-
-    std::cout << "%TEST_STARTED% testPromLongCmnsCrts1 (newsimpletest)" << std::endl;
-    testPromLongCmnsCrts1();
-    std::cout << "%TEST_FINISHED% time=0 testPromLongCmnsCrts1 (newsimpletest)" << std::endl;
-
-    std::cout << "%TEST_STARTED% testPromLongCmnsCrts2 (newsimpletest)" << std::endl;
-    testPromLongCmnsCrts2();
-    std::cout << "%TEST_FINISHED% time=0 testPromLongCmnsCrts2 (newsimpletest)" << std::endl;
-
-    std::cout << "%TEST_STARTED% testCoeficienteAgrupamiento1 (newsimpletest)" << std::endl;
-    testCoeficienteAgrupamiento1();
-    std::cout << "%TEST_FINISHED% time=0 testCoeficienteAgrupamiento1 (newsimpletest)" << std::endl;
-
-    std::cout << "%SUITE_FINISHED% time=0" << std::endl;
+    cout << "%SUITE_FINISHED% time=0" << endl;
 
     return (EXIT_SUCCESS);
-
 }
+
