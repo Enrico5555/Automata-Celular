@@ -141,7 +141,7 @@ Grafo::Grafo(string nArch) {
     }
 
     int Grafo::obtTmpChqVrs(int vrt) const {
-
+        return curr->tmpChqVrs;
     }
 
     double Grafo::promLongCmnsCrts() const {
