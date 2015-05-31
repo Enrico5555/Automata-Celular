@@ -5,10 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>Grafo.h</itemPath>
-      <itemPath>LstAdy.h</itemPath>
       <itemPath>Parse.h</itemPath>
-      <itemPath>Simulador.h</itemPath>
-      <itemPath>Visualizador.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -18,10 +15,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>Grafo.cpp</itemPath>
-      <itemPath>LstAdy.cpp</itemPath>
       <itemPath>Parse.cpp</itemPath>
-      <itemPath>Simulador.cpp</itemPath>
-      <itemPath>Visualizador.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -59,21 +53,9 @@
       </item>
       <item path="Grafo.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="LstAdy.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="LstAdy.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Parse.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Parse.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Simulador.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Simulador.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Visualizador.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Visualizador.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>
@@ -117,21 +99,9 @@
       </item>
       <item path="Grafo.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="LstAdy.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="LstAdy.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Parse.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Parse.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Simulador.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Simulador.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Visualizador.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Visualizador.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>
