@@ -133,7 +133,7 @@ private:
         int tmpChqVrs; // representa el temporizador de chequeo de virus
         int cntChqVrs; // representa el contador de chequeo de virus: va de 0 a tmpChqVrs
         // Escoja entre <vector>, <list> y <forward_list> para representar la lista de adyacencias del vértice.
-        list<int> LstAdy;
+        list<int> lstAdy;
         NdoVrt(): e(S), tmpChqVrs(1){};
         // No va a ser necesario un destructor porque ahora todo se manejará automáticamente
     };

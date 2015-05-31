@@ -31,39 +31,36 @@ using namespace line_parse;
 Grafo::Grafo(int cntVrt, int prbAdy) {
     if ((cntVrt >= 10) && (0 <= prbAdy < 1)) {
         this->cntVrt = cntVrt;
-        // for(int i=0;i<cntVrt;i++) arrVrt.push_back()
-        arrVrt.resize(cntVrt);
+        arrVrt.resize(this->cntVrt);
         srand(time(NULL));
         default_random_engine generador(rand());
         normal_distribution<double> distribucion(prbAdy, 2.0);
-        //int i=0;
-        for (int i=0; i < cntVrt; i++) {
+        NdoVrt *curr = new NdoVrt;
+      //  std::list<int>::iterator it;
+        for (int i = 0; i < this->cntVrt; i++) {
             int rnum = distribucion(generador);
             if (!xstAdy(i, rnum) && xstVrt(rnum)) {
-              //  lstAdy
-                arrVrt[i].lstAdy.agr(rnum);
-                arrVrt[rnum].lstAdy.agr(i);
-
+                 curr->lstAdy.insert(arrVrt[i],rnum);
+                 curr->lstAdy.insert(arrVrt[rnum],i);
             }
         }
     }
-
-
 }
 
 Grafo::Grafo(const Grafo& orig) {
-    //    if (orig.cntVrt > 0) {
-    //        cntVrt = orig.cntVrt;
-    //        arrVrt = new NdoVrt[cntVrt];
-    //        for (int i = 0; i < cntVrt; i++) {
-    //            arrVrt[i].e = orig.arrVrt[i].e;
-    //            arrVrt[i].tmpChqVrs = orig.arrVrt[i].tmpChqVrs;
-    //            int *ady = orig.arrVrt[i].lstAdy.obtAdy();
-    //            for (int j = 0; j < orig.arrVrt[i].lstAdy.obtCntAdy(); j++) {
-    //                arrVrt[i].lstAdy.agr(ady[j]);
-    //            }
-    //            delete[] ady;
-    //        }
+    if (orig.cntVrt > 0) {
+        //        cntVrt = orig.cntVrt;
+        //        arrVrt = new NdoVrt[cntVrt];
+        //        for (int i = 0; i < cntVrt; i++) {
+        //            arrVrt[i].e = orig.arrVrt[i].e;
+        //            arrVrt[i].tmpChqVrs = orig.arrVrt[i].tmpChqVrs;
+        //            int *ady = orig.arrVrt[i].lstAdy.obtAdy();
+        //            for (int j = 0; j < orig.arrVrt[i].lstAdy.obtCntAdy(); j++) {
+        //                arrVrt[i].lstAdy.agr(ady[j]);
+        //            }
+        //            delete[] ady;
+        //        }
+    }
 }
 
 Grafo::Grafo(string nArch) {
