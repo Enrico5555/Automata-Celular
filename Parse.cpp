@@ -3,6 +3,10 @@
 #include <stdlib.h>     /* atof */
 using namespace std;
 
+int cantidadVertices;
+double promedioAdy;
+size_t pos;
+
 namespace line_parse {
 
     unsigned int cantidad_elementos(const string& linea, char rem) {
@@ -54,9 +58,9 @@ namespace line_parse {
     void sacaDatos(string data) {
         pos = data.find(" ");
         string buffer = data.substr(0, pos);
-        cantidadVertices = atoi(buffer);
-        buffer = data.substr(pos, data.size());
-        promedioAdy = atof(buffer);
+        cantidadVertices = atoi(buffer.c_str());
+        buffer = data.substr(pos+1, data.size());
+        promedioAdy = atof(buffer.c_str());
     }
 
 

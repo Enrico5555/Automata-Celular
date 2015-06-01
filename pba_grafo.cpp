@@ -34,11 +34,11 @@ void testConstructorGrafo() {
 //Construye una copia idéntica a Grafo(1000,15).
 
 void testConstructCopias() {
-    const Grafo& orig;
+    Grafo orig(100,15);
     Grafo grafo(orig);
-    const Grafo& orig2;
+    Grafo orig2(1000,15);
     Grafo grafo2(orig2);
-    if (grafo != orig || grafo2 != orig2) {
+    if (!(grafo == orig) && !(grafo2 == orig2)) {
         cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR DE COPIAS (newsimpletest) message=error message sample" << endl;
     }
 }
@@ -49,7 +49,7 @@ void testConstructCopias() {
 void testConstructorString() {
     Grafo grafo("redMuyPeq.txt");
     Grafo grafo2("redPeq.txt");
-    if (grafo.obtTotVrt() != 10 || grafo2.obtTotVrt() != 100 || grafo.obtAdy(0)[0] != 8 || grafo2.obtAdy()[0] != 2) {
+    if (grafo.obtTotVrt() != 10 || grafo2.obtTotVrt() != 100 || grafo.obtAdy(0)[0] != 8 || grafo2.obtAdy(0)[0] != 2) {
         cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR A PARTIR DEL STRING (newsimpletest) message=error message sample" << endl;
     }
 }
@@ -72,7 +72,7 @@ void testInfectar() {
 
 void testAzarizarTmpChqVrs() {
     int vcf = 1;
-    Grafo grafo;
+    Grafo grafo(10,10);
     grafo.azarizarTmpChqVrs(vcf);
     if (grafo.obtTmpChqVrs(0) != 1) {
         cout << "%TEST_FAILED% FALLO EL METODO AzarizarTmpChqVrs (newsimpletest) message=error message sample" << endl;

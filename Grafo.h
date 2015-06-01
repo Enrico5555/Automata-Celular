@@ -68,6 +68,11 @@ public:
     // REQ: que exista en *this un vértice con índice vrt.
     // EFE: retorna el estado del vértice con índice vrt.
     E obtEst(int vrt) const;
+    
+    
+    // EFE: retorna true si grf es idéntico a *this y false en caso contrario.
+    //      Compara vértice a vértice según su índice.
+    bool operator==(const Grafo& grf) const;
 
     // REQ: que exista en *this un vértice con índice vrt.
     // EFE: retorna el valor del temporizador de chequeo de antivirus del vértice con índice vrt.
@@ -125,7 +130,7 @@ public:
     //      vcf o virus-check-frecuency: frecuencia máxima de chequeo antivirus.
     void azarizarTmpChqVrs(int vcf);
     
-    int **Grafo::Floyd_Warshall() const;
+    int **Floyd_Warshall() const;
     
 private:
     struct NdoVrt {
@@ -133,7 +138,7 @@ private:
         int tmpChqVrs; // representa el temporizador de chequeo de virus
         int cntChqVrs; // representa el contador de chequeo de virus: va de 0 a tmpChqVrs
         // Escoja entre <vector>, <list> y <forward_list> para representar la lista de adyacencias del vértice.
-        list<int> lstAdy;
+        vector <int> lstAdy;
         NdoVrt(): e(S), tmpChqVrs(1){};
         // No va a ser necesario un destructor porque ahora todo se manejará automáticamente
     };
@@ -141,8 +146,7 @@ private:
     int cntVrt; // representa la cantidad total de vértices
     double prmAdy;
     // Escoja entre <vector>, <map> y <unordered_map> en lugar del arreglo de nodos de vértices.
-    vector<int>arrVrt;
-    NdoVrt *curr;
+    vector<NdoVrt>arrVrt;
 
     void modEstados(vector<NdoVrt>& stdAct);
 };

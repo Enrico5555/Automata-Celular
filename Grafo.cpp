@@ -39,8 +39,8 @@ Grafo::Grafo(int cntVrt, int prbAdy) {
         for (int i = 0; i < this->cntVrt; i++) {
             int rnum = distribucion(generador);
             if (!xstAdy(i, rnum) && xstVrt(rnum)) {
-                curr->lstAdy.insert(arrVrt[i], rnum);
-                curr->lstAdy.insert(arrVrt[rnum], i);
+                arrVrt[i].lstAdy.push_back(rnum);
+                arrVrt[rnum].lstAdy.push_back(i);
             }
         }
     }
@@ -51,14 +51,11 @@ Grafo::Grafo(const Grafo& orig) {
         this->cntVrt = orig.cntVrt;
         arrVrt.resize(this->cntVrt);
         for (int i = 0; i < this->cntVrt; i++) {
-            curr->e = orig.E;
-            curr->tmpChqVrs = orig.obtTmpChqVrs(i);
-            // curr->lstAdy[i] = orig.arrVrt[i];
-            std::vector<int> myvector(orig.arrVrt[i]);
-            std::list<int>::iterator it;
-            it = curr->lstAdy.begin();
-            curr->lstAdy.insert(it, vector.begin(), vector.end());
-
+            arrVrt[i].e = orig.obtEst(i);
+            arrVrt[i].tmpChqVrs = orig.obtTmpChqVrs(i);
+            arrVrt[i].cntChqVrs = orig.arrVrt[i].cntChqVrs;
+            for (int j = 0; j < arrVrt.size(); j++) 
+                arrVrt[i].lstAdy.push_back(orig.arrVrt[i].lstAdy[j]);
         }
     }
 }
@@ -68,7 +65,7 @@ Grafo::Grafo(string nArch) {
     file.open(nArch.c_str(), ios::in);
     if (file.is_open() && file.good()) {
         char line[256];
-        // memset(&line, 0, 256);
+        memset(&line, 0, 256);//poner memoria en 0
         file.getline(line, 256); //primera linea
         string inits = line;
         sacaDatos(inits);
@@ -78,17 +75,15 @@ Grafo::Grafo(string nArch) {
         arrVrt.resize(cntVrt);
         int count = 0;
         while (!file.eof() && count < cntVrt) {
-            memset(&line, 0, 256);
+            memset(&line, 0, 256); //volver a poner en 0 el char
             file.getline(line, 256);
             string linea = line;
             size_t cant = cantidad_elementos(linea);
             if (cant > 0) {
-                // arrVrt[count].e = S;
-                // curr->lstAdy[i] = orig.arrVrt[i];
-                std::vector<int> vect(arrVrt[count]);
-                std::list<int>::iterator it;
-                it = curr->lstAdy.begin();
-                curr->lstAdy.insert(it, vect.begin(), vect.end());
+            arrVrt[count].e = S;
+           arrVrt[count].tmpChqVrs = 0;
+           arrVrt[count].cntChqVrs = 0;
+              for (int j = 0; j < cant; j++)  arrVrt[count].lstAdy.push_back(elemento(linea, j));
                 count++;
             }
             return;
@@ -110,16 +105,18 @@ Grafo::Grafo(string nArch) {
     bool Grafo::xstAdy(int vrtO, int vrtD) const {
         if (xstVrt(vrtO) && xstVrt(vrtD)) // Comprueba que el indice del vertice existe
         {
-            int cantidad_adyacencias = arrVrt[vrtO].lstAdy.obtCntAdy();
+            int cantidad_adyacencias = arrVrt[vrtO].lstAdy.size();
             if (cantidad_adyacencias == 0) return false; // No hay adyacencias, por lo tanto la adyacencia no existe
-            return arrVrt[vrtO].lstAdy.bus(vrtD);
+            for (int i = 0; i < arrVrt[vrtO].lstAdy.size(); i++) {
+            if (arrVrt[vrtO].lstAdy[i] == vrtD) return true;
+            }
+            return false;
         }
         return false; // No se encontro adyacencia o el vertice no existe
-
     }
 
     vector<int>& Grafo::obtAdy(int vrt) const {
-        return (curr->lstAdy[vrt]);
+        
     }
 
     int Grafo::obtTotVrt() const {
@@ -129,7 +126,7 @@ Grafo::Grafo(string nArch) {
     int Grafo::obtTotAdy() const {
         int cant = 0;
         for (int i = 0; i < cntVrt; i++) {
-            cant += arrVrt[i].lstAdy.obtCntAdy();
+            cant += arrVrt[i].lstAdy.size();
         }
         return cant;
     }
@@ -140,8 +137,26 @@ Grafo::Grafo(string nArch) {
         }
     }
 
+    bool Grafo::operator==(const Grafo& grf) const {
+    if (this->cntVrt != grf.cntVrt) return false;
+    for (int i = 0; i < this->cntVrt; i++)
+    {
+        if (arrVrt[i].lstAdy.size() != grf.arrVrt[i].lstAdy.size()) return false;
+        vector<int>ady = obtAdy(i), adygrf = grf.obtAdy(i);
+        for (int j = 0; j < arrVrt[i].lstAdy.size(); j++)
+        {
+            if (ady[j] != adygrf[j])
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+    
+    
     int Grafo::obtTmpChqVrs(int vrt) const {
-        return curr->tmpChqVrs;
+        return arrVrt[vrt].tmpChqVrs;
     }
 
     double Grafo::promLongCmnsCrts() const {
@@ -189,16 +204,14 @@ Grafo::Grafo(string nArch) {
     }
 
     double Grafo::centralidadIntermedial(int vrt) const {
-
-
     }
 
     double Grafo::coeficienteAgrupamiento(int vrt) const {
         if (xstVrt(vrt)) {
-            double cant = (double) obtAdy(vrt), triangles = 0.0;
+            double cant = (double) arrVrt[vrt].lstAdy.size(), triangles = 0.0;
             if (cant == 0 || cant == 1) return 0;
             double t_g = (cant * (cant - 1)) / 2;
-            int *ady = obtAdy(vrt);
+            vector<int>ady = obtAdy(vrt);
             for (int i = 0; i < cant; i++) {
                 for (int j = i + 1; j < cant; j++) {
                     if (xstAdy(ady[i], ady[j])) {
@@ -206,7 +219,6 @@ Grafo::Grafo(string nArch) {
                     }
                 }
             }
-            delete[] ady;
             return (triangles / t_g);
         }
         return 0;
@@ -219,25 +231,44 @@ Grafo::Grafo(string nArch) {
     }
 
     void Grafo::modTmpChqVrs(int vrt, int nt) {
-
-
+        if(xstVrt(vrt)) arrVrt[vrt].tmpChqVrs = nt;   
     }
 
     void Grafo::actCntChqVrs(int vrt) {
+           if(xstVrt(vrt)&& arrVrt[vrt].cntChqVrs == arrVrt[vrt].tmpChqVrs)
+               arrVrt[vrt].cntChqVrs = 0;
+           else {
+               arrVrt[vrt].cntChqVrs++;
+           }
+}
 
-
+void Grafo::infectar(int ios) {
+    if (ios < obtTotVrt()) {
+        vector<int>infectemos;
+        int randy;
+        bool esta = true;
+        for (int i = 0; i < ios; i++) {
+            while (esta) {
+               randy = rand() % obtTotVrt();
+                esta = false;
+                for (int j = 0; j < infectemos.size(); j++) {
+                    if(infectemos[j] == randy) esta = true;
+                }
+            }
+            infectemos.push_back(randy);
+            esta = true;
+        }
     }
+}
 
-    void Grafo::infectar(int ios) {
 
+void Grafo::azarizarTmpChqVrs(int vcf) {
+    int randy;
+    for (int i = 0; i < obtTotVrt(); i++) {
+        randy = rand() % vcf + 1;
+        arrVrt[i].cntChqVrs = randy;
     }
-
-    void Grafo::azarizarTmpChqVrs(int maxTmp) {
-
-
-    }
+}
 
     void Grafo::modEstados(vector<NdoVrt>& stdAct) {
-
-
     }
