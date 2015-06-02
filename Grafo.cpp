@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   Grafo.cpp
  * Author: Alan
- * 
+ *
  * Created on 2 de abril de 2015, 02:25 PM
  */
 
@@ -28,8 +28,8 @@ using namespace line_parse;
 
 #include "Grafo.h"
 
-Grafo::Grafo(int cntVrt, int prbAdy) {
-    if ((cntVrt >= 10) && (0 <= prbAdy < 1)) {
+Grafo::Grafo(int cntVrt, int prbAdy){//, int prbAdy) {
+    if (cntVrt >= 10){// && (0 <= prbAdy < 1)) {
         this->cntVrt = cntVrt;
         arrVrt.resize(cntVrt);
         srand(time(NULL));
@@ -54,7 +54,7 @@ Grafo::Grafo(const Grafo& orig) {
             arrVrt[i].e = orig.obtEst(i);
             arrVrt[i].tmpChqVrs = orig.obtTmpChqVrs(i);
             arrVrt[i].cntChqVrs = orig.arrVrt[i].cntChqVrs;
-            for (int j = 0; j < arrVrt.size(); j++) 
+            for (int j = 0; j < arrVrt.size(); j++)
                 arrVrt[i].lstAdy.push_back(orig.arrVrt[i].lstAdy[j]);
         }
     }
@@ -116,7 +116,7 @@ Grafo::Grafo(string nArch) {
     }
 
     vector<int>& Grafo::obtAdy(int vrt) const {
-        
+
     }
 
     int Grafo::obtTotVrt() const {
@@ -153,8 +153,8 @@ Grafo::Grafo(string nArch) {
     }
     return true;
 }
-    
-    
+
+
     int Grafo::obtTmpChqVrs(int vrt) const {
         return arrVrt[vrt].tmpChqVrs;
     }
@@ -231,7 +231,7 @@ Grafo::Grafo(string nArch) {
     }
 
     void Grafo::modTmpChqVrs(int vrt, int nt) {
-        if(xstVrt(vrt)) arrVrt[vrt].tmpChqVrs = nt;   
+        if(xstVrt(vrt)) arrVrt[vrt].tmpChqVrs = nt;
     }
 
     void Grafo::actCntChqVrs(int vrt) {
