@@ -62,8 +62,8 @@ void testInfectar() {
     Grafo grafo("redMuyPeq.txt");
     grafo.infectar(5);
     int cont = 0;
-    for(int i=0;i<grafo.obtTotAdy();i++) {
-        if(grafo.obtEst(i)== Grafo::I) cont++;
+    for(int i=0;i<grafo.obtTotVrt();i++) {
+        if(grafo.obtEst(i)==Grafo::I) cont++;
     }
     if (cont != 5) {
         std::cout << "%TEST_FAILED% FALLO EL METODO Infectar (newsimpletest) message=error message sample" << std::endl;
@@ -72,10 +72,10 @@ void testInfectar() {
 
 //void azarizarTmpChqVrs(int vcf) efectivamente asigna valores
 //iniciales al temporizador de chequeo en el rango [1..vcf] para todos los vértices.
-
+//ARREGLAR!!
 void testAzarizarTmpChqVrs() {
     int vcf = 1;
-    Grafo grafo(10,10);
+    Grafo grafo(10,0.5);
     grafo.azarizarTmpChqVrs(vcf);
     if (grafo.obtTmpChqVrs(0) != 1) {
         std::cout << "%TEST_FAILED% FALLO EL METODO AzarizarTmpChqVrs (newsimpletest) message=error message sample" << std::endl;
@@ -103,8 +103,6 @@ void testCoeficienteAgrupamiento() {
 }
 
 int main(int argc, char** argv) {
-    // Grafo grafo(100,0.5);
-    //std::cout<< "el total de vertices del grafo es " << grafo.obtTotVrt()<< std::endl;
 
     std::cout << "%SUITE_STARTING% newsimpletest" << std::endl;
     std::cout << "%SUITE_STARTED%" << std::endl;
@@ -112,10 +110,6 @@ int main(int argc, char** argv) {
     std::cout << "%TEST_STARTED% testConstructorGrafo (newsimpletest)" << std::endl;
     testConstructorGrafo();
     std::cout << "%TEST_FINISHED% testConstructorGrafo (newsimpletest)" << std::endl;
-
-
-   //Grafo grafostr("redMuyPeq.txt");
-  //  std::cout<< grafostr.obtTotVrt()<< endl;
 
     /*cout << "%TEST_STARTED% testConstructCopias(newsimpletest)" << endl
     testConstructCopias();
@@ -129,7 +123,7 @@ int main(int argc, char** argv) {
     testInfectar();
     cout << "%TEST_FINISHED% testInfectar (newsimpletest)" << endl;
 
-/*    cout << "%TEST_STARTED% testAzarizarTmpChqVrs (newsimpletest)" << endl;
+   cout << "%TEST_STARTED% testAzarizarTmpChqVrs (newsimpletest)" << endl;
     testAzarizarTmpChqVrs();
     cout << "%TEST_FINISHED% testAzarizarTmpChqVrs (newsimpletest)" << endl;
 
@@ -137,13 +131,13 @@ int main(int argc, char** argv) {
     testPromLongCmnsCrts();
     cout << "%TEST_FINISHED% testPromLongCmnsCrts (newsimpletest)" << endl;
 
-    cout << "%TEST_STARTED% testCoeficienteAgrupamiento (newsimpletest)" << endl;
+    /*cout << "%TEST_STARTED% testCoeficienteAgrupamiento (newsimpletest)" << endl;
     testCoeficienteAgrupamiento();
-    cout << "%TEST_FINISHED% testCoeficienteAgrupamiento (newsimpletest)" << endl;
+    cout << "%TEST_FINISHED% testCoeficienteAgrupamiento (newsimpletest)" << endl;*/
 
     cout << "%SUITE_FINISHED% time=0" << endl;
 
-    return (EXIT_SUCCESS);*/
+    //return (EXIT_SUCCESS);
     return 0;
 }
 

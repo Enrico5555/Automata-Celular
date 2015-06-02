@@ -263,6 +263,9 @@ void Grafo::infectar(int ios) {
         }
       // ya tengo todas las posiciones que quiero infectar, faltaria infectarlas jaja
 
+        for (int i=0; i<infectemos.size();i++){
+             arrVrt[infectemos[i]].e = I;
+        }
     }
 }
 
