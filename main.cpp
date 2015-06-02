@@ -1,221 +1,142 @@
 /*
  * File:   main.cpp
- * Author: Alan
+ * Author: alan.calderon
  *
- * Created on 1 de abril de 2015, 06:52 PM
+ * Created on 15 de abril de 2015, 12:05 PM
  */
 
-#include <cstdlib>
+// Ejemplo base tomado de cplusplus
+// normal_distribution example
+#include <stdlib.h>
 #include <iostream>
-#include <string>
-
-#include "Parse.h"
 #include "Grafo.h"
-#include "Simulador.h"
-#include "Visualizador.h"
-
 using namespace std;
-using namespace line_parse;
 
 /*
- *
+ * Simple C++ Test Suite
  */
-int main(int argc, char** argv) {
-    Grafo *grafo = NULL;
-    Simulador sv(grafo);
-    /*for (int i = 0; i < mg.obtTotVrt(); i++)
-    {
-        cout << "Estado: " << mg.obtEst(i) << endl;
-    }*/
-    cout << "Automata Celular\n";
-    while (true)
-    {
-        string linea;
-        cout << ">>";
-        getline(cin, linea);
-        int cant_elementos = cantidad_elementos(linea, ' ');
-        if (cant_elementos > 0)
-        {
-            string prim = parametro(linea, 0, ' ');
-            if (prim == "cargar")
-            {
-                if (cant_elementos == 2)
-                {
-                    cout << "Cargando grafo...\n";
-                    string param = remover_comillas(parametro(linea, 1, ' '));
-                    //cout << param;
-                    try {
-                        if (grafo != NULL) delete grafo;
-                        grafo = new Grafo(param.c_str());
-                        cout << "Grafo cargado\n";
-                        cout << "Vertices: " << grafo->obtTotVrt() << endl;
-                    }
-                    catch (int exc)
-                    {
-                        delete grafo;
-                        cout << "Error cargando el grafo\n";
-                        grafo = NULL;
-                    }
-                }
-                else
-                {
-                    cout << "Este comando requiere 2 parametros\n";
-                }
-            }
-            else if (prim == "crear")
-            {
-                if (cant_elementos == 3)
-                {
-                    int p1 = elemento(linea, 1, ' '), p2 = elemento(linea, 2, ' ');
-                    if (p1 >= 10 && p2 >= 1)
-                    {
-                        if (grafo != NULL) delete grafo;
-                        grafo = new Grafo(p1, p2);
-                        cout << "Grafo creado\n";
-                    }
-                    else
-                    {
-                        cout << "Error creando el grafo\n";
-                    }
-                }
-                else
-                {
-                    cout << "Este comando requiere 2 parametros\n";
-                }
-            }
-            else if (prim == "simular")
-            {
-                if (cant_elementos == 7)
-                {
-                    //if grafo creado
-                    if (grafo != NULL)
-                    {
-                        int it = elemento(linea, 1, ' '), ios = elemento(linea, 2, ' '), vcf = elemento(linea, 4, ' ');
-                        double vsc = elemento_double(linea, 3, ' '), rc = elemento_double(linea, 5, ' '), grc = elemento_double(linea, 6, ' ');
-                        Simulador s(grafo);
-                        s.simular(it, ios, vsc, vcf, rc, grc);
-                    }
-                    else
-                    {
-                        cout << "Error, el grafo no esta creado\n";
-                    }
-                }
-                else
-                {
-                    cout << "Este comando requiere 6 parametros\n";
-                }
-            }
-            else if (prim == "simular-visualizar")
-            {
-                if (cant_elementos == 7)
-                {
-                    if (grafo != NULL)
-                    {
-                        Visualizador v(*grafo, &argc, argv);
-                        int it = elemento(linea, 1, ' '), ios = elemento(linea, 2, ' '), vcf = elemento(linea, 4, ' ');
-                        double vsc = elemento_double(linea, 3, ' '), rc = elemento_double(linea, 5, ' '), grc = elemento_double(linea, 6, ' ');
-                        //sv.simular(it, ios, vsc, vcf, rc, grc);
-                        v.visualizar(it, ios, vsc, vcf, rc, grc);
-                    }
-                    else
-                    {
-                        cout << "Error, el grafo no esta creado\n";
-                    }
-                }
-                else
-                {
-                    cout << "Este comando requiere 6 parametros\n";
-                }
-            }
-            else if (prim == "visualizar")
-            {
-                if (cant_elementos == 1)
-                {
-                    if (grafo != NULL)
-                    {
-                        Visualizador v(*grafo, &argc, argv);
-                        v.visualizar();
-                    }
-                    else
-                    {
-                        cout << "Error, el grafo no esta creado\n";
-                    }
-                }
-                else
-                {
-                    cout << "Este comando no requiere parametros\n";
-                }
-            }
-            else if (prim == "calcular-promedio-longitud-caminos-cortos")
-            {
-                if (cant_elementos == 1)
-                {
-                    if (grafo != NULL)
-                    {
-                        cout << "Promedio: " << grafo->promLongCmnsCrts() << endl;
-                    }
-                    else
-                    {
-                        cout << "Error, el grafo no esta creado\n";
-                    }
-                }
-                else
-                {
-                    cout << "Este comando no requiere parametros\n";
-                }
-            }
-            else if (prim == "calcular-centralidad-intermedial")
-            {
-                cout << "Este metodo no esta implementado\n";
-            }
-            else if (prim == "calcular-coeficiente-agrupamiento")
-            {
-                if (cant_elementos == 2)
-                {
-                    if (grafo != NULL)
-                    {
-                        int p1 = elemento(linea, 1, ' ');
-                        cout << "Promedio: " << grafo->coeficienteAgrupamiento(p1) << endl;
-                    }
-                    else
-                    {
-                        cout << "Error, el grafo no esta creado\n";
-                    }
-                }
-                else
-                {
-                    cout << "Este comando requiere 1 parametro\n";
-                }
-            }
-            else if (prim == "ayuda")
-            {
-                if (cant_elementos == 1)
-                {
-                    cout << "cargar\t-carga el grafo a partir del parametro %nArch" << endl <<
-                        "crear\t-fjsdaklfjsdalk" << endl <<
-                        "simular " << endl <<
-                        "simular-visualizar\t-fjasklf" << endl <<
-                        "visualizar" << endl <<
-                        "calcular-promedio-longitud-caminos-cortos" << endl <<
-                        "calcular-centralidad-intermedial" << endl <<
-                        "calcular-coeficiente-agrupamiento" << endl <<
-                        "salir" << endl;
-                }
-                else
-                {
-                    cout << "Este comando no requiere parametros\n";
-                }
-            }
-            else if (prim == "salir")
-            {
-                break;
-            }
-            else
-            {
-                cout << "Comando incorrecto\n";
-            }
-        }
+
+
+//Construye una red con la cantidad de vértices y el promedio de
+//adyacencias por vértice correctos cuando cntVrt == 100 y prmAdy == 15.
+//Construye una red con la cantidad de vértices y el promedio de
+//adyacencias por vértice correctos cuando cntVrt == 1000 y prmAdy == 15.
+
+void testConstructorGrafo() {
+    Grafo grafo(100,0.5);
+    Grafo grafo2(1000,0.5);
+    if (grafo2.obtTotVrt() != 1000 || grafo.obtTotVrt()!=100){
+        cout<< "el total de vertices de grafo 1 es " << grafo.obtTotVrt()<< endl;
+        cout<< "el total de vertices de grafo 2 es " << grafo2.obtTotVrt()<< endl;
+    //if (grafo.obtTotVrt() == 100) || !(grafo2.obtTotVrt() == 1000 )){//|| !(grafo.obtTotAdy() >= 15) || !(grafo2.obtTotAdy() >= 15)) {
+        cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR DEL GRAFO(newsimpletest) message=ereror message sample" << endl;
     }
-    return 0;
 }
+
+//Construye una copia idéntica a Grafo(100,15).
+//Construye una copia idéntica a Grafo(1000,15).
+
+void testConstructCopias() {
+    Grafo orig(100,15);
+    Grafo grafo(orig);
+    Grafo orig2(1000,15);
+    Grafo grafo2(orig2);
+    if (!(grafo == orig) || !(grafo2 == orig2)) {
+        cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR DE COPIAS (newsimpletest) message=error message sample" << endl;
+    }
+}
+
+//Construye el grafo correcto con el “redMuyPeq.txt”.
+//Construye el grafo correcto con el “redPeq.txt”.
+
+void testConstructorString() {
+    Grafo grafo("redMuyPeq.txt");
+    Grafo grafo2("redPeq.txt");
+    if (grafo.obtTotVrt() != 10 || grafo2.obtTotVrt() != 100 || grafo.obtAdy(0)[0] != 8 || grafo2.obtAdy(0)[0] != 2) {
+        cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR A PARTIR DEL STRING (newsimpletest) message=error message sample" << endl;
+    }
+}
+
+
+//void infectar(int ios) efectivamente “infecta” la cantidad correcta de vértices
+
+void testInfectar() {
+    Grafo grafo("redMuyPeq.txt");
+    grafo.infectar(5);
+    int cont;
+    for(int i=0;i<10;i++) if(grafo.obtEst(i)== Grafo::I)cont++;
+    if (cont != 5) {
+        cout << "%TEST_FAILED% FALLO EL METODO Infectar (newsimpletest) message=error message sample" << endl;
+    }
+}
+
+//void azarizarTmpChqVrs(int vcf) efectivamente asigna valores 
+//iniciales al temporizador de chequeo en el rango [1..vcf] para todos los vértices.
+
+void testAzarizarTmpChqVrs() {
+    int vcf = 1;
+    Grafo grafo(10,10);
+    grafo.azarizarTmpChqVrs(vcf);
+    if (grafo.obtTmpChqVrs(0) != 1) {
+        cout << "%TEST_FAILED% FALLO EL METODO AzarizarTmpChqVrs (newsimpletest) message=error message sample" << endl;
+    }
+}
+
+//Genera el valor correcto con un grafo muy pequeño.
+
+void testPromLongCmnsCrts() {
+    Grafo grafo("redMuyPeq.txt");
+    double res = grafo.promLongCmnsCrts();
+    if (!(0.4 > res > 0)) {
+        cout << "%TEST_FAILED% FALLO EL METODO PromLongCmnsCrts(newsimpletest) message=error message sample" << endl;
+    }
+}
+
+//Genera el valor correcto para el vértice indicado de un grafo muy pequeño.
+
+void testCoeficienteAgrupamiento() {
+    Grafo grafo("redMuyPeq.txt");
+    double res = grafo.coeficienteAgrupamiento(0);
+    if (!(res == 1)) {
+        std::cout << "%TEST_FAILED% FALLO EL METODO CoeficienteAgrupamiento (newsimpletest) message=error message sample" << std::endl;
+    }
+}
+
+int main(int argc, char** argv) {
+    cout << "%SUITE_STARTING% newsimpletest" << endl;
+    cout << "%SUITE_STARTED%" << endl;
+
+    cout << "%TEST_STARTED% testConstructorGrafo (newsimpletest)" << endl;
+    testConstructorGrafo();
+    cout << "%TEST_FINISHED% testConstructorGrafo (newsimpletest)" << endl;
+
+    cout << "%TEST_STARTED% testConstructCopias(newsimpletest)" << endl;
+    testConstructCopias();
+    cout << "%TEST_FINISHED% testConstructCopias (newsimpletest)" << endl;
+
+    cout << "%TEST_STARTED% testConstructorString (newsimpletest)" << endl;
+    testConstructorString();
+    cout << "%TEST_FINISHED% testConstructorString (newsimpletest)" << endl;
+
+    cout << "%TEST_STARTED% testInfectar (newsimpletest)" << endl;
+    testInfectar();
+    cout << "%TEST_FINISHED% testInfectar (newsimpletest)" << endl;
+
+    cout << "%TEST_STARTED% testAzarizarTmpChqVrs (newsimpletest)" << endl;
+    testAzarizarTmpChqVrs();
+    cout << "%TEST_FINISHED% testAzarizarTmpChqVrs (newsimpletest)" << endl;
+
+    cout << "%TEST_STARTED% testPromLongCmnsCrts (newsimpletest)" << endl;
+    testPromLongCmnsCrts();
+    cout << "%TEST_FINISHED% testPromLongCmnsCrts (newsimpletest)" << endl;
+
+    cout << "%TEST_STARTED% testCoeficienteAgrupamiento (newsimpletest)" << endl;
+    testCoeficienteAgrupamiento();
+    cout << "%TEST_FINISHED% testCoeficienteAgrupamiento (newsimpletest)" << endl;
+
+    cout << "%SUITE_FINISHED% time=0" << endl;
+
+    return (EXIT_SUCCESS);
+}
+
 
