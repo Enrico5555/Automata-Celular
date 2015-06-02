@@ -28,7 +28,6 @@
 
 # Code::blocks project files
 ######################
-*.cbp
 *.depend
 *.layout
 
