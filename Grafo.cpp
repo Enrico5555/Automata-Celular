@@ -64,16 +64,19 @@ Grafo::Grafo(string nArch) {
     ifstream file;
     file.open(nArch.c_str(), ios::in);
     if (file.is_open() && file.good()) {
+   // cout<< "si se leyo el archivo---> " << nArch<<endl;
         char line[256];
         memset(&line, 0, 256);//poner memoria en 0
         file.getline(line, 256); //primera linea
-        string inits = line;
-        sacaDatos(inits);
-        cntVrt = cantidadVertices;
-        prmAdy = promedioAdy;
+        string inits = line;// convierte a string
+        //cout<< "hasta aca todo bien" << endl;
+        cntVrt = totalDeVertices(inits); //
+       // cout << "la cantidad de vertices es "<< cntVrt <<endl;
+        prmAdy = promedioAdy(inits);
+        //cout << "el promedio de adyacencias es "<< prmAdy <<endl;
         if (cntVrt < 0) return; // error
-        arrVrt.resize(cntVrt);
-        int count = 0;
+        arrVrt.resize(cntVrt);//
+        int count = 0; //
         while (!file.eof() && count < cntVrt) {
             memset(&line, 0, 256); //volver a poner en 0 el char
             file.getline(line, 256);
@@ -88,7 +91,7 @@ Grafo::Grafo(string nArch) {
             }
             return;
         }
-        throw 1;
+       // throw 1;
     }
 }
 
@@ -258,6 +261,8 @@ void Grafo::infectar(int ios) {
             infectemos.push_back(randy);
             esta = true;
         }
+      // ya tengo todas las posiciones que quiero infectar, faltaria infectarlas jaja
+
     }
 }
 

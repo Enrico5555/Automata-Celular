@@ -3,10 +3,11 @@
 #include <stdlib.h>     /* atof */
 using namespace std;
 
+/*
 int cantidadVertices;
 double promedioAdy;
 size_t pos;
-
+*/
 namespace line_parse {
 
     unsigned int cantidad_elementos(const string& linea, char rem) {
@@ -55,14 +56,20 @@ namespace line_parse {
         return atof(parametro(linea, indice, rem).c_str());
     }
 
-    void sacaDatos(string data) {
-        pos = data.find(" ");
+    int totalDeVertices(string data){
+        unsigned int pos = data.find(" ");
         string buffer = data.substr(0, pos);
-        cantidadVertices = atoi(buffer.c_str());
-        buffer = data.substr(pos+1, data.size());
-        promedioAdy = atof(buffer.c_str());
-    }
+        int cantidadVertices = atoi(buffer.c_str());
+        return cantidadVertices;
+      }
 
+    double promedioAdy(string data){
+        unsigned int pos = data.find(" ");
+        string  buffer = data.substr(pos+1, data.size());
+        double prmD = atof(buffer.c_str());
+        return prmD;
+
+    }
 
 
 }
