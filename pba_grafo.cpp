@@ -21,11 +21,12 @@ using namespace std;
 //adyacencias por vértice correctos cuando cntVrt == 1000 y prmAdy == 15.
 
 void testConstructorGrafo() {
-    int cntVrt;
-    int prbAdy;
-    Grafo grafo(cntVrt, prbAdy);
-    Grafo grafo2(cntVrt, prbAdy);
-    if (grafo.obtTotVrt() != 100 || grafo2.obtTotVrt() != 100 || !(grafo.obtTotAdy() <= 15) || !(grafo2.obtTotAdy() <= 15)) {
+    Grafo grafo(100,15);
+    Grafo grafo2(1000,15);
+    if (grafo2.obtTotVrt() != 1000 || grafo.obtTotVrt()==100){
+        cout<< "el total de vertices de grafo 1 es " << grafo.obtTotVrt()<< endl;
+        cout<< "el total de vertices de grafo 2 es " << grafo2.obtTotVrt()<< endl;
+    //if (grafo.obtTotVrt() == 100) || !(grafo2.obtTotVrt() == 1000 )){//|| !(grafo.obtTotAdy() >= 15) || !(grafo2.obtTotAdy() >= 15)) {
         cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR DEL GRAFO(newsimpletest) message=ereror message sample" << endl;
     }
 }
@@ -38,7 +39,7 @@ void testConstructCopias() {
     Grafo grafo(orig);
     Grafo orig2(1000,15);
     Grafo grafo2(orig2);
-    if (!(grafo == orig) && !(grafo2 == orig2)) {
+    if (!(grafo == orig) || !(grafo2 == orig2)) {
         cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR DE COPIAS (newsimpletest) message=error message sample" << endl;
     }
 }

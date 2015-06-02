@@ -31,7 +31,7 @@ using namespace line_parse;
 Grafo::Grafo(int cntVrt, int prbAdy) {
     if ((cntVrt >= 10) && (0 <= prbAdy < 1)) {
         this->cntVrt = cntVrt;
-        arrVrt.resize(this->cntVrt);
+        arrVrt.resize(cntVrt);
         srand(time(NULL));
         default_random_engine generador(rand());
         normal_distribution<double> distribucion(prbAdy, 2.0);
