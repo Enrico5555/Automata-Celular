@@ -9,11 +9,8 @@ namespace line_parse {
     std::string parametro(std::string linea, int indice, char rem = ',');
     int elemento(std::string linea, int indice, char rem = ',');
     double elemento_double(std::string linea, int indice, char rem);
-    void sacaDatos (std::string linex);
-    static int cantidadVertices;
-    static double promedioAdy;
-    static size_t pos;
-  
+    int totalDeVertices(std::string data);
+    double promedioAdy(std::string data);
 }
 
 #endif
