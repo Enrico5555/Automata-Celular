@@ -1,12 +1,10 @@
-/*
- * File:   main.cpp
- * Author: alan.calderon
+/* 
+ * File:   newsimpletest.cpp
+ * Author: konrad
  *
- * Created on 15 de abril de 2015, 12:05 PM
+ * Created on May 28, 2015, 10:29:12 AM
  */
 
-// Ejemplo base tomado de cplusplus
-// normal_distribution example
 #include <stdlib.h>
 #include <iostream>
 #include "Grafo.h"
@@ -23,9 +21,9 @@ using namespace std;
 //adyacencias por vértice correctos cuando cntVrt == 1000 y prmAdy == 15.
 
 void testConstructorGrafo() {
-    Grafo grafo(100,0.5);
-    Grafo grafo2(1000,0.5);
-    if (grafo2.obtTotVrt() != 1000 || grafo.obtTotVrt()!=100){
+    Grafo grafo(100,15);
+    Grafo grafo2(1000,15);
+    if (grafo2.obtTotVrt() != 1000 || grafo.obtTotVrt()==100){
         cout<< "el total de vertices de grafo 1 es " << grafo.obtTotVrt()<< endl;
         cout<< "el total de vertices de grafo 2 es " << grafo2.obtTotVrt()<< endl;
     //if (grafo.obtTotVrt() == 100) || !(grafo2.obtTotVrt() == 1000 )){//|| !(grafo.obtTotAdy() >= 15) || !(grafo2.obtTotAdy() >= 15)) {
@@ -138,5 +136,4 @@ int main(int argc, char** argv) {
 
     return (EXIT_SUCCESS);
 }
-
 

@@ -30,13 +30,13 @@ using namespace line_parse;
 
 Grafo::Grafo(int cntVrt, int prbAdy) {
     if ((cntVrt >= 10) && (0 <= prbAdy < 1)) {
-      // this->cntVrt = cntVrt;
+        this->cntVrt = cntVrt;
         arrVrt.resize(cntVrt);
         srand(time(NULL));
         default_random_engine generador(rand());
         normal_distribution<double> distribucion(prbAdy, 2.0);
         //  std::list<int>::iterator it;
-        for (int i = 0; i < cntVrt; i++) {
+        for (int i = 0; i < this->cntVrt; i++) {
             int rnum = distribucion(generador);
             if (!xstAdy(i, rnum) && xstVrt(rnum)) {
                 arrVrt[i].lstAdy.push_back(rnum);
@@ -120,7 +120,7 @@ Grafo::Grafo(string nArch) {
     }
 
     int Grafo::obtTotVrt() const {
-        return arrVrt.size();
+        return cntVrt;
     }
 
     int Grafo::obtTotAdy() const {

@@ -8,33 +8,29 @@
 #ifndef GRAFO_H
 #define	GRAFO_H
 
-#include <string>
+#include <memory>
 #include <vector>
+#include <string>
+#include <list>
 using namespace std;
-
-#include "LstAdy.h"
 
 class Grafo {
     // Representa la red de computadores sobre la cual se diseminará el virus.
+    
 public:
-    //class Visualizador; // declaración adelantada para evitar #include mutuo.
-    //friend class Visualizador; // permite que el visualizador acceda la sección
-                               // privada de Grafo para hacer más eficientemente
-                               // la visualización.
-
+    // Simulador y Visualizador ya no son amigas.
+    
     /* TIPO PÚBLICO DE ESTADOS DE VÉRTICES */
     enum E{ // representa el tipo de estados de la red de infección
         S, // representa un vértice susceptible de infección
         I, // representa un vértice infectado
         R, // representa un vértice resistente
     };
-
     
     /* CONSTRUCTORES */
-    // REQ: ( cntVrt >= 10 ) && ( 1 <= prmGrd )
-    // Construye una red al azar no vacía. 
-    // Se basa en la distribución normal: std::normal_distribution en <random>
-    Grafo(int cntVrt, int prmAdy);
+    // REQ: ( cntVrt >= 10 ) && ( 0 <= prbAdy < 1  )
+    // Construye una red al azar no vacía. La probabilidad de que exista una adyacencia (i,j) es prbAdy.
+    Grafo(int cntVrt, int prbAdy);
     
     // Construye una copia idéntica a orig.
     Grafo(const Grafo& orig);
@@ -59,30 +55,28 @@ public:
     bool xstAdy(int vrtO, int vrtD) const;
     
     // REQ: que exista en *this un vértice con índice vrt.
-    // EFE: retorna la cantidad de adyacencias del vértice vrt.
-    int obtCntAdy(int vrt) const;
-    
-    // REQ: que exista en *this un vértice con índice vrt.
-    // EFE: retorna un arreglo de enteros con las posiciones de los vértices
+    // EFE: retorna un vector de enteros con las posiciones de los vértices
     //      adyacentes al vértice indicado por vrt.
-    int* obtAdy(int vrt) const;
-    
-    // EFE: retorna el total de adyacencias en *this.
-    int obtTotAdy() const;    
- 
+    vector<int>& obtAdy(int vrt) const;
+
     // EFE: retorna el total de vértices en *this.
     int obtTotVrt() const;
     
-    // EFE: retorna el promedio simple de adyacencias por vértice.
-    double obtPrmAdy() const;
+    // EFE: retorna el total de adyacencias en *this.
+    int obtTotAdy() const;    
     
     // REQ: que exista en *this un vértice con índice vrt.
     // EFE: retorna el estado del vértice con índice vrt.
     E obtEst(int vrt) const;
     
+    
     // EFE: retorna true si grf es idéntico a *this y false en caso contrario.
     //      Compara vértice a vértice según su índice.
     bool operator==(const Grafo& grf) const;
+
+    // REQ: que exista en *this un vértice con índice vrt.
+    // EFE: retorna el valor del temporizador de chequeo de antivirus del vértice con índice vrt.
+    int obtTmpChqVrs(int vrt) const;    
     
     /* MÉTODOS OBSERVADORES ESPECIALES */
     
@@ -96,7 +90,7 @@ public:
     //      Para cada par de vértices que no incluyan al indicado por vrt se calcula
     //      la proporción de los caminos más cortos que pasan por el vértice indicado
     //      por vrt.
-    // NOTA: ver algoritmo en http://es.wikipedia.org/wiki/Algoritmo_de_Floyd-Warshall
+    // NOTA: sigue pendiente para el cuarto laboratorio guiado porque requiere una nueva clase.
     double centralidadIntermedial(int vrt) const;
     
     // REQ: que exista en *this un vértice con índice vrt.
@@ -114,20 +108,47 @@ public:
     // MOD: *this.
     // EFE: cambia el estado del vértice cuyo índice es vrt a ne.
     void modEst(int vrt, E ne);
+
+    // REQ: que exista en *this un vértice con índice vrt.
+    // MOD: *this.
+    // EFE: cambia el valor del temporizador de chequeo de virus del vértice vrt por el valor nt.
+    void modTmpChqVrs(int vrt, int nt);
     
-protected:
+    // REQ: que exista en *this un vértice con índice vrt.
+    // MOD: *this.
+    // EFE: actualiza el valor del contador de chequeo de virus para la siguiente iteración.
+    void actCntChqVrs(int vrt);
+
+    // REQ: ios << this->obtTotVrt().
+    // MOD: *this.
+    // EFE: cambia el estado a I (infectado) a ios vértices escogidos al azar.
+    //      ios o initial-outbreak-size: cantidad inicial de nodos infectados.
+    void infectar(int ios);
+    
+    // MOD: *this
+    // EFE: asigna el valor del temporizador para cada vértice con un número al azar entre 1 y maxTmp.
+    //      vcf o virus-check-frecuency: frecuencia máxima de chequeo antivirus.
+    void azarizarTmpChqVrs(int vcf);
+    
     int **Floyd_Warshall() const;
+    
 private:
     struct NdoVrt {
         E e; // representa el estado del vértice
         int tmpChqVrs; // representa el temporizador de chequeo de virus
-        LstAdy lstAdy; // representa la lista de adyacencias del vértice
-        NdoVrt(): e(S), tmpChqVrs(1) {};
-        ~NdoVrt(){ };
+        int cntChqVrs; // representa el contador de chequeo de virus: va de 0 a tmpChqVrs
+        // Escoja entre <vector>, <list> y <forward_list> para representar la lista de adyacencias del vértice.
+        vector <int> lstAdy;
+        NdoVrt(): e(S), tmpChqVrs(1){};
+        // No va a ser necesario un destructor porque ahora todo se manejará automáticamente
     };
     
     int cntVrt; // representa la cantidad total de vértices
-    NdoVrt* arrVrt; // representa el arreglo dinámico de nodos de vértices
+    double prmAdy;
+    // Escoja entre <vector>, <map> y <unordered_map> en lugar del arreglo de nodos de vértices.
+    vector<NdoVrt>arrVrt;
+
+    void modEstados(vector<NdoVrt>& stdAct);
 };
 
 #endif	/* GRAFO_H */
