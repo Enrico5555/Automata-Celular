@@ -283,7 +283,7 @@ void Grafo::azarizarTmpChqVrs(int vcf) {
     for (int i = 0; i < obtTotVrt(); i++) {
         randy = rand() % vcf + 1;
         arrVrt[i].tmpChqVrs = randy;
-    }
+      }
 }
 
     void Grafo::modEstados(vector<NdoVrt>& stdAct) {
