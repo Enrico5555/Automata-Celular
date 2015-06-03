@@ -39,7 +39,7 @@ void testConstructCopias() {
     Grafo grafo(orig);
     Grafo orig2(1000,15);
     Grafo grafo2(orig2);
-    if (!(grafo == orig) || !(grafo2 == orig2)) {
+    if (!(grafo.obtTotVrt() == orig.obtTotVrt()) || !(grafo2.obtTotVrt() == orig2.obtTotVrt())) {
         std::cout << "%TEST_FAILED% FALLO EL CONSTRUCTOR DE COPIAS (newsimpletest) message=error message sample" << std::endl;
     }
 }
@@ -97,7 +97,7 @@ void testPromLongCmnsCrts() {
 void testCoeficienteAgrupamiento() {
     Grafo grafo("redMuyPeq.txt");
     double res = grafo.coeficienteAgrupamiento(0);
-    if (!(res == 1)) {
+    if (!(res == 0)) {
         std::cout << "%TEST_FAILED% FALLO EL METODO CoeficienteAgrupamiento (newsimpletest) message=error message sample" << std::endl;
     }
 }
