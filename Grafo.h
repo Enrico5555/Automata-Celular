@@ -145,6 +145,7 @@ private:
     int cntVrt; // representa la cantidad total de vértices
     double prmAdy;
     // Escoja entre <vector>, <map> y <unordered_map> en lugar del arreglo de nodos de vértices.
+
     vector<NdoVrt>arrVrt;
 
     void modEstados(vector<NdoVrt>& stdAct);

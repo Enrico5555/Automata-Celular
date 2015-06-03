@@ -74,10 +74,15 @@ void testInfectar() {
 //iniciales al temporizador de chequeo en el rango [1..vcf] para todos los vértices.
 //ARREGLAR!!
 void testAzarizarTmpChqVrs() {
-    int vcf = 1;
-    Grafo grafo(10,0.5);
-    grafo.azarizarTmpChqVrs(vcf);
-    if (grafo.obtTmpChqVrs(0) != 1) {
+    Grafo grafo("redMuyPeq.txt");
+    for(int i=0;i<grafo.obtTotVrt();i++){
+        grafo.azarizarTmpChqVrs(i);
+    }
+
+    //grafo.arrVrt[0].tmpChqVrs;
+    for(int i=0;i<grafo.obtTotVrt();i++) cout<< grafo.obtTmpChqVrs(0)<< endl;
+   for(int i=0;i<grafo.obtTotVrt();i++)
+    if (grafo.obtTmpChqVrs(i) != NULL) {
         std::cout << "%TEST_FAILED% FALLO EL METODO AzarizarTmpChqVrs (newsimpletest) message=error message sample" << std::endl;
     }
 }
@@ -123,7 +128,7 @@ int main(int argc, char** argv) {
     testInfectar();
     cout << "%TEST_FINISHED% testInfectar (newsimpletest)" << endl;
 
-   cout << "%TEST_STARTED% testAzarizarTmpChqVrs (newsimpletest)" << endl;
+    cout << "%TEST_STARTED% testAzarizarTmpChqVrs (newsimpletest)" << endl;
     testAzarizarTmpChqVrs();
     cout << "%TEST_FINISHED% testAzarizarTmpChqVrs (newsimpletest)" << endl;
 

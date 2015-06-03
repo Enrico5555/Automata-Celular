@@ -35,12 +35,15 @@ Grafo::Grafo(int cntVrt, int prbAdy){//, int prbAdy) {
         default_random_engine generador(rand());
         normal_distribution<double> distribucion(prbAdy, 2.0);
         for (int i = 0; i < this->cntVrt; i++) {
+            arrVrt[i].tmpChqVrs = 0;
+            arrVrt[i].cntChqVrs = 0;
             int rnum = distribucion(generador);
             if (!xstAdy(i, rnum) && xstVrt(rnum)) {
                 arrVrt[i].lstAdy.push_back(rnum);
                 arrVrt[rnum].lstAdy.push_back(i);
             }
         }
+
     }
 }
 
@@ -279,7 +282,7 @@ void Grafo::azarizarTmpChqVrs(int vcf) {
     int randy;
     for (int i = 0; i < obtTotVrt(); i++) {
         randy = rand() % vcf + 1;
-        arrVrt[i].cntChqVrs = randy;
+        arrVrt[i].tmpChqVrs = randy;
     }
 }
 
