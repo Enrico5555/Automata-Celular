@@ -3,11 +3,7 @@
 #include <stdlib.h>     /* atof */
 using namespace std;
 
-/*
-int cantidadVertices;
-double promedioAdy;
-size_t pos;
-*/
+
 namespace line_parse {
 
     unsigned int cantidad_elementos(const string& linea, char rem) {

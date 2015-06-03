@@ -16,7 +16,6 @@
 #include <ctime>
 #include <limits> // std::numeric_limits
 #include <vector>
-#include <list>
 
 #ifndef NULL
 #define NULL 0
@@ -35,7 +34,6 @@ Grafo::Grafo(int cntVrt, int prbAdy){//, int prbAdy) {
         srand(time(NULL));
         default_random_engine generador(rand());
         normal_distribution<double> distribucion(prbAdy, 2.0);
-        //  std::list<int>::iterator it;
         for (int i = 0; i < this->cntVrt; i++) {
             int rnum = distribucion(generador);
             if (!xstAdy(i, rnum) && xstVrt(rnum)) {
@@ -64,19 +62,15 @@ Grafo::Grafo(string nArch) {
     ifstream file;
     file.open(nArch.c_str(), ios::in);
     if (file.is_open() && file.good()) {
-   // cout<< "si se leyo el archivo---> " << nArch<<endl;
-        char line[256];
+       char line[256];
         memset(&line, 0, 256);//poner memoria en 0
         file.getline(line, 256); //primera linea
-        string inits = line;// convierte a string
-        //cout<< "hasta aca todo bien" << endl;
-        cntVrt = totalDeVertices(inits); //
-       // cout << "la cantidad de vertices es "<< cntVrt <<endl;
+        string inits = line;
+        cntVrt = totalDeVertices(inits);
         prmAdy = promedioAdy(inits);
-        //cout << "el promedio de adyacencias es "<< prmAdy <<endl;
         if (cntVrt < 0) return; // error
-        arrVrt.resize(cntVrt);//
-        int count = 0; //
+        arrVrt.resize(cntVrt);
+        int count = 0;
         while (!file.eof() && count < cntVrt) {
             memset(&line, 0, 256); //volver a poner en 0 el char
             file.getline(line, 256);
@@ -118,9 +112,19 @@ Grafo::Grafo(string nArch) {
         return false; // No se encontro adyacencia o el vertice no existe
     }
 
-    vector<int>& Grafo::obtAdy(int vrt) const {
 
+    void Grafo::obtAdy(int vrt, std::vector<int>& vec)
+    {
+        if (xstVrt(vrt))
+        {
+            vec.clear();
+            for (int i = 0; i < arrVrt[vrt].lstAdy.size(); i++)
+            {
+                vec.push_back(arrVrt[vrt].lstAdy[i]);
+            }
+        }
     }
+
 
     int Grafo::obtTotVrt() const {
         return cntVrt;
@@ -145,7 +149,8 @@ Grafo::Grafo(string nArch) {
     for (int i = 0; i < this->cntVrt; i++)
     {
         if (arrVrt[i].lstAdy.size() != grf.arrVrt[i].lstAdy.size()) return false;
-        vector<int>ady = obtAdy(i), adygrf = grf.obtAdy(i);
+        obtAdy(i, vector<int>ady&);
+        grf.obtAdy(i, vector<int>adygrf&);
         for (int j = 0; j < arrVrt[i].lstAdy.size(); j++)
         {
             if (ady[j] != adygrf[j])
@@ -261,8 +266,6 @@ void Grafo::infectar(int ios) {
             infectemos.push_back(randy);
             esta = true;
         }
-      // ya tengo todas las posiciones que quiero infectar, faltaria infectarlas jaja
-
         for (int i=0; i<infectemos.size();i++){
              arrVrt[infectemos[i]].e = I;
         }

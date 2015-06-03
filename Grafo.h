@@ -11,7 +11,6 @@
 #include <memory>
 #include <vector>
 #include <string>
-#include <list>
 using namespace std;
 
 class Grafo {
@@ -57,7 +56,7 @@ public:
     // REQ: que exista en *this un vértice con índice vrt.
     // EFE: retorna un vector de enteros con las posiciones de los vértices
     //      adyacentes al vértice indicado por vrt.
-    vector<int>& obtAdy(int vrt) const;
+    void obtAdy(int vrt, std::vector<int>& vec);
 
     // EFE: retorna el total de vértices en *this.
     int obtTotVrt() const;
