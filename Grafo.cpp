@@ -113,7 +113,7 @@ Grafo::Grafo(string nArch) {
     }
 
 
-    void Grafo::obtAdy(int vrt, vector<int>& vec)
+    void Grafo::obtAdy(int vrt, vector<int>& vec) const
     {
         if (xstVrt(vrt))
         {
@@ -220,7 +220,8 @@ Grafo::Grafo(string nArch) {
             double cant = (double) arrVrt[vrt].lstAdy.size(), triangles = 0.0;
             if (cant == 0 || cant == 1) return 0;
             double t_g = (cant * (cant - 1)) / 2;
-            vector<int>ady = obtAdy(vrt);
+            vector<int>ady;
+            obtAdy(vrt, ady);
             for (int i = 0; i < cant; i++) {
                 for (int j = i + 1; j < cant; j++) {
                     if (xstAdy(ady[i], ady[j])) {

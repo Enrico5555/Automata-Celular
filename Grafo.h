@@ -56,7 +56,7 @@ public:
     // REQ: que exista en *this un vértice con índice vrt.
     // EFE: retorna un vector de enteros con las posiciones de los vértices
     //      adyacentes al vértice indicado por vrt.
-    void obtAdy(int vrt, vector<int>& vec);
+    void obtAdy(int vrt, vector<int>& vec)const;
 
     // EFE: retorna el total de vértices en *this.
     int obtTotVrt() const;

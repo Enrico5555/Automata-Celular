@@ -111,10 +111,10 @@ int main(int argc, char** argv) {
     testConstructorGrafo();
     std::cout << "%TEST_FINISHED% testConstructorGrafo (newsimpletest)" << std::endl;
 
-    /*cout << "%TEST_STARTED% testConstructCopias(newsimpletest)" << endl
+    cout << "%TEST_STARTED% testConstructCopias(newsimpletest)" << endl;
     testConstructCopias();
     cout << "%TEST_FINISHED% testConstructCopias (newsimpletest)" << endl;
-    */
+
     cout << "%TEST_STARTED% testConstructorString (newsimpletest)" << endl;
     testConstructorString();
     cout << "%TEST_FINISHED% testConstructorString (newsimpletest)" << endl;
@@ -131,9 +131,9 @@ int main(int argc, char** argv) {
     testPromLongCmnsCrts();
     cout << "%TEST_FINISHED% testPromLongCmnsCrts (newsimpletest)" << endl;
 
-    /*cout << "%TEST_STARTED% testCoeficienteAgrupamiento (newsimpletest)" << endl;
+    cout << "%TEST_STARTED% testCoeficienteAgrupamiento (newsimpletest)" << endl;
     testCoeficienteAgrupamiento();
-    cout << "%TEST_FINISHED% testCoeficienteAgrupamiento (newsimpletest)" << endl;*/
+    cout << "%TEST_FINISHED% testCoeficienteAgrupamiento (newsimpletest)" << endl;
 
     cout << "%SUITE_FINISHED% time=0" << endl;
 
