@@ -48,9 +48,9 @@ public:
 
 private:
     Grafo grafo;
-    
+
     void simular();
-        
+
     /*Estos son mis metodos*/
 
     /*Genera una posicion aleatoria para las coordenadas)*/
@@ -63,25 +63,25 @@ private:
     void dibujar_circulo(double radio, double x, double y);
 
     /*Genera las lineas entre vertices*/
-    void linker(int lineas, int* arrV, int vrt);
+    void linker(int lineas, vector<int> arrV, int vrt);
 
     /*Dibuja los circulos, basandose en las posiciones ya generadas */
     void recurCircles ();
 
     /*Revisa toda la lista de adyacencia y devuelve el indice del vertice con mas adyacencias*/
     int vrtPopular();
-    
+
     /*Asigna el color al circulo, dependiendo de su estado*/
     void estadoVrt(int vrt);
-    
+
     /*Tipo de main para las figuras*/
     static void display(void);
     static void keyboard(unsigned char key, int x, int y);
     static Visualizador *ptr;
-    
+
     int *argc;
     char **argv;
-    
+
     /*Variables globales que contienen las posiciones asignadas*/
     int cntVrt = 0;
     double *posX = NULL;// vector con las posiciones en X
@@ -89,12 +89,12 @@ private:
     //int numVrt = grafo.obtTotVrt();
     int *arrAdy = NULL;
     Simulador simulador;
-    
+
     struct infosim{
         int cItr, ios, vcf, vcfmax;
         double vsc, rc, grc;
     };
-    
+
     bool sim = false;
     infosim info;
 };

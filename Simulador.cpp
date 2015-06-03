@@ -62,15 +62,17 @@ void Simulador::simular(int cntItr, int ios, double vsc, int vcf, double rc, dou
         {
             if (grafo2.obtEst(j) == Grafo::I)
             {
-                int *ady = grafo->obtAdy(j);
-                for (int k = 0; k < grafo->obtCntAdy(j); k++)
+                vector<int>ady;
+                grafo->obtAdy(j,ady);
+               // int *ady = grafo->obtAdy(j);
+                for (int k = 0; k < ady.size(); k++)
                 {
                     if (grafo2.obtEst(ady[k]) != Grafo::R && prob(vsc))
                     {
                         grafo->modEst(ady[k], Grafo::I);
                     }
                 }
-                delete[] ady;
+        //        delete[] ady;
                 //checkeo de virus
                 if (checkeo <= 0)
                 {

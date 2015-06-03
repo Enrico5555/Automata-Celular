@@ -6,7 +6,7 @@
  */
 
 #include "Visualizador.h"
-#include<windows.h>
+//#include<windows.h>
 #include <GL/glut.h>
 #include <math.h>
 #include <stdlib.h>     /* srand, rand */
@@ -25,9 +25,11 @@ Visualizador *Visualizador::ptr;
 
 Visualizador::Visualizador(const Grafo& g, int *argc, char **argv) : grafo(g), simulador(&grafo) {
     cntVrt = grafo.obtTotVrt();
-    arrAdy = new int [cntVrt];
-    posX = new double [cntVrt];
-    posY = new double [cntVrt];
+    vector<int> arrAdy;
+    arrAdy. resize(cntVrt);
+    vector<double> posX, posY;
+    posX.resize(cntVrt);
+    posY.resize(cntVrt);
     ptr = this;
     this->argc = argc;
     this->argv = argv;
@@ -36,9 +38,7 @@ Visualizador::Visualizador(const Grafo& g, int *argc, char **argv) : grafo(g), s
 
 
 Visualizador::~Visualizador() {
- if (arrAdy != NULL) delete [] arrAdy;
- if (posX != NULL) delete[] posX;
- if (posY != NULL) delete[] posY;
+
 }
 
 void Visualizador::visualizar() const {
@@ -93,8 +93,9 @@ void Visualizador::atragantador() {
     }
 
     for (int i = 0; i < cntVrt; i++) {
-       int cant = grafo.obtCntAdy(i);
-        arrAdy[i] = cant;
+        vector<int>totAdy;
+        grafo.obtAdy(i,totAdy);
+        arrAdy[i] = totAdy.size();
     }
 
 }
@@ -106,7 +107,7 @@ void Visualizador::dibujar_circulo(double radio, double x, double y) {
     glEnd();
 }
 
-void Visualizador::linker(int lineas, int* arrV, int vrt) {
+void Visualizador::linker(int lineas, vector<int> arrV, int vrt) {
     for (int i = 0; i < lineas; i++) {
         glLineWidth(2.0);
         glColor3f(1.0, 1.0, 1.0); //BLANCO
@@ -119,14 +120,15 @@ void Visualizador::linker(int lineas, int* arrV, int vrt) {
 
 void Visualizador::recurCircles() {
     int cont = 0, cntAdy;
-    int *arr;
+    vector<int>arr;
+   // int *arr;
     while (cont < cntVrt) {
-        //int vrt = vrtPopular();
-        arr = grafo.obtAdy(cont);
-        cntAdy = grafo.obtCntAdy(cont);
+     //   arr = obtAdy(i)
+        grafo.obtAdy(cont, arr);
+        cntAdy = arr.size();
         linker(cntAdy, arr, cont);
         cont++;
-        delete [] arr;
+       // delete [] arr;
     }
     for (int i = 0; i < cntVrt; i++) {
         estadoVrt(i);
