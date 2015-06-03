@@ -113,7 +113,7 @@ Grafo::Grafo(string nArch) {
     }
 
 
-    void Grafo::obtAdy(int vrt, std::vector<int>& vec)
+    void Grafo::obtAdy(int vrt, vector<int>& vec)
     {
         if (xstVrt(vrt))
         {
@@ -149,8 +149,9 @@ Grafo::Grafo(string nArch) {
     for (int i = 0; i < this->cntVrt; i++)
     {
         if (arrVrt[i].lstAdy.size() != grf.arrVrt[i].lstAdy.size()) return false;
-        obtAdy(i, vector<int>ady&);
-        grf.obtAdy(i, vector<int>adygrf&);
+        vector<int>ady, adygrf;
+        obtAdy(i, ady);
+        grf.obtAdy(i, adygrf);
         for (int j = 0; j < arrVrt[i].lstAdy.size(); j++)
         {
             if (ady[j] != adygrf[j])
