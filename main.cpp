@@ -13,6 +13,9 @@
 #include "Grafo.h"
 #include "Simulador.h"
 #include "Visualizador.h"
+#include <windows.h>
+#include <GL/glut.h>
+#include <process.h>
 
 using namespace std;
 using namespace line_parse;
@@ -20,13 +23,15 @@ using namespace line_parse;
 /*
  *
  */
-int main(int argc, char** argv) {
+ 
+ extern bool dibujando;
+ int *gargc;
+ char **gargv;
+ 
+ void loop(void *arg)
+ {
     Grafo *grafo = NULL;
     Simulador sv(grafo);
-    /*for (int i = 0; i < mg.obtTotVrt(); i++)
-    {
-        cout << "Estado: " << mg.obtEst(i) << endl;
-    }*/
     cout << "Automata Celular\n";
     while (true)
     {
@@ -111,11 +116,13 @@ int main(int argc, char** argv) {
                 {
                     if (grafo != NULL)
                     {
-                        Visualizador v(*grafo, &argc, argv);
+                        dibujando = true;
+                        Visualizador v(*grafo);
                         int it = elemento(linea, 1, ' '), ios = elemento(linea, 2, ' '), vcf = elemento(linea, 4, ' ');
                         double vsc = elemento_double(linea, 3, ' '), rc = elemento_double(linea, 5, ' '), grc = elemento_double(linea, 6, ' ');
                         //sv.simular(it, ios, vsc, vcf, rc, grc);
                         v.visualizar(it, ios, vsc, vcf, rc, grc);
+                        while (dibujando) {}
                     }
                     else
                     {
@@ -133,12 +140,14 @@ int main(int argc, char** argv) {
                 {
                     if (grafo != NULL)
                     {
-                        Visualizador v(*grafo, &argc, argv);
+                        dibujando = true;
+                        Visualizador v(*grafo);
                         v.visualizar();
+                        while (dibujando) {};
                     }
                     else
                     {
-                        cout << "ERROR, DEBE CREAR O CARGAR GRAFO ANTES!!”\n";
+                        cout << "Error, el grafo no esta creado\n";
                     }
                 }
                 else
@@ -156,7 +165,7 @@ int main(int argc, char** argv) {
                     }
                     else
                     {
-                        cout << "ERROR, DEBE CREAR O CARGAR GRAFO ANTES!!\n";
+                        cout << "Error, el grafo no esta creado\n";
                     }
                 }
                 else
@@ -179,7 +188,7 @@ int main(int argc, char** argv) {
                     }
                     else
                     {
-                        cout << "ERROR, DEBE CREAR O CARGAR GRAFO ANTES!!\n";
+                        cout << "Error, el grafo no esta creado\n";
                     }
                 }
                 else
@@ -206,9 +215,10 @@ int main(int argc, char** argv) {
                     cout << "Este comando no requiere parametros\n";
                 }
             }
-            else if (prim == "salir" || prim == "exit")
+            else if (prim == "salir")
             {
-                break;
+                return; //
+                
             }
             else
             {
@@ -216,6 +226,27 @@ int main(int argc, char** argv) {
             }
         }
     }
+ }
+ 
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitWindowSize(750, 500);
+    int winPos = glutGet(GLUT_SCREEN_WIDTH) / 2;
+    winPos = 750 / 2;
+    glutInitWindowPosition(winPos, 0);
+    glutCreateWindow("Automata-Celular");
+    glutDisplayFunc(Visualizador::display);
+    //glutIdleFunc(Visualizador::idle);
+    glutKeyboardFunc(Visualizador::keyboard);
+    _beginthread(loop, 0, (void*)0 );
+    glutMainLoop();
+    
+    /*for (int i = 0; i < mg.obtTotVrt(); i++)
+    {
+        cout << "Estado: " << mg.obtEst(i) << endl;
+    }*/
+    
     return 0;
 }
 

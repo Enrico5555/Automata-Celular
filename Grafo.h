@@ -52,6 +52,10 @@ public:
     // REQ: existan en *this vértices con índices vrtO y vrtD.
     // EFE: retorna true si existe un arco entre los vértices con índice vrtO y vrtD.
     bool xstAdy(int vrtO, int vrtD) const;
+    
+    // REQ: que exista en *this un vértice con índice vrt.
+    // EFE: retorna la cantidad de adyacencias del vértice vrt.
+    int obtCntAdy(int vrt) const;
 
     // REQ: que exista en *this un vértice con índice vrt.
     // EFE: retorna un vector de enteros con las posiciones de los vértices
