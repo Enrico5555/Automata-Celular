@@ -7,7 +7,6 @@
 
 #include <random>
 #include <ctime>
-
 #include "Simulador.h"
 
 bool prob(double probability) // probability < 1
@@ -35,7 +34,7 @@ void Simulador::simular(int cntItr, int ios, double vsc, double rc, double grc) 
     int checkeo;
     Grafo grafo2(*grafo);
 
-    for (int i = 0; i < ios; i++)
+    for (int i = 0; i < ios; i++) // asigna aleatoreamente ios cantidad de vertices infectados al azar
     {
         int id = rand() % grafo->obtTotVrt();
         if (grafo->xstVrt(id))
@@ -49,7 +48,7 @@ void Simulador::simular(int cntItr, int ios, double vsc, double rc, double grc) 
             }
             else
             {
-                while (grafo->obtEst(id) == Grafo::I)
+                while (grafo->obtEst(id) == Grafo::I) // si el que encontro ya esta infectado, pide e infecta otro...
                 {
                     id = rand() % grafo->obtTotVrt();
                 }
@@ -75,7 +74,7 @@ void Simulador::simular(int cntItr, int ios, double vsc, double rc, double grc) 
                         grafo->modEst(ady[k], Grafo::I);//infecta los demas vertices
                     }
                 }
-                if (chekeo <= 0)
+                if (chekeo <= 0)// revisar como estaba en el anterior
                 {
                     if (prob(rc))
                     {
