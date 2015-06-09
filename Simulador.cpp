@@ -26,14 +26,15 @@ Simulador::~Simulador() {
 
 //ios: cantidad de vertices infectados
 //vsc: probabilidad de infeccion
-//vcf: checkeo de virus
+//vcf: checkeo de virus----> Ya no se ocupa entonces
 //rc: probabilidad de recuperacion
 //grc: probabilidad de obtener resistencia
-void Simulador::simular(int cntItr, int ios, double vsc, int vcf, double rc, double grc) {
+void Simulador::simular(int cntItr, int ios, double vsc, double rc, double grc) {
     if (grafo == NULL) return;
     srand(time(NULL));
-    int checkeo = vcf;
+    int checkeo;
     Grafo grafo2(*grafo);
+
     for (int i = 0; i < ios; i++)
     {
         int id = rand() % grafo->obtTotVrt();
@@ -56,25 +57,25 @@ void Simulador::simular(int cntItr, int ios, double vsc, int vcf, double rc, dou
             }
         }
     }
+
+ //Aca son las iteraciones
     for (int i = 0; i < cntItr; i++)
     {
         for (int j = 0; j < grafo->obtTotVrt(); j++)
         {
-            if (grafo2.obtEst(j) == Grafo::I)
+            if (grafo2.obtEst(j) == Grafo::I)// si el vertice esta infectado
             {
+                checkeo = grafo.obtTmpChqVrs(j); //obtiene el temporizador de checkeo de virus
                 vector<int>ady;
                 grafo->obtAdy(j,ady);
-               // int *ady = grafo->obtAdy(j);
                 for (int k = 0; k < ady.size(); k++)
                 {
-                    if (grafo2.obtEst(ady[k]) != Grafo::R && prob(vsc))
+                    if (grafo2.obtEst(ady[k]) != Grafo::R && prob(vsc))// y el adyacente no es resistente
                     {
-                        grafo->modEst(ady[k], Grafo::I);
+                        grafo->modEst(ady[k], Grafo::I);//infecta los demas vertices
                     }
                 }
-        //        delete[] ady;
-                //checkeo de virus
-                if (checkeo <= 0)
+                if (chekeo <= 0)
                 {
                     if (prob(rc))
                     {
@@ -85,10 +86,13 @@ void Simulador::simular(int cntItr, int ios, double vsc, int vcf, double rc, dou
                         }
                     }
                 }
+                grafo.modTmpChqVrs();
             }
         }
-        if (checkeo <= 0) checkeo = vcf;
-        checkeo--;
+
+       //ACA tengo la duda....
+        //if (checkeo <= 0) checkeo = vcf;
+        //checkeo--;
     }
 }
 

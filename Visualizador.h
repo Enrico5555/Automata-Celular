@@ -8,7 +8,7 @@
 #ifndef VISUALIZADOR_H
 #define	VISUALIZADOR_H
 
-#include <windows.h>
+//#include <windows.h>
 
 #include "Grafo.h"
 #include "Simulador.h"
@@ -19,7 +19,7 @@ class Visualizador {
 public:
     Visualizador(const Grafo& g);
     ~Visualizador();
-    
+
     // REQ: que el grafo asociado en el constructor est� bien construido.
     // EFE: muestra gr�ficamente al grafo asociado diferenciando con distintos
     //      colores los estados de los v�rtices.
@@ -49,9 +49,9 @@ public:
 
 private:
     Grafo grafo;
-    
+
     void simular();
-        
+
     /*Estos son mis metodos*/
 
     /*Genera una posicion aleatoria para las coordenadas)*/
@@ -71,35 +71,38 @@ private:
 
     /*Revisa toda la lista de adyacencia y devuelve el indice del vertice con mas adyacencias*/
     int vrtPopular();
-    
+
     /*Asigna el color al circulo, dependiendo de su estado*/
     void estadoVrt(int vrt);
-    
+
     /*Tipo de main para las figuras*/
     public:
     static void display(void);
     static void idle(void);
     static void keyboard(unsigned char key, int x, int y);
     static Visualizador *ptr;
-    
+
     int *argc;
     char **argv;
-    
+
     /*Variables globales que contienen las posiciones asignadas*/
     int cntVrt = 0;
-    double *posX = NULL;// vector con las posiciones en X
-    double *posY = NULL;// vector con las posiciones en Y
+    vector <int> arrAdy;
+    vector<double>posX, posY;
+
+   // double *posX = NULL;// vector con las posiciones en X
+    //double *posY = NULL;// vector con las posiciones en Y
     //int numVrt = grafo.obtTotVrt();
     int *arrAdy = NULL;
     Simulador simulador;
-    
+
     struct infosim{
-        int cItr, ios, vcf, vcfmax;
+        int cItr, ios, vcfmax;
         double vsc, rc, grc;
     };
-    
+
     HWND hwnd;
-    
+
     bool sim = false;
     infosim info;
 };

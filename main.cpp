@@ -13,9 +13,9 @@
 #include "Grafo.h"
 #include "Simulador.h"
 #include "Visualizador.h"
-#include <windows.h>
+//#include <windows.h>
 #include <GL/glut.h>
-#include <process.h>
+//#include <process.h>
 
 using namespace std;
 using namespace line_parse;
@@ -23,11 +23,11 @@ using namespace line_parse;
 /*
  *
  */
- 
+
  extern bool dibujando;
  int *gargc;
  char **gargv;
- 
+
  void loop(void *arg)
  {
     Grafo *grafo = NULL;
@@ -92,13 +92,12 @@ using namespace line_parse;
             {
                 if (cant_elementos == 7)
                 {
-                    //if grafo creado
                     if (grafo != NULL)
                     {
-                        int it = elemento(linea, 1, ' '), ios = elemento(linea, 2, ' '), vcf = elemento(linea, 4, ' ');
-                        double vsc = elemento_double(linea, 3, ' '), rc = elemento_double(linea, 5, ' '), grc = elemento_double(linea, 6, ' ');
+                        int it = elemento(linea, 1, ' '), ios = elemento(linea, 2, ' ');//, vcf = elemento(linea, 4, ' ');
+                        double vsc = elemento_double(linea, 3, ' '), rc = elemento_double(linea, 4, ' '), grc = elemento_double(linea, 5, ' ');
                         Simulador s(grafo);
-                        s.simular(it, ios, vsc, vcf, rc, grc);
+                        s.simular(it, ios, vsc, rc, grc);
                     }
                     else
                     {
@@ -107,7 +106,7 @@ using namespace line_parse;
                 }
                 else
                 {
-                    cout << "Este comando requiere 6 parametros\n";
+                    cout << "Este comando requiere 5 parametros\n";
                 }
             }
             else if (prim == "simular-visualizar")
@@ -118,10 +117,10 @@ using namespace line_parse;
                     {
                         dibujando = true;
                         Visualizador v(*grafo);
-                        int it = elemento(linea, 1, ' '), ios = elemento(linea, 2, ' '), vcf = elemento(linea, 4, ' ');
-                        double vsc = elemento_double(linea, 3, ' '), rc = elemento_double(linea, 5, ' '), grc = elemento_double(linea, 6, ' ');
+                        int it = elemento(linea, 1, ' '), ios = elemento(linea, 2, ' ');//, vcf = elemento(linea, 4, ' ');
+                        double vsc = elemento_double(linea, 3, ' '), rc = elemento_double(linea, 4, ' '), grc = elemento_double(linea, 5, ' ');
                         //sv.simular(it, ios, vsc, vcf, rc, grc);
-                        v.visualizar(it, ios, vsc, vcf, rc, grc);
+                        v.visualizar(it, ios, vsc, rc, grc);
                         while (dibujando) {}
                     }
                     else
@@ -201,13 +200,13 @@ using namespace line_parse;
                 if (cant_elementos == 1)
                 {
                     cout << "cargar\t-carga el grafo a partir del parametro %nArch" << endl <<
-                        "crear\t-fjsdaklfjsdalk" << endl <<
-                        "simular " << endl <<
+                        "crear\t-crea el grafo a partir de dos parametros" << endl <<
+                        "simular\t " << endl <<
                         "simular-visualizar\t-fjasklf" << endl <<
-                        "visualizar" << endl <<
-                        "calcular-promedio-longitud-caminos-cortos" << endl <<
-                        "calcular-centralidad-intermedial" << endl <<
-                        "calcular-coeficiente-agrupamiento" << endl <<
+                        "visualizar\t" << endl <<
+                        "calcular-promedio-longitud-caminos-cortos\t" << endl <<
+                        "calcular-centralidad-intermedial\t" << endl <<
+                        "calcular-coeficiente-agrupamiento\t" << endl <<
                         "salir" << endl;
                 }
                 else
@@ -217,8 +216,8 @@ using namespace line_parse;
             }
             else if (prim == "salir")
             {
-                return; //
-                
+                return;
+
             }
             else
             {
@@ -227,7 +226,7 @@ using namespace line_parse;
         }
     }
  }
- 
+
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
@@ -241,12 +240,6 @@ int main(int argc, char** argv) {
     glutKeyboardFunc(Visualizador::keyboard);
     _beginthread(loop, 0, (void*)0 );
     glutMainLoop();
-    
-    /*for (int i = 0; i < mg.obtTotVrt(); i++)
-    {
-        cout << "Estado: " << mg.obtEst(i) << endl;
-    }*/
-    
     return 0;
 }
 
