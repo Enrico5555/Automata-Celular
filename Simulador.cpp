@@ -7,6 +7,7 @@
 
 #include <random>
 #include <ctime>
+#include <iostream>
 #include "Simulador.h"
 
 bool prob(double probability) // probability < 1
@@ -57,6 +58,7 @@ void Simulador::simular(int cntItr, int ios, double vsc, double rc, double grc) 
         }
     }
 
+
  //Aca son las iteraciones
     for (int i = 0; i < cntItr; i++)
     {
@@ -65,6 +67,7 @@ void Simulador::simular(int cntItr, int ios, double vsc, double rc, double grc) 
             if (grafo2.obtEst(j) == Grafo::I)// si el vertice esta infectado
             {
               checkeo = grafo->obtTmpChqVrs(j); //obtiene el temporizador de checkeo de virus
+             // se mofica
                 vector<int>ady;
                 grafo->obtAdy(j,ady);
                 for (int k = 0; k < ady.size(); k++)

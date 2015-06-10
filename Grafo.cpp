@@ -39,7 +39,7 @@ Grafo::Grafo(int cntVrt, int prbAdy) //, int prbAdy) {
         for (int i = 0; i < this->cntVrt; i++)
         {
             arrVrt[i].tmpChqVrs = 0;
-            azarizarTmpChqVrs(i);
+            //azarizarTmpChqVrs(i);
             arrVrt[i].cntChqVrs = 0;
             int rnum = distribucion(generador);
             if (!xstAdy(i, rnum) && xstVrt(rnum))
@@ -74,6 +74,7 @@ Grafo::Grafo(string nArch)
     ifstream file;
     file.open(nArch.c_str(), ios::in);
     if (file.is_open() && file.good())
+       // cout << "ok"<< endl;
     {
         char line[256];
         memset(&line, 0, 256);//poner memoria en 0
@@ -94,7 +95,7 @@ Grafo::Grafo(string nArch)
             {
                 arrVrt[count].e = S;
                 arrVrt[count].tmpChqVrs = 0;
-                azarizarTmpChqVrs(count);
+                //azarizarTmpChqVrs(count);
                 arrVrt[count].cntChqVrs = 0;
                 for (int j = 0; j < cant; j++)
                 {
@@ -104,7 +105,7 @@ Grafo::Grafo(string nArch)
             }
         }
         return;
-        // throw 1;
+        throw 1;
     }
 }
 

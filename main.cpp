@@ -90,7 +90,7 @@ using namespace line_parse;
             }
             else if (prim == "simular")
             {
-                if (cant_elementos == 7)
+                if (cant_elementos == 6)
                 {
                     if (grafo != NULL)
                     {
@@ -111,7 +111,7 @@ using namespace line_parse;
             }
             else if (prim == "simular-visualizar")
             {
-                if (cant_elementos == 7)
+                if (cant_elementos == 6)
                 {
                     if (grafo != NULL)
                     {
