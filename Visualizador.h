@@ -8,7 +8,7 @@
 #ifndef VISUALIZADOR_H
 #define	VISUALIZADOR_H
 
-//#include <windows.h>
+#include <windows.h>
 
 #include "Grafo.h"
 #include "Simulador.h"
@@ -45,7 +45,7 @@ public:
     //      4. S�lo las transformaciones #2 y #3 pueden ser simult�neas.
     // EFE: muestra gr�ficamente al grafo asociado diferenciando con distintos
     //      colores los estados de los v�rtices.
-    void visualizar(int cItr, int ios, double vsc, int vcf, double rc, double grc);
+    void visualizar(int cItr, int ios, double vsc, double rc, double grc);
 
 private:
     Grafo grafo;
@@ -93,7 +93,7 @@ private:
    // double *posX = NULL;// vector con las posiciones en X
     //double *posY = NULL;// vector con las posiciones en Y
     //int numVrt = grafo.obtTotVrt();
-    int *arrAdy = NULL;
+    //int *arrAdy = NULL;
     Simulador simulador;
 
     struct infosim{

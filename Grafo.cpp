@@ -38,7 +38,8 @@ Grafo::Grafo(int cntVrt, int prbAdy) //, int prbAdy) {
         normal_distribution<double> distribucion(prbAdy, 2.0);
         for (int i = 0; i < this->cntVrt; i++)
         {
-            arrVrt[i].tmpChqVrs = azarizarTmpChqVrs(i);
+            arrVrt[i].tmpChqVrs = 0;
+            azarizarTmpChqVrs(i);
             arrVrt[i].cntChqVrs = 0;
             int rnum = distribucion(generador);
             if (!xstAdy(i, rnum) && xstVrt(rnum))
@@ -92,7 +93,8 @@ Grafo::Grafo(string nArch)
             if (cant > 0)
             {
                 arrVrt[count].e = S;
-                arrVrt[count].tmpChqVrs = azarizarTmpChqVrs(count);
+                arrVrt[count].tmpChqVrs = 0;
+                azarizarTmpChqVrs(count);
                 arrVrt[count].cntChqVrs = 0;
                 for (int j = 0; j < cant; j++)
                 {

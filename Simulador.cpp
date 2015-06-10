@@ -64,7 +64,7 @@ void Simulador::simular(int cntItr, int ios, double vsc, double rc, double grc) 
         {
             if (grafo2.obtEst(j) == Grafo::I)// si el vertice esta infectado
             {
-                checkeo = grafo.obtTmpChqVrs(j); //obtiene el temporizador de checkeo de virus
+              checkeo = grafo->obtTmpChqVrs(j); //obtiene el temporizador de checkeo de virus
                 vector<int>ady;
                 grafo->obtAdy(j,ady);
                 for (int k = 0; k < ady.size(); k++)
@@ -74,7 +74,7 @@ void Simulador::simular(int cntItr, int ios, double vsc, double rc, double grc) 
                         grafo->modEst(ady[k], Grafo::I);//infecta los demas vertices
                     }
                 }
-                if (chekeo <= 0)// revisar como estaba en el anterior
+                if (checkeo <= 0)// revisar como estaba en el anterior
                 {
                     if (prob(rc))
                     {
@@ -85,7 +85,7 @@ void Simulador::simular(int cntItr, int ios, double vsc, double rc, double grc) 
                         }
                     }
                 }
-                grafo.modTmpChqVrs();
+             //   grafo->modTmpChqVrs();
             }
         }
 

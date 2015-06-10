@@ -192,8 +192,8 @@ void Visualizador::keyboard(unsigned char key, int x, int y)
         if (key == 13)
         {
             ptr->info.ios = 0;
-            ptr->info.vcf--;
-            if (ptr->info.vcf < 0) ptr->info.vcf = ptr->info.vcfmax;
+           // ptr->info.vcf--;
+            //if (ptr->info.vcf < 0) ptr->info.vcf = ptr->info.vcfmax;
             ptr->simular();
         }
     }
