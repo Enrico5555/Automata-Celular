@@ -26,7 +26,7 @@ using namespace line_parse;
 
 
 #include "Grafo.h"
-int vcf = 5;// esto es para el vdf
+int vcf = 5;// esto es para el vcf
 Grafo::Grafo(int cntVrt, int prbAdy) //, int prbAdy) {
 {
     if (cntVrt >= 10) // && (0 <= prbAdy < 1)) {
@@ -206,6 +206,12 @@ bool Grafo::operator==(const Grafo& grf) const
 int Grafo::obtTmpChqVrs(int vrt) const
 {
     return arrVrt[vrt].tmpChqVrs;
+}
+
+int Grafo::obtCntChVrs(int vrt)const {
+
+    return arrVrt[vrt].cntChqVrs;
+
 }
 
 double Grafo::promLongCmnsCrts() const

@@ -32,7 +32,7 @@ Simulador::~Simulador() {
 void Simulador::simular(int cntItr, int ios, double vsc, double rc, double grc) {
     if (grafo == NULL) return;
     srand(time(NULL));
-    int checkeo;
+    int temp, cont = 0;
     Grafo grafo2(*grafo);
 
     for (int i = 0; i < ios; i++) // asigna aleatoreamente ios cantidad de vertices infectados al azar
@@ -64,9 +64,10 @@ void Simulador::simular(int cntItr, int ios, double vsc, double rc, double grc) 
     {
         for (int j = 0; j < grafo->obtTotVrt(); j++)
         {
+            temp = grafo->obtTmpChqVrs(j); //obtiene el temporizador de checkeo de virus del vertice
+
             if (grafo2.obtEst(j) == Grafo::I)// si el vertice esta infectado
             {
-              checkeo = grafo->obtTmpChqVrs(j); //obtiene el temporizador de checkeo de virus
              // se mofica
                 vector<int>ady;
                 grafo->obtAdy(j,ady);
@@ -77,8 +78,8 @@ void Simulador::simular(int cntItr, int ios, double vsc, double rc, double grc) 
                         grafo->modEst(ady[k], Grafo::I);//infecta los demas vertices
                     }
                 }
-                //ARREGLAR ESTO!!
-                if (checkeo <= 0)// revisar como estaba en el anterior
+                cont = grafo->obtCntChVrs(j);
+                if (cont <= 0)
                 {
                     if (prob(rc))
                     {
@@ -89,9 +90,10 @@ void Simulador::simular(int cntItr, int ios, double vsc, double rc, double grc) 
                         }
                     }
                 }
-                grafo->modTmpChqVrs(checkeo, checkeo -1);
             }
+                grafo->actCntChqVrs(j);//Actualiza el contador
         }
+
     }
 }
 

@@ -28,18 +28,11 @@ char grafostr[] = "No hay grafo cargado! por favor cree o cargue un grafo para v
 
 Visualizador::Visualizador(const Grafo& g) : grafo(g), simulador(&grafo) {
     cntVrt = grafo.obtTotVrt();
-   // vector<int>arrAdy;
     arrAdy.resize(cntVrt);
-    //arrAdy = new int [cntVrt];
-   // vector <double> posX, posY;
     posX.resize(cntVrt);
     posY.resize(cntVrt);
-    //posX = new double [cntVrt];
-    //posY = new double [cntVrt];
     hwnd = FindWindow(NULL, "Automata-Celular");
     //ShowWindow(hwnd, SW_HIDE);
-    /*this->argc = argc;
-    this->argv = argv;*/
     atragantador();
     ptr = this;
 }
@@ -76,7 +69,6 @@ void Visualizador::visualizar(int cItr, int ios, double vsc, double rc, double g
     info.ios = ios;
     info.rc = rc;
     //info.vcf = vcf;
-    //info.vcfmax = vcf;
     info.vsc = vsc;
     string line = "";
     cout << "Digite cualquier caracter y presione enter para realizar una iteracion\nO bien, presione enter en la ventana del grafo para realizar una iteracion\nEscriba \"salir\" para terminar la simulacion\n";
@@ -191,7 +183,7 @@ void Visualizador::keyboard(unsigned char key, int x, int y)
     {
         if (key == 13)
         {
-            ptr->info.ios = 0;
+            //ptr->info.ios = 0;
            // ptr->info.vcf--;
             //if (ptr->info.vcf < 0) ptr->info.vcf = ptr->info.vcfmax;
             ptr->simular();
