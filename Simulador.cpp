@@ -77,6 +77,7 @@ void Simulador::simular(int cntItr, int ios, double vsc, double rc, double grc) 
                         grafo->modEst(ady[k], Grafo::I);//infecta los demas vertices
                     }
                 }
+                //ARREGLAR ESTO!!
                 if (checkeo <= 0)// revisar como estaba en el anterior
                 {
                     if (prob(rc))
@@ -88,13 +89,9 @@ void Simulador::simular(int cntItr, int ios, double vsc, double rc, double grc) 
                         }
                     }
                 }
-             //   grafo->modTmpChqVrs();
+                grafo->modTmpChqVrs(checkeo, checkeo -1);
             }
         }
-
-       //ACA tengo la duda....
-        //if (checkeo <= 0) checkeo = vcf;
-        //checkeo--;
     }
 }
 
