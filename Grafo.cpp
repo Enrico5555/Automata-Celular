@@ -26,11 +26,12 @@ using namespace line_parse;
 
 
 #include "Grafo.h"
-
+int vcf = 5;// esto es para el vdf
 Grafo::Grafo(int cntVrt, int prbAdy) //, int prbAdy) {
 {
     if (cntVrt >= 10) // && (0 <= prbAdy < 1)) {
     {
+       // vcf = rand()% 5 +1 ;// esto es para el vdf
         this->cntVrt = cntVrt;
         arrVrt.resize(cntVrt);
         srand(time(NULL));
@@ -39,7 +40,7 @@ Grafo::Grafo(int cntVrt, int prbAdy) //, int prbAdy) {
         for (int i = 0; i < this->cntVrt; i++)
         {
             arrVrt[i].tmpChqVrs = 0;
-            //azarizarTmpChqVrs(i);
+
             arrVrt[i].cntChqVrs = 0;
             int rnum = distribucion(generador);
             if (!xstAdy(i, rnum) && xstVrt(rnum))
@@ -48,7 +49,7 @@ Grafo::Grafo(int cntVrt, int prbAdy) //, int prbAdy) {
                 arrVrt[rnum].lstAdy.push_back(i);
             }
         }
-
+         azarizarTmpChqVrs(vcf);
     }
 }
 
@@ -76,6 +77,7 @@ Grafo::Grafo(string nArch)
     if (file.is_open() && file.good())
        // cout << "ok"<< endl;
     {
+       // vcf = rand()% 5 +1 ;// esto es para el vdf
         char line[256];
         memset(&line, 0, 256);//poner memoria en 0
         file.getline(line, 256); //primera linea
@@ -95,7 +97,6 @@ Grafo::Grafo(string nArch)
             {
                 arrVrt[count].e = S;
                 arrVrt[count].tmpChqVrs = 0;
-                //azarizarTmpChqVrs(count);
                 arrVrt[count].cntChqVrs = 0;
                 for (int j = 0; j < cant; j++)
                 {
@@ -103,6 +104,7 @@ Grafo::Grafo(string nArch)
                 }
                 count++;
             }
+            azarizarTmpChqVrs(vcf);
         }
         return;
         throw 1;
