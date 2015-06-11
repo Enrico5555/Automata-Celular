@@ -79,7 +79,7 @@ void Simulador::simular(int cntItr, int ios, double vsc, double rc, double grc) 
                     }
                 }
                 cont = grafo->obtCntChVrs(j);
-                if (cont <= 0)
+                if (cont == temp)
                 {
                     if (prob(rc))
                     {
