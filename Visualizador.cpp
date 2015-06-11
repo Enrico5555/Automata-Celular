@@ -83,7 +83,7 @@ void Visualizador::visualizar(int cItr, int ios, double vsc, double rc, double g
 
 void Visualizador::simular()
 {
-    simulador.simular(info.cItr, info.ios, info.vsc, info.rc, info.grc);
+    simulador.simular(info.cItr, 0, info.vsc, info.rc, info.grc);
     glutPostRedisplay();
 }
 
