@@ -91,9 +91,12 @@ void Simulador::simular(int cntItr, int ios, double vsc, double rc, double grc) 
                     }
                 }
             }
-                grafo->actCntChqVrs(j);//Actualiza el contador
+            grafo->actCntChqVrs(j);//Actualiza el contador
         }
-
+        for (int n = 0; n < grafo->obtTotVrt(); n++)
+        {
+            grafo2.modEst(n, grafo->obtEst(n));
+        }
     }
 }
 
